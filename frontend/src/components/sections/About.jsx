@@ -375,20 +375,21 @@ const About = () => {
 
         @media (max-width: 768px) {
           .about-section {
-            padding: 80px 20px;
+            padding: 90px 20px;
           }
 
           .about-cards {
             grid-template-columns: 1fr;
-            gap: 20px;
+            gap: 18px;
           }
 
           .section-title {
             font-size: 36px;
+            letter-spacing: -1px;
           }
 
           .section-description {
-            font-size: 16px;
+            font-size: 15px;
           }
 
           .desktop-br {
@@ -396,7 +397,15 @@ const About = () => {
           }
 
           .about-card {
-            padding: 32px;
+            padding: 30px 26px;
+          }
+
+          .card-title {
+            font-size: 20px;
+          }
+
+          .card-description {
+            font-size: 14px;
           }
 
           /* Hide horizontal pulse on stacked layout - feels misaligned */

@@ -239,20 +239,21 @@ const Services = () => {
 
         @media (max-width: 768px) {
           .services-section {
-            padding: 80px 20px;
+            padding: 90px 20px;
           }
 
           .services-grid {
             grid-template-columns: 1fr;
-            gap: 20px;
+            gap: 18px;
           }
 
           .section-title {
             font-size: 36px;
+            letter-spacing: -1px;
           }
 
           .section-description {
-            font-size: 16px;
+            font-size: 15px;
           }
 
           .desktop-br {
@@ -260,7 +261,28 @@ const Services = () => {
           }
 
           .service-card {
-            padding: 32px;
+            padding: 30px 26px;
+          }
+
+          .service-title {
+            font-size: 20px;
+          }
+
+          .service-description {
+            font-size: 14px;
+            margin-bottom: 16px;
+          }
+
+          .service-number {
+            font-size: 36px;
+            top: 22px;
+            right: 22px;
+          }
+
+          .service-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 20px;
           }
         }
       `}</style>

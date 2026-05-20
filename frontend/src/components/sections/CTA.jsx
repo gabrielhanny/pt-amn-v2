@@ -232,19 +232,20 @@ const CTA = () => {
 
         @media (max-width: 768px) {
           .cta-section {
-            padding: 80px 20px;
+            padding: 90px 20px;
           }
 
           .cta-card {
-            padding: 60px 40px;
+            padding: 50px 30px;
           }
 
           .cta-title {
-            font-size: 40px;
+            font-size: 36px;
+            letter-spacing: -1px;
           }
 
           .cta-description {
-            font-size: 16px;
+            font-size: 15px;
           }
 
           .desktop-br {
@@ -252,7 +253,7 @@ const CTA = () => {
           }
 
           .cta-info {
-            gap: 32px;
+            gap: 28px;
           }
         }
 

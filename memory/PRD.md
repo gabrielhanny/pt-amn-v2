@@ -25,17 +25,24 @@ Create a premium cinematic digital agency website for PT. Anak Muda Nusantara (A
 - `mockData.js` — Indonesian copy for services, workflow, case studies, testimonials
 
 ## Implemented (2026-05-20)
-- Animated AMN loader intro (cinematic letter reveal, glow shimmer)
-- Hero V2: particle network canvas + mesh gradients + liquid blobs + grid + noise + electric pulse SVG lines + 3 capability cards (Digital Strategy / Automation & AI / Creative Execution) replacing fake metrics
-- About: 3-card grid with animated gradient border on hover
+- Refined AMN loader: soft purple energy field + rotating conic ring (40° arc) + grain texture + 0.7s fade-out handoff. Duration ~2.9s, gradient white→lavender→purple letters with stagger
+- Premium navbar: saturate(160%) blur with subtle top-edge gradient line, logo scale-down on scroll, refined link underline
+- Hero V2: particle network (capped at 28 on mobile / 55 on desktop), 3-layer mesh gradients, liquid morphing blobs, SVG electric pulse lines, 3 capability cards replacing fake metrics
+- About: digital pulse energy waveform (SVG) traveling behind cards, synced card icon/border reactions (9s loop, staggered 0/3/6s)
 - Services: 6 premium animated cards (added Data & Analytics)
-- Workflow V2: floating glassmorphism cards with equal height alignment, animated glow connector line, traveling pulse, icon aura/ring. Last step renamed to "Data & Analytics"
-- Solutions / What We Build (renamed from Featured Work): 4 capability-focused cards (Digital Brand Presence, Website Experience, Automation Workflow, Social Media Direction) — NO fake metrics, focus statements only
-- Automation & AI: 2-col layout with 4 feature cards
-- Testimonials: 3-card grid with quote icon + stars + avatar (toned-down claims, no exaggerated numbers)
+- Workflow V2: floating glassmorphism cards with equal-height alignment, animated glow connector line + traveling pulse, icon aura/ring
+- Solutions / What We Build: 4 capability-focused cards with subtle radial-glow on hover, "Capability 01-04" index markers, NO fake metrics
+- Automation & AI: 2-col with 4 feature cards
+- Testimonials: 3-card grid with ambient lavender orb
 - CTA: Glass card with email + WhatsApp links
-- Footer: Brand + 3-column links + social icons
-- Premium polish: gradient badge dots with pulse, custom scrollbar, premium typography hierarchy, conic-gradient rotating borders on cards
+- Footer: minimalist premium
+- Global polish: section::before soft fade transitions, will-change perf hints, `:focus-visible` accessible focus rings, `prefers-reduced-motion` support, custom gradient scrollbar, ::selection styled
+
+## Color Palette (final)
+- Base: #07071a ↔ #0a0a1f (deep navy alternating per section)
+- Primary gradient: #667eea → #764ba2 → #ec4899
+- Accent: #a7b2ff (lavender), #8b5cf6 (purple)
+- Per-section accent orbs vary subtly: indigo / violet / lavender / pink-tint
 
 ## Color Palette
 - Background: #07071a / #0a0a1f (deep navy)

@@ -28,7 +28,10 @@ const Hero = () => {
       particles = [];
       const w = canvas.offsetWidth;
       const h = canvas.offsetHeight;
-      const count = Math.min(55, Math.floor((w * h) / 20000));
+      // Lower particle density on small screens for smooth FPS
+      const divisor = w < 768 ? 32000 : 20000;
+      const cap = w < 768 ? 28 : 55;
+      const count = Math.min(cap, Math.floor((w * h) / divisor));
       for (let i = 0; i < count; i++) {
         particles.push({
           x: Math.random() * w,
@@ -750,6 +753,31 @@ const Hero = () => {
 
           .capability-content {
             padding: 18px 20px;
+          }
+        }
+
+        /* Mobile performance: thin out heavy ambient effects */
+        @media (max-width: 768px) {
+          .liquid-blob {
+            filter: blur(60px);
+          }
+
+          .blob-1 {
+            width: 360px;
+            height: 360px;
+          }
+
+          .blob-2 {
+            width: 420px;
+            height: 420px;
+          }
+
+          .electric-pulse {
+            opacity: 0.45;
+          }
+
+          .grid-overlay {
+            background-size: 60px 60px;
           }
         }
       `}</style>

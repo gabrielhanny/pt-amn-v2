@@ -227,24 +227,29 @@ const Testimonials = () => {
 
         @media (max-width: 768px) {
           .testimonials-section {
-            padding: 80px 20px;
+            padding: 90px 20px;
           }
 
           .testimonials-grid {
             grid-template-columns: 1fr;
-            gap: 20px;
+            gap: 18px;
           }
 
           .section-title {
             font-size: 36px;
+            letter-spacing: -1px;
           }
 
           .section-description {
-            font-size: 16px;
+            font-size: 15px;
           }
 
           .testimonial-card {
-            padding: 32px;
+            padding: 30px 26px;
+          }
+
+          .testimonial-content {
+            font-size: 14px;
           }
         }
       `}</style>
