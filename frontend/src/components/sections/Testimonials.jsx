@@ -51,14 +51,29 @@ const Testimonials = () => {
 
       <style jsx="true">{`
         .testimonials-section {
-          padding: 120px 40px;
-          background: linear-gradient(180deg, #0f0f1e 0%, #1a1a2e 100%);
+          padding: 140px 40px;
+          background: linear-gradient(180deg, #07071a 0%, #0a0a1f 100%);
           position: relative;
+          overflow: hidden;
+        }
+
+        .testimonials-section::after {
+          content: '';
+          position: absolute;
+          width: 600px;
+          height: 600px;
+          background: radial-gradient(circle, rgba(167, 178, 255, 0.12) 0%, transparent 70%);
+          filter: blur(120px);
+          top: 10%;
+          left: -200px;
+          pointer-events: none;
         }
 
         .testimonials-container {
           max-width: 1400px;
           margin: 0 auto;
+          position: relative;
+          z-index: 2;
         }
 
         .testimonials-header {

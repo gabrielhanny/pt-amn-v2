@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from 'react';
 
-const Loader = () => {
+const Loader = ({ fadeOut = false }) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setVisible(true), 100);
+    const t = setTimeout(() => setVisible(true), 60);
+    return () => clearTimeout(t);
   }, []);
 
   return (
-    <div className="loader-container">
-      <div className="loader-blur-bg"></div>
+    <div className={`loader-container ${fadeOut ? 'is-leaving' : ''}`} data-testid="loader">
+      {/* Soft purple energy field */}
+      <div className="loader-energy-field"></div>
+      <div className="loader-energy-ring"></div>
+      <div className="loader-grain"></div>
+
       <div className={`loader-letters ${visible ? 'visible' : ''}`}>
-        <span className="letter letter-a" style={{ animationDelay: '0s' }}>A</span>
-        <span className="letter letter-m" style={{ animationDelay: '0.2s' }}>M</span>
-        <span className="letter letter-n" style={{ animationDelay: '0.4s' }}>N</span>
+        <span className="letter" style={{ animationDelay: '0s' }}>A</span>
+        <span className="letter" style={{ animationDelay: '0.12s' }}>M</span>
+        <span className="letter" style={{ animationDelay: '0.24s' }}>N</span>
       </div>
+
       <div className="loader-tagline">
-        <p>Digital Growth Partner</p>
+        <span className="tagline-line"></span>
+        <span>Digital Growth Partner</span>
+        <span className="tagline-line"></span>
       </div>
     </div>
   );

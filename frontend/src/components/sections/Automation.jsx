@@ -52,8 +52,8 @@ const Automation = () => {
 
       <style jsx="true">{`
         .automation-section {
-          padding: 120px 40px;
-          background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1e 100%);
+          padding: 140px 40px;
+          background: linear-gradient(180deg, #0a0a1f 0%, #07071a 100%);
           position: relative;
           overflow: hidden;
         }

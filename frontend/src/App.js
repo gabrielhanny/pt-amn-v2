@@ -5,17 +5,22 @@ import Home from './pages/Home';
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 3500);
-    return () => clearTimeout(timer);
+    // Start fade-out shortly before unmount for a cinematic handoff
+    const fadeTimer = setTimeout(() => setFadeOut(true), 2200);
+    const removeTimer = setTimeout(() => setLoading(false), 2900);
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(removeTimer);
+    };
   }, []);
 
   return (
     <div className="App">
-      {loading ? <Loader /> : <Home />}
+      {loading && <Loader fadeOut={fadeOut} />}
+      {!loading && <Home />}
     </div>
   );
 }

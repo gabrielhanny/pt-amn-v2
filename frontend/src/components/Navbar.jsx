@@ -7,9 +7,9 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 40);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -22,46 +22,47 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-      <div className="navbar-container">
-        <div className="navbar-logo">
-          <span className="logo-text gradient-text">AMN</span>
-        </div>
-
-        {/* Desktop Menu */}
-        <ul className="navbar-menu desktop-menu">
-          {menuItems.map((item, index) => (
-            <li key={index}>
-              <a href={item.href} className="nav-link">
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <div className="navbar-cta desktop-cta">
-          <a href="#contact" className="btn-contact">
-            Hubungi Kami
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} data-testid="navbar">
+      <div className="navbar-shell">
+        <div className="navbar-container">
+          <a href="#hero" className="navbar-logo" data-testid="navbar-logo">
+            <span className="logo-text gradient-text">AMN</span>
           </a>
-        </div>
 
-        {/* Mobile Menu Button */}
-        <button 
-          className="mobile-menu-btn"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+          <ul className="navbar-menu desktop-menu">
+            {menuItems.map((item, index) => (
+              <li key={index}>
+                <a href={item.href} className="nav-link" data-testid={`nav-link-${item.label.toLowerCase()}`}>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <div className="navbar-cta desktop-cta">
+            <a href="#contact" className="btn-contact" data-testid="navbar-cta">
+              Hubungi Kami
+            </a>
+          </div>
+
+          <button
+            className="mobile-menu-btn"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+            data-testid="mobile-menu-toggle"
+          >
+            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </div>
 
-      {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="mobile-menu">
           <ul className="mobile-menu-items">
             {menuItems.map((item, index) => (
               <li key={index}>
-                <a 
-                  href={item.href} 
+                <a
+                  href={item.href}
                   className="mobile-nav-link"
                   onClick={() => setMobileMenuOpen(false)}
                 >
@@ -70,8 +71,8 @@ const Navbar = () => {
               </li>
             ))}
             <li>
-              <a 
-                href="#contact" 
+              <a
+                href="#contact"
                 className="mobile-cta-btn"
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -89,15 +90,48 @@ const Navbar = () => {
           left: 0;
           right: 0;
           z-index: 1000;
-          padding: 20px 0;
-          transition: background 0.3s ease, padding 0.3s ease, backdrop-filter 0.3s ease;
+          padding: 18px 0;
+          transition:
+            padding 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+            background 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+            backdrop-filter 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+            box-shadow 0.45s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .navbar.scrolled {
-          background: rgba(15, 15, 30, 0.8);
-          backdrop-filter: blur(20px);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-          padding: 15px 0;
+          padding: 12px 0;
+          background: rgba(10, 10, 28, 0.55);
+          backdrop-filter: saturate(160%) blur(22px);
+          -webkit-backdrop-filter: saturate(160%) blur(22px);
+          box-shadow:
+            0 1px 0 rgba(167, 178, 255, 0.08),
+            0 12px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        /* Soft animated top accent — only visible when scrolled */
+        .navbar::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 20%;
+          right: 20%;
+          height: 1px;
+          background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(167, 178, 255, 0.4) 50%,
+            transparent 100%
+          );
+          opacity: 0;
+          transition: opacity 0.5s ease;
+        }
+
+        .navbar.scrolled::before {
+          opacity: 1;
+        }
+
+        .navbar-shell {
+          width: 100%;
         }
 
         .navbar-container {
@@ -110,9 +144,15 @@ const Navbar = () => {
         }
 
         .navbar-logo {
-          font-size: 32px;
+          font-size: 28px;
           font-weight: 800;
           letter-spacing: 2px;
+          text-decoration: none;
+          transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar.scrolled .navbar-logo {
+          transform: scale(0.96);
         }
 
         .logo-text {
@@ -122,7 +162,7 @@ const Navbar = () => {
         .navbar-menu {
           display: flex;
           list-style: none;
-          gap: 40px;
+          gap: 38px;
           margin: 0;
           padding: 0;
         }
@@ -132,27 +172,29 @@ const Navbar = () => {
         }
 
         .nav-link {
-          color: var(--color-text-secondary);
+          color: rgba(255, 255, 255, 0.65);
           text-decoration: none;
           font-weight: 500;
-          font-size: 15px;
+          font-size: 14px;
+          letter-spacing: 0.2px;
           transition: color 0.3s ease;
           position: relative;
+          padding: 4px 0;
         }
 
         .nav-link:hover {
-          color: var(--color-text-primary);
+          color: #ffffff;
         }
 
         .nav-link::after {
           content: '';
           position: absolute;
-          bottom: -5px;
+          bottom: -2px;
           left: 0;
           width: 0;
-          height: 2px;
-          background: linear-gradient(90deg, #667eea, #764ba2);
-          transition: width 0.3s ease;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, #a7b2ff, transparent);
+          transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .nav-link:hover::after {
@@ -164,30 +206,40 @@ const Navbar = () => {
         }
 
         .btn-contact {
-          padding: 12px 28px;
+          padding: 11px 24px;
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           color: white;
           text-decoration: none;
-          border-radius: 8px;
+          border-radius: 10px;
           font-weight: 600;
-          font-size: 14px;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          font-size: 13.5px;
+          letter-spacing: 0.2px;
+          transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
           display: inline-block;
+          box-shadow: 0 6px 20px rgba(102, 126, 234, 0.25);
         }
 
         .btn-contact:hover {
           transform: translateY(-2px);
-          box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+          box-shadow: 0 12px 30px rgba(102, 126, 234, 0.45);
         }
 
         .mobile-menu-btn {
-          background: none;
-          border: none;
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 10px;
           color: white;
           cursor: pointer;
           display: flex;
           align-items: center;
-          padding: 8px;
+          justify-content: center;
+          padding: 9px;
+          transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+          background: rgba(255, 255, 255, 0.08);
+          border-color: rgba(167, 178, 255, 0.25);
         }
 
         .mobile-menu {
@@ -195,75 +247,63 @@ const Navbar = () => {
           top: 100%;
           left: 0;
           right: 0;
-          background: rgba(15, 15, 30, 0.98);
-          backdrop-filter: blur(20px);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-          animation: slideDown 0.3s ease;
+          background: rgba(10, 10, 28, 0.92);
+          backdrop-filter: blur(24px);
+          -webkit-backdrop-filter: blur(24px);
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
+          border-bottom: 1px solid rgba(167, 178, 255, 0.1);
+          animation: slideDown 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         @keyframes slideDown {
-          from {
-            opacity: 0;
-            transform: translateY(-20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          from { opacity: 0; transform: translateY(-12px); }
+          to   { opacity: 1; transform: translateY(0); }
         }
 
         .mobile-menu-items {
           list-style: none;
-          padding: 20px 40px;
+          padding: 24px 40px 32px;
           margin: 0;
         }
 
         .mobile-menu-items li {
-          margin: 20px 0;
+          margin: 18px 0;
         }
 
         .mobile-nav-link {
-          color: var(--color-text-secondary);
+          color: rgba(255, 255, 255, 0.7);
           text-decoration: none;
-          font-size: 18px;
+          font-size: 17px;
           font-weight: 500;
           display: block;
           transition: color 0.3s ease;
         }
 
         .mobile-nav-link:hover {
-          color: var(--color-text-primary);
+          color: #ffffff;
         }
 
         .mobile-cta-btn {
           display: inline-block;
-          margin-top: 10px;
-          padding: 14px 32px;
+          margin-top: 8px;
+          padding: 14px 28px;
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           color: white;
           text-decoration: none;
-          border-radius: 8px;
+          border-radius: 10px;
           font-weight: 600;
-          font-size: 16px;
+          font-size: 15px;
           transition: transform 0.3s ease;
         }
 
         .mobile-cta-btn:hover {
-          transform: scale(1.05);
+          transform: scale(1.03);
         }
 
         @media (min-width: 769px) {
-          .desktop-menu {
-            display: flex;
-          }
-
-          .desktop-cta {
-            display: block;
-          }
-
-          .mobile-menu-btn {
-            display: none;
-          }
+          .desktop-menu { display: flex; }
+          .desktop-cta { display: block; }
+          .mobile-menu-btn { display: none; }
         }
 
         @media (max-width: 768px) {
@@ -272,7 +312,7 @@ const Navbar = () => {
           }
 
           .navbar-logo {
-            font-size: 28px;
+            font-size: 24px;
           }
         }
       `}</style>
