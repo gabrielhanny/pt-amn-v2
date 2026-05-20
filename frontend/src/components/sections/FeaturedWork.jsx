@@ -23,9 +23,9 @@ const FeaturedWork = () => {
             <span className="gradient-text">Kami Rancang</span>
           </h2>
           <p className="section-description">
-            Bukan sekadar deliverable — kami membangun fondasi digital yang dirancang
+            Pendekatan kami menggabungkan strategi, desain, dan teknologi —
             <br className="desktop-br" />
-            untuk mendukung pertumbuhan jangka panjang.
+            dirancang untuk mendukung pertumbuhan jangka panjang, bukan sekadar hasil instan.
           </p>
         </div>
 
@@ -37,11 +37,20 @@ const FeaturedWork = () => {
               style={{ animationDelay: `${index * 0.1}s` }}
               data-testid={`solution-card-${sol.id}`}
             >
-              <div className="work-card-border"></div>
+              <div className="work-card-glow"></div>
               <div className="work-card-inner">
-                <div className="work-category">{sol.category}</div>
-                <h3 className="work-title">{sol.title}</h3>
-                <p className="work-description">{sol.description}</p>
+                <div className="work-card-top">
+                  <div className="work-index">
+                    <span className="work-index-label">Capability</span>
+                    <span className="work-index-num">{sol.index}</span>
+                  </div>
+                  <div className="work-category">{sol.category}</div>
+                </div>
+
+                <div className="work-card-body">
+                  <h3 className="work-title">{sol.title}</h3>
+                  <p className="work-description">{sol.description}</p>
+                </div>
 
                 <div className="work-footer">
                   <div className="work-focus">
@@ -71,7 +80,7 @@ const FeaturedWork = () => {
           border-radius: 50%;
           filter: blur(120px);
           pointer-events: none;
-          opacity: 0.3;
+          opacity: 0.25;
         }
 
         .work-orb-left {
@@ -91,7 +100,7 @@ const FeaturedWork = () => {
         }
 
         .work-container {
-          max-width: 1400px;
+          max-width: 1280px;
           margin: 0 auto;
           position: relative;
           z-index: 2;
@@ -146,7 +155,7 @@ const FeaturedWork = () => {
           font-size: 18px;
           color: rgba(255, 255, 255, 0.6);
           line-height: 1.7;
-          max-width: 760px;
+          max-width: 720px;
           margin: 0 auto;
         }
 
@@ -157,24 +166,17 @@ const FeaturedWork = () => {
         .work-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 26px;
+          gap: 24px;
         }
 
         .work-card {
           position: relative;
-          padding: 1px;
           border-radius: 22px;
-          background: linear-gradient(
-            145deg,
-            rgba(167, 178, 255, 0.15) 0%,
-            rgba(167, 178, 255, 0.03) 50%,
-            rgba(139, 92, 246, 0.12) 100%
-          );
           opacity: 0;
           transform: translateY(30px);
           animation: card-reveal 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
           transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-          overflow: hidden;
+          isolation: isolate;
         }
 
         @keyframes card-reveal {
@@ -185,81 +187,121 @@ const FeaturedWork = () => {
         }
 
         .work-card:hover {
-          transform: translateY(-8px);
+          transform: translateY(-6px);
         }
 
-        .work-card-border {
+        /* Subtle radial glow that appears on hover - replaces aggressive conic spin */
+        .work-card-glow {
           position: absolute;
-          inset: -50%;
-          background: conic-gradient(
-            from 0deg,
-            transparent 0deg,
-            transparent 300deg,
-            rgba(167, 178, 255, 0.5) 340deg,
-            rgba(139, 92, 246, 0.7) 360deg,
-            transparent 360deg
+          inset: -1px;
+          border-radius: 22px;
+          background: radial-gradient(
+            120% 80% at 50% 0%,
+            rgba(167, 178, 255, 0.4) 0%,
+            rgba(139, 92, 246, 0.15) 35%,
+            transparent 70%
           );
           opacity: 0;
-          transition: opacity 0.5s ease;
-          animation: border-spin 7s linear infinite;
+          transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
           pointer-events: none;
+          z-index: 0;
         }
 
-        @keyframes border-spin {
-          to { transform: rotate(360deg); }
-        }
-
-        .work-card:hover .work-card-border {
+        .work-card:hover .work-card-glow {
           opacity: 1;
         }
 
         .work-card-inner {
           position: relative;
-          z-index: 2;
-          padding: 40px 36px 32px;
+          z-index: 1;
+          padding: 36px 36px 32px;
           background: linear-gradient(
             145deg,
-            rgba(15, 15, 35, 0.92) 0%,
-            rgba(20, 20, 45, 0.88) 100%
+            rgba(15, 15, 35, 0.85) 0%,
+            rgba(20, 20, 45, 0.78) 100%
           );
           backdrop-filter: blur(24px);
           -webkit-backdrop-filter: blur(24px);
-          border-radius: 21px;
-          height: 100%;
+          border: 1px solid rgba(167, 178, 255, 0.08);
+          border-radius: 22px;
+          min-height: 320px;
           display: flex;
           flex-direction: column;
+          transition: border-color 0.5s ease, background 0.5s ease;
+        }
+
+        .work-card:hover .work-card-inner {
+          border-color: rgba(167, 178, 255, 0.22);
+          background: linear-gradient(
+            145deg,
+            rgba(20, 20, 45, 0.9) 0%,
+            rgba(25, 25, 55, 0.85) 100%
+          );
+        }
+
+        .work-card-top {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          gap: 16px;
+          margin-bottom: 26px;
+        }
+
+        .work-index {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+        }
+
+        .work-index-label {
+          font-size: 10px;
+          font-weight: 700;
+          color: rgba(167, 178, 255, 0.55);
+          letter-spacing: 1.8px;
+          text-transform: uppercase;
+        }
+
+        .work-index-num {
+          font-size: 24px;
+          font-weight: 700;
+          color: rgba(255, 255, 255, 0.95);
+          letter-spacing: -0.5px;
+          font-feature-settings: 'tnum';
         }
 
         .work-category {
-          display: inline-block;
-          align-self: flex-start;
-          padding: 6px 14px;
-          background: rgba(102, 126, 234, 0.12);
-          border: 1px solid rgba(102, 126, 234, 0.25);
+          display: inline-flex;
+          align-items: center;
+          padding: 6px 12px;
+          background: rgba(102, 126, 234, 0.1);
+          border: 1px solid rgba(102, 126, 234, 0.22);
           border-radius: 20px;
-          font-size: 11px;
+          font-size: 10.5px;
           font-weight: 600;
           color: #a7b2ff;
-          margin-bottom: 22px;
           text-transform: uppercase;
-          letter-spacing: 1px;
+          letter-spacing: 1.2px;
+          white-space: nowrap;
+        }
+
+        .work-card-body {
+          flex: 1;
+          margin-bottom: 28px;
         }
 
         .work-title {
-          font-size: 28px;
+          font-size: 26px;
           font-weight: 700;
           margin-bottom: 14px;
           color: #ffffff;
-          letter-spacing: -0.8px;
-          line-height: 1.2;
+          letter-spacing: -0.7px;
+          line-height: 1.22;
         }
 
         .work-description {
-          font-size: 15px;
+          font-size: 14.5px;
           line-height: 1.75;
-          color: rgba(255, 255, 255, 0.6);
-          margin-bottom: 28px;
-          flex: 1;
+          color: rgba(255, 255, 255, 0.58);
         }
 
         .work-footer {
@@ -268,13 +310,13 @@ const FeaturedWork = () => {
           justify-content: space-between;
           gap: 20px;
           padding-top: 22px;
-          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .work-focus {
           display: flex;
           flex-direction: column;
-          gap: 4px;
+          gap: 5px;
           flex: 1;
           min-width: 0;
         }
@@ -289,7 +331,7 @@ const FeaturedWork = () => {
 
         .focus-text {
           font-size: 13.5px;
-          color: rgba(255, 255, 255, 0.85);
+          color: rgba(255, 255, 255, 0.82);
           font-weight: 500;
           line-height: 1.4;
         }
@@ -298,21 +340,21 @@ const FeaturedWork = () => {
           width: 40px;
           height: 40px;
           min-width: 40px;
-          background: rgba(102, 126, 234, 0.1);
-          border: 1px solid rgba(102, 126, 234, 0.2);
+          background: rgba(102, 126, 234, 0.08);
+          border: 1px solid rgba(102, 126, 234, 0.18);
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: #a7b2ff;
+          color: rgba(167, 178, 255, 0.85);
           transition: background 0.4s ease, transform 0.4s ease, color 0.4s ease, border-color 0.4s ease;
         }
 
         .work-card:hover .work-arrow {
-          background: rgba(102, 126, 234, 0.25);
-          border-color: rgba(167, 178, 255, 0.5);
+          background: rgba(167, 178, 255, 0.18);
+          border-color: rgba(167, 178, 255, 0.4);
           color: #ffffff;
-          transform: scale(1.1) rotate(8deg);
+          transform: scale(1.08) rotate(8deg);
         }
 
         @media (max-width: 1024px) {
@@ -349,11 +391,28 @@ const FeaturedWork = () => {
           }
 
           .work-card-inner {
-            padding: 32px 26px 26px;
+            padding: 30px 26px 26px;
+            min-height: 0;
+          }
+
+          .work-card-top {
+            margin-bottom: 22px;
           }
 
           .work-title {
             font-size: 22px;
+          }
+
+          .work-index-num {
+            font-size: 20px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .work-card-top {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
           }
         }
       `}</style>

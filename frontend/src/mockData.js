@@ -74,30 +74,34 @@ export const workflowSteps = [
 export const solutions = [
   {
     id: 1,
+    index: '01',
     title: 'Digital Brand Presence',
-    category: 'Branding & Identity',
-    description: 'Membangun identitas merek yang konsisten di seluruh touchpoint digital — dari logo, visual system, hingga tone of voice yang menggambarkan karakter bisnis Anda.',
+    category: 'Brand & Identity',
+    description: 'Membentuk identitas merek yang konsisten di seluruh titik kontak digital — sistem visual, narasi, dan cara berbicara yang menggambarkan karakter bisnis Anda dengan jelas.',
     focus: 'Identitas yang berkesan dan terdiferensiasi'
   },
   {
     id: 2,
+    index: '02',
     title: 'Website Experience',
-    category: 'Web Development',
-    description: 'Mendesain dan membangun website yang tidak sekadar terlihat indah, tapi juga cepat, mudah dinavigasi, dan mengarahkan pengunjung ke aksi yang Anda inginkan.',
-    focus: 'Pengalaman yang menggerakkan konversi'
+    category: 'Digital Product',
+    description: 'Merancang pengalaman digital yang bukan sekadar terlihat indah, tapi terstruktur untuk memandu pengunjung memahami nilai bisnis Anda dan mengambil keputusan dengan percaya diri.',
+    focus: 'Pengalaman yang mengarahkan keputusan'
   },
   {
     id: 3,
+    index: '03',
     title: 'Automation Workflow',
-    category: 'Systems & AI',
-    description: 'Merancang sistem otomasi yang menghilangkan pekerjaan repetitif, menghubungkan tools yang Anda pakai, dan memberi ruang tim untuk fokus pada hal yang strategis.',
-    focus: 'Efisiensi operasional yang berkelanjutan'
+    category: 'Systems & Intelligence',
+    description: 'Menghubungkan tools dan proses bisnis ke dalam alur kerja yang lebih cerdas — mengurangi pekerjaan repetitif dan memberi ruang tim untuk fokus pada hal yang berdampak strategis.',
+    focus: 'Operasional yang lebih ringan dan terukur'
   },
   {
     id: 4,
+    index: '04',
     title: 'Social Media Direction',
     category: 'Content & Community',
-    description: 'Menyusun arah konten dan kalender publikasi yang relevan dengan audiens Anda — bukan sekadar posting, tapi membangun percakapan dan komunitas yang loyal.',
+    description: 'Menyusun arah konten yang relevan dengan audiens Anda — membangun kehadiran digital yang konsisten, membangun percakapan, dan menumbuhkan komunitas secara bertahap.',
     focus: 'Kehadiran yang bermakna, bukan sekadar ramai'
   }
 ];
