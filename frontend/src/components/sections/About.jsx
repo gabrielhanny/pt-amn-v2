@@ -9,6 +9,52 @@ const About = () => {
   return (
     <section id="about" className="about-section" data-testid="about-section">
       <div className="about-bg-orb"></div>
+
+      {/* Digital Pulse Energy - subtle waveform behind cards */}
+      <div className="pulse-energy-wrap" aria-hidden="true">
+        <svg className="pulse-energy" viewBox="0 0 1200 200" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="aboutPulseTrack" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="rgba(167, 178, 255, 0)" />
+              <stop offset="50%" stopColor="rgba(167, 178, 255, 0.18)" />
+              <stop offset="100%" stopColor="rgba(167, 178, 255, 0)" />
+            </linearGradient>
+            <linearGradient id="aboutPulseTraveler" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="rgba(167, 178, 255, 0)" />
+              <stop offset="50%" stopColor="rgba(192, 132, 252, 0.95)" />
+              <stop offset="100%" stopColor="rgba(167, 178, 255, 0)" />
+            </linearGradient>
+            <filter id="aboutPulseGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          {/* Soft static track */}
+          <path
+            d="M 0,100 C 200,60 300,140 400,100 C 500,60 700,140 800,100 C 900,60 1000,140 1200,100"
+            stroke="url(#aboutPulseTrack)"
+            strokeWidth="1"
+            fill="none"
+            className="pulse-track"
+          />
+
+          {/* Animated pulse traveler */}
+          <path
+            d="M 0,100 C 200,60 300,140 400,100 C 500,60 700,140 800,100 C 900,60 1000,140 1200,100"
+            stroke="url(#aboutPulseTraveler)"
+            strokeWidth="1.5"
+            fill="none"
+            strokeLinecap="round"
+            filter="url(#aboutPulseGlow)"
+            className="pulse-traveler"
+          />
+        </svg>
+      </div>
+
       <div className="about-container">
         <div ref={headerRef} className={`about-header reveal ${headerVisible ? 'is-visible' : ''}`}>
           <div className="section-badge">
@@ -28,7 +74,7 @@ const About = () => {
         </div>
 
         <div ref={cardsRef} className={`about-cards reveal ${cardsVisible ? 'is-visible' : ''}`}>
-          <div className="about-card glass-effect">
+          <div className="about-card glass-effect pulse-react pulse-react-1">
             <div className="card-icon-wrapper">
               <Target className="card-icon" size={32} />
             </div>
@@ -38,7 +84,7 @@ const About = () => {
             </p>
           </div>
 
-          <div className="about-card glass-effect">
+          <div className="about-card glass-effect pulse-react pulse-react-2">
             <div className="card-icon-wrapper">
               <Users className="card-icon" size={32} />
             </div>
@@ -48,7 +94,7 @@ const About = () => {
             </p>
           </div>
 
-          <div className="about-card glass-effect">
+          <div className="about-card glass-effect pulse-react pulse-react-3">
             <div className="card-icon-wrapper">
               <Zap className="card-icon" size={32} />
             </div>
@@ -78,6 +124,45 @@ const About = () => {
           right: -200px;
           transform: translateY(-50%);
           pointer-events: none;
+        }
+
+        /* ===== Digital Pulse Energy ===== */
+        .pulse-energy-wrap {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 18%;
+          height: 240px;
+          pointer-events: none;
+          z-index: 1;
+          opacity: 0.85;
+        }
+
+        .pulse-energy {
+          width: 100%;
+          height: 100%;
+          display: block;
+        }
+
+        .pulse-track {
+          opacity: 0.5;
+        }
+
+        .pulse-traveler {
+          stroke-dasharray: 220 1300;
+          stroke-dashoffset: 1520;
+          animation: pulse-travel 9s cubic-bezier(0.45, 0, 0.55, 1) infinite,
+                     pulse-breathe 4.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-travel {
+          0%   { stroke-dashoffset: 1520; }
+          100% { stroke-dashoffset: -220; }
+        }
+
+        @keyframes pulse-breathe {
+          0%, 100% { opacity: 0.55; }
+          50%      { opacity: 1; }
         }
 
         .about-container {
@@ -148,6 +233,8 @@ const About = () => {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           gap: 30px;
+          position: relative;
+          z-index: 2;
         }
 
         .about-card {
@@ -182,6 +269,66 @@ const About = () => {
         .about-card:hover::before {
           opacity: 1;
         }
+
+        /* ===== Pulse Reaction (synced to traveler) ===== */
+        /* Traveler loops every 9s. Pulse traverses card area roughly:
+           card 1 lit ~1.5s, card 2 lit ~4.5s, card 3 lit ~7.5s */
+        .pulse-react {
+          position: relative;
+        }
+
+        .pulse-react::after {
+          content: '';
+          position: absolute;
+          inset: -1px;
+          border-radius: 20px;
+          padding: 1px;
+          background: linear-gradient(145deg, rgba(192, 132, 252, 0.45), rgba(167, 178, 255, 0.25) 50%, rgba(192, 132, 252, 0.45));
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          opacity: 0;
+          pointer-events: none;
+          animation: card-pulse-react 9s ease-in-out infinite;
+        }
+
+        .pulse-react-1::after { animation-delay: 0s; }
+        .pulse-react-2::after { animation-delay: 3s; }
+        .pulse-react-3::after { animation-delay: 6s; }
+
+        @keyframes card-pulse-react {
+          0%, 12%, 100% { opacity: 0; }
+          16%, 20%      { opacity: 0.7; }
+          28%           { opacity: 0; }
+        }
+
+        /* Icon glow reaction synced to the traveler */
+        .pulse-react .card-icon-wrapper {
+          animation: icon-pulse-react 9s ease-in-out infinite;
+        }
+
+        .pulse-react-1 .card-icon-wrapper { animation-delay: 0s; }
+        .pulse-react-2 .card-icon-wrapper { animation-delay: 3s; }
+        .pulse-react-3 .card-icon-wrapper { animation-delay: 6s; }
+
+        @keyframes icon-pulse-react {
+          0%, 12%, 100% {
+            box-shadow: 0 0 0 0 rgba(167, 178, 255, 0);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+          }
+          18% {
+            box-shadow: 0 0 28px 4px rgba(192, 132, 252, 0.35);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.35) 0%, rgba(192, 132, 252, 0.35) 100%);
+          }
+          28% {
+            box-shadow: 0 0 0 0 rgba(167, 178, 255, 0);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+          }
+        }
+
+        /* On hover, freeze pulse react so hover state takes precedence */
+        .about-card:hover.pulse-react::after { opacity: 0; }
+        .about-card:hover .card-icon-wrapper { animation: none; }
 
         .card-icon-wrapper {
           width: 64px;
@@ -250,6 +397,11 @@ const About = () => {
 
           .about-card {
             padding: 32px;
+          }
+
+          /* Hide horizontal pulse on stacked layout - feels misaligned */
+          .pulse-energy-wrap {
+            display: none;
           }
         }
       `}</style>
