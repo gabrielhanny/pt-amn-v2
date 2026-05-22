@@ -1,27 +1,25 @@
-import { useState, useEffect } from 'react';
-import './App.css';
-import Loader from './components/Loader';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import Home from './pages/Home';
+import SolutionsPage from './pages/SolutionsPage';
+import WorkPage from './pages/WorkPage';
+import AboutPage from './pages/AboutPage';
+import LetsTalkPage from './pages/LetsTalkPage';
+
+import './App.css';
 
 function App() {
-  const [loading, setLoading] = useState(true);
-  const [fadeOut, setFadeOut] = useState(false);
-
-  useEffect(() => {
-    // Start fade-out shortly before unmount for a cinematic handoff
-    const fadeTimer = setTimeout(() => setFadeOut(true), 2200);
-    const removeTimer = setTimeout(() => setLoading(false), 2900);
-    return () => {
-      clearTimeout(fadeTimer);
-      clearTimeout(removeTimer);
-    };
-  }, []);
-
   return (
-    <div className="App">
-      {loading && <Loader fadeOut={fadeOut} />}
-      {!loading && <Home />}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/solutions" element={<SolutionsPage />} />
+        <Route path="/work" element={<WorkPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/lets-talk" element={<LetsTalkPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

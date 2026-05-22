@@ -6,33 +6,32 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 40);
+
     window.addEventListener('scroll', handleScroll, { passive: true });
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const menuItems = [
-    { label: 'Beranda', href: '#hero' },
-    { label: 'Tentang', href: '#about' },
-    { label: 'Layanan', href: '#services' },
-    { label: 'Portfolio', href: '#work' },
-    { label: 'Kontak', href: '#contact' }
+    { label: 'Home', href: '/' },
+    { label: 'Solutions', href: '/solutions' },
+    { label: 'Work', href: '/work' },
+    { label: 'About', href: '/about' },
   ];
 
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} data-testid="navbar">
       <div className="navbar-shell">
         <div className="navbar-container">
-          <a href="#hero" className="navbar-logo" data-testid="navbar-logo">
+          <a href="/" className="navbar-logo" data-testid="navbar-logo">
             <span className="logo-text gradient-text">AMN</span>
           </a>
 
           <ul className="navbar-menu desktop-menu">
-            {menuItems.map((item, index) => (
-              <li key={index}>
-                <a href={item.href} className="nav-link" data-testid={`nav-link-${item.label.toLowerCase()}`}>
+            {menuItems.map((item) => (
+              <li key={item.label}>
+                <a href={item.href} className="nav-link">
                   {item.label}
                 </a>
               </li>
@@ -40,8 +39,8 @@ const Navbar = () => {
           </ul>
 
           <div className="navbar-cta desktop-cta">
-            <a href="#contact" className="btn-contact" data-testid="navbar-cta">
-              Hubungi Kami
+            <a href="/lets-talk" className="btn-contact" data-testid="navbar-cta">
+              Let&apos;s Talk
             </a>
           </div>
 
@@ -59,8 +58,8 @@ const Navbar = () => {
       {mobileMenuOpen && (
         <div className="mobile-menu">
           <ul className="mobile-menu-items">
-            {menuItems.map((item, index) => (
-              <li key={index}>
+            {menuItems.map((item) => (
+              <li key={item.label}>
                 <a
                   href={item.href}
                   className="mobile-nav-link"
@@ -70,13 +69,14 @@ const Navbar = () => {
                 </a>
               </li>
             ))}
+
             <li>
               <a
-                href="#contact"
+                href="/lets-talk"
                 className="mobile-cta-btn"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Hubungi Kami
+                Let&apos;s Talk
               </a>
             </li>
           </ul>
@@ -108,7 +108,6 @@ const Navbar = () => {
             0 12px 40px rgba(0, 0, 0, 0.35);
         }
 
-        /* Soft animated top accent — only visible when scrolled */
         .navbar::before {
           content: '';
           position: absolute;
@@ -165,6 +164,7 @@ const Navbar = () => {
           gap: 38px;
           margin: 0;
           padding: 0;
+          align-items: center;
         }
 
         .desktop-menu {
@@ -214,7 +214,9 @@ const Navbar = () => {
           font-weight: 600;
           font-size: 13.5px;
           letter-spacing: 0.2px;
-          transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
+          transition:
+            transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+            box-shadow 0.4s ease;
           display: inline-block;
           box-shadow: 0 6px 20px rgba(102, 126, 234, 0.25);
         }
@@ -256,8 +258,15 @@ const Navbar = () => {
         }
 
         @keyframes slideDown {
-          from { opacity: 0; transform: translateY(-12px); }
-          to   { opacity: 1; transform: translateY(0); }
+          from {
+            opacity: 0;
+            transform: translateY(-12px);
+          }
+
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
 
         .mobile-menu-items {
@@ -301,9 +310,17 @@ const Navbar = () => {
         }
 
         @media (min-width: 769px) {
-          .desktop-menu { display: flex; }
-          .desktop-cta { display: block; }
-          .mobile-menu-btn { display: none; }
+          .desktop-menu {
+            display: flex;
+          }
+
+          .desktop-cta {
+            display: block;
+          }
+
+          .mobile-menu-btn {
+            display: none;
+          }
         }
 
         @media (max-width: 768px) {

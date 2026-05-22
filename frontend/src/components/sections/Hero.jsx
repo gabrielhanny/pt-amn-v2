@@ -1,11 +1,31 @@
 import React, { useEffect, useRef } from 'react';
-import { ArrowRight, Sparkles, Compass, Cpu } from 'lucide-react';
-import { heroCapabilities } from '../../mockData';
+import { ArrowRight, Sparkles, Compass, Cpu, Orbit } from 'lucide-react';
+
+const heroCapabilities = [
+  {
+    id: 'creative-campaign',
+    title: 'Creative & Campaign',
+    description: 'Campaign thinking built around brand movement.',
+    icon: 'compass',
+  },
+  {
+    id: 'experience-tech',
+    title: 'Experience & Tech',
+    description: 'Digital experiences designed to support growth.',
+    icon: 'cpu',
+  },
+  {
+    id: 'data-ai-operations',
+    title: 'Data & AI Operations',
+    description: 'Smarter workflows for measurable activation.',
+    icon: 'orbit',
+  },
+];
 
 const iconMap = {
-  'compass': Compass,
-  'cpu': Cpu,
-  'sparkles': Sparkles
+  compass: Compass,
+  cpu: Cpu,
+  orbit: Orbit,
 };
 
 const Hero = () => {
@@ -14,24 +34,30 @@ const Hero = () => {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+
     const ctx = canvas.getContext('2d');
     let animationFrameId;
     let particles = [];
+    let trails = [];
 
     const resizeCanvas = () => {
-      canvas.width = canvas.offsetWidth * window.devicePixelRatio;
-      canvas.height = canvas.offsetHeight * window.devicePixelRatio;
-      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+      const ratio = window.devicePixelRatio || 1;
+      canvas.width = canvas.offsetWidth * ratio;
+      canvas.height = canvas.offsetHeight * ratio;
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
     };
 
     const initParticles = () => {
       particles = [];
+      trails = [];
+
       const w = canvas.offsetWidth;
       const h = canvas.offsetHeight;
-      // Lower particle density on small screens for smooth FPS
+
       const divisor = w < 768 ? 32000 : 20000;
       const cap = w < 768 ? 28 : 55;
       const count = Math.min(cap, Math.floor((w * h) / divisor));
+
       for (let i = 0; i < count; i++) {
         particles.push({
           x: Math.random() * w,
@@ -39,21 +65,68 @@ const Hero = () => {
           vx: (Math.random() - 0.5) * 0.22,
           vy: (Math.random() - 0.5) * 0.22,
           radius: Math.random() * 1.4 + 0.4,
-          opacity: Math.random() * 0.5 + 0.2
+          opacity: Math.random() * 0.5 + 0.2,
         });
+      }
+
+      const trailCount = w < 768 ? 2 : 5;
+
+      for (let i = 0; i < trailCount; i++) {
+        trails.push({
+          x: Math.random() * w,
+          y: Math.random() * h * 0.75,
+          length: Math.random() * 120 + 120,
+          speed: Math.random() * 0.9 + 0.35,
+          opacity: Math.random() * 0.25 + 0.12,
+          delay: Math.random() * 400,
+        });
+      }
+    };
+
+    const drawLightTrail = (trail, w, h) => {
+      const angle = -0.45;
+      const x2 = trail.x - Math.cos(angle) * trail.length;
+      const y2 = trail.y - Math.sin(angle) * trail.length;
+
+      const gradient = ctx.createLinearGradient(trail.x, trail.y, x2, y2);
+      gradient.addColorStop(0, `rgba(255, 255, 255, ${trail.opacity})`);
+      gradient.addColorStop(0.35, `rgba(167, 178, 255, ${trail.opacity * 0.8})`);
+      gradient.addColorStop(1, 'rgba(139, 92, 246, 0)');
+
+      ctx.strokeStyle = gradient;
+      ctx.lineWidth = 1;
+      ctx.shadowBlur = 12;
+      ctx.shadowColor = 'rgba(139, 92, 246, 0.45)';
+      ctx.beginPath();
+      ctx.moveTo(trail.x, trail.y);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+      ctx.shadowBlur = 0;
+
+      trail.x += trail.speed;
+      trail.y -= trail.speed * 0.45;
+
+      if (trail.x > w + trail.length || trail.y < -trail.length) {
+        trail.x = -trail.length - Math.random() * 400;
+        trail.y = Math.random() * h * 0.8 + 80;
+        trail.opacity = Math.random() * 0.25 + 0.12;
       }
     };
 
     const draw = () => {
       const w = canvas.offsetWidth;
       const h = canvas.offsetHeight;
+
       ctx.clearRect(0, 0, w, h);
+
+      trails.forEach((trail) => drawLightTrail(trail, w, h));
 
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
+
           if (dist < 140) {
             const opacity = (1 - dist / 140) * 0.22;
             ctx.strokeStyle = `rgba(139, 152, 247, ${opacity})`;
@@ -69,6 +142,7 @@ const Hero = () => {
       particles.forEach((p) => {
         p.x += p.vx;
         p.y += p.vy;
+
         if (p.x < 0 || p.x > w) p.vx *= -1;
         if (p.y < 0 || p.y > h) p.vy *= -1;
 
@@ -94,6 +168,7 @@ const Hero = () => {
       resizeCanvas();
       initParticles();
     };
+
     window.addEventListener('resize', handleResize);
 
     return () => {
@@ -104,94 +179,54 @@ const Hero = () => {
 
   return (
     <section id="hero" className="hero-section" data-testid="hero-section">
-      {/* Animated mesh gradient layers */}
       <div className="mesh-gradient mesh-1"></div>
       <div className="mesh-gradient mesh-2"></div>
       <div className="mesh-gradient mesh-3"></div>
 
-      {/* Liquid blobs */}
       <div className="liquid-blob blob-1"></div>
       <div className="liquid-blob blob-2"></div>
 
-      {/* Electric pulse lines - SVG */}
-      <svg className="electric-pulse" viewBox="0 0 1920 1080" preserveAspectRatio="none" aria-hidden="true">
-        <defs>
-          <linearGradient id="pulseGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="rgba(167, 178, 255, 0)" />
-            <stop offset="50%" stopColor="rgba(167, 178, 255, 0.6)" />
-            <stop offset="100%" stopColor="rgba(167, 178, 255, 0)" />
-          </linearGradient>
-          <linearGradient id="pulseGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="rgba(139, 92, 246, 0)" />
-            <stop offset="50%" stopColor="rgba(139, 92, 246, 0.5)" />
-            <stop offset="100%" stopColor="rgba(139, 92, 246, 0)" />
-          </linearGradient>
-        </defs>
-        <path
-          className="pulse-line pulse-line-1"
-          d="M 0,300 Q 480,260 960,310 T 1920,290"
-          stroke="url(#pulseGradient1)"
-          strokeWidth="1.2"
-          fill="none"
-        />
-        <path
-          className="pulse-line pulse-line-2"
-          d="M 0,780 Q 480,820 960,770 T 1920,800"
-          stroke="url(#pulseGradient2)"
-          strokeWidth="1.2"
-          fill="none"
-        />
-        <path
-          className="pulse-line pulse-line-3"
-          d="M 0,540 Q 600,500 1200,560 T 1920,520"
-          stroke="url(#pulseGradient1)"
-          strokeWidth="1"
-          fill="none"
-        />
-      </svg>
-
-      {/* Particle network canvas */}
       <canvas ref={canvasRef} className="particle-canvas"></canvas>
 
-      {/* Grid overlay */}
       <div className="grid-overlay"></div>
-
-      {/* Noise texture */}
       <div className="noise-overlay"></div>
 
       <div className="hero-container">
         <div className="hero-badge" data-testid="hero-badge">
           <span className="badge-dot"></span>
           <Sparkles size={14} className="badge-icon" />
-          <span>Digital Growth Partner untuk UMKM Indonesia</span>
+          <span>Growth Activation Agency</span>
         </div>
 
         <h1 className="hero-title" data-testid="hero-title">
-          Transformasi Digital
-          <br />
-          <span className="gradient-text">Yang Menghasilkan</span>
+         We Build Growth Systems
+<br />
+<span className="gradient-text">for Brands Ready to Move Forward</span>
         </h1>
 
-        <p className="hero-description" data-testid="hero-description">
-          Kami membantu bisnis Indonesia bertumbuh lebih cepat melalui strategi digital,
-          <br className="desktop-br" />
-          teknologi modern, dan sistem otomasi yang efisien.
-        </p>
+       <p className="hero-description" data-testid="hero-description">
+  AMN helps brands connect campaign thinking, digital presence, media performance,
+  <br className="desktop-br" />
+  commerce channels, automation, and AI-powered operations
+  <br className="desktop-br" />
+  into measurable growth activation.
+</p>
 
         <div className="hero-cta-group">
-          <a href="#contact" className="btn-primary" data-testid="hero-cta-primary">
-            Mulai Konsultasi
+          <a href="/lets-talk" className="btn-primary" data-testid="hero-cta-primary">
+           Let&apos;s Talk
             <ArrowRight size={20} className="btn-icon" />
           </a>
-          <a href="#work" className="btn-secondary" data-testid="hero-cta-secondary">
-            Lihat Portfolio
-          </a>
+
+         <a href="/solutions" className="btn-secondary" data-testid="hero-cta-secondary">
+  Explore Solutions
+</a>
         </div>
 
-        {/* Capability cards (replacing fake metrics) */}
-        <div className="hero-capabilities" data-testid="hero-capabilities">
+        {/* <div className="hero-capabilities" data-testid="hero-capabilities">
           {heroCapabilities.map((cap, i) => {
             const Icon = iconMap[cap.icon];
+
             return (
               <div
                 key={cap.id}
@@ -200,22 +235,23 @@ const Hero = () => {
                 data-testid={`hero-capability-${cap.id}`}
               >
                 <div className="capability-border"></div>
+
                 <div className="capability-content">
                   <div className="capability-icon-wrap">
                     <Icon size={20} strokeWidth={1.75} />
-                  </div>
-                  <div className="capability-text">
+                  </div> */}
+
+                  {/* <div className="capability-text">
                     <div className="capability-title">{cap.title}</div>
                     <div className="capability-desc">{cap.description}</div>
-                  </div>
+                  </div> */}
                 </div>
-              </div>
+              {/* </div>
             );
           })}
         </div>
-      </div>
+      </div> */}
 
-      {/* Scroll indicator */}
       <div className="scroll-indicator">
         <div className="scroll-line"></div>
       </div>
@@ -233,7 +269,6 @@ const Hero = () => {
           isolation: isolate;
         }
 
-        /* Mesh gradient layers */
         .mesh-gradient {
           position: absolute;
           inset: 0;
@@ -272,7 +307,6 @@ const Hero = () => {
           50% { transform: translate(40px, 30px) scale(1.2); opacity: 0.8; }
         }
 
-        /* Liquid blobs */
         .liquid-blob {
           position: absolute;
           border-radius: 50%;
@@ -310,56 +344,16 @@ const Hero = () => {
           50% { transform: translate(80px, -60px) scale(1.15); border-radius: 55% 45% 40% 60%; }
         }
 
-        /* Electric pulse lines */
-        .electric-pulse {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          pointer-events: none;
-          z-index: 1;
-          opacity: 0.7;
-        }
-
-        .pulse-line {
-          stroke-dasharray: 280 2000;
-          filter: drop-shadow(0 0 6px rgba(139, 92, 246, 0.5));
-        }
-
-        .pulse-line-1 {
-          animation: pulse-travel 8s ease-in-out infinite, pulse-breathe 4s ease-in-out infinite;
-        }
-
-        .pulse-line-2 {
-          animation: pulse-travel 10s ease-in-out infinite 1.5s, pulse-breathe 5s ease-in-out infinite 0.8s;
-        }
-
-        .pulse-line-3 {
-          animation: pulse-travel 12s ease-in-out infinite 3s, pulse-breathe 6s ease-in-out infinite 1.5s;
-        }
-
-        @keyframes pulse-travel {
-          0% { stroke-dashoffset: 2280; }
-          100% { stroke-dashoffset: -280; }
-        }
-
-        @keyframes pulse-breathe {
-          0%, 100% { opacity: 0.4; }
-          50% { opacity: 0.9; }
-        }
-
-        /* Particle canvas */
         .particle-canvas {
           position: absolute;
           inset: 0;
           width: 100%;
           height: 100%;
           pointer-events: none;
-          opacity: 0.7;
+          opacity: 0.78;
           z-index: 2;
         }
 
-        /* Grid overlay */
         .grid-overlay {
           position: absolute;
           inset: 0;
@@ -372,7 +366,6 @@ const Hero = () => {
           pointer-events: none;
         }
 
-        /* Noise overlay */
         .noise-overlay {
           position: absolute;
           inset: 0;
@@ -383,7 +376,7 @@ const Hero = () => {
         }
 
         .hero-container {
-          max-width: 1200px;
+          max-width: 1280px;
           margin: 0 auto;
           text-align: center;
           position: relative;
@@ -427,20 +420,21 @@ const Hero = () => {
         }
 
         .hero-title {
-          font-size: 88px;
-          font-weight: 800;
-          line-height: 1.05;
-          margin-bottom: 32px;
-          letter-spacing: -3px;
+          font-size: clamp(58px, 8vw, 118px);
+          font-weight: 400;
+          line-height: 0.98;
+          margin-bottom: 34px;
+          letter-spacing: -0.055em;
           animation: fade-in-up 1s ease 0.2s backwards;
+          color: #ffffff;
         }
 
         .hero-description {
           font-size: 20px;
           color: rgba(255, 255, 255, 0.65);
-          line-height: 1.7;
+          line-height: 1.75;
           margin-bottom: 50px;
-          max-width: 740px;
+          max-width: 980px;
           margin-left: auto;
           margin-right: auto;
           animation: fade-in-up 1s ease 0.4s backwards;
@@ -526,7 +520,6 @@ const Hero = () => {
           transform: translateY(-3px);
         }
 
-        /* Hero Capability Cards (replacing stats) */
         .hero-capabilities {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
@@ -563,7 +556,6 @@ const Hero = () => {
           transform: translateY(-6px);
         }
 
-        /* Animated border light */
         .capability-border {
           position: absolute;
           inset: -50%;
@@ -596,11 +588,7 @@ const Hero = () => {
           align-items: center;
           gap: 16px;
           padding: 22px 24px;
-          background: linear-gradient(
-            145deg,
-            rgba(15, 15, 35, 0.92) 0%,
-            rgba(20, 20, 45, 0.88) 100%
-          );
+          background: linear-gradient(145deg, rgba(15, 15, 35, 0.92) 0%, rgba(20, 20, 45, 0.88) 100%);
           backdrop-filter: blur(24px);
           -webkit-backdrop-filter: blur(24px);
           border-radius: 17px;
@@ -613,11 +601,7 @@ const Hero = () => {
           height: 44px;
           min-width: 44px;
           border-radius: 12px;
-          background: linear-gradient(
-            145deg,
-            rgba(102, 126, 234, 0.18) 0%,
-            rgba(139, 92, 246, 0.18) 100%
-          );
+          background: linear-gradient(145deg, rgba(102, 126, 234, 0.18) 0%, rgba(139, 92, 246, 0.18) 100%);
           border: 1px solid rgba(167, 178, 255, 0.18);
           display: flex;
           align-items: center;
@@ -627,11 +611,7 @@ const Hero = () => {
         }
 
         .capability-card:hover .capability-icon-wrap {
-          background: linear-gradient(
-            145deg,
-            rgba(102, 126, 234, 0.35) 0%,
-            rgba(139, 92, 246, 0.35) 100%
-          );
+          background: linear-gradient(145deg, rgba(102, 126, 234, 0.35) 0%, rgba(139, 92, 246, 0.35) 100%);
           color: #ffffff;
           transform: scale(1.05);
         }
@@ -654,7 +634,6 @@ const Hero = () => {
           display: block;
         }
 
-        /* Scroll indicator */
         .scroll-indicator {
           position: absolute;
           bottom: 32px;
@@ -680,6 +659,7 @@ const Hero = () => {
             opacity: 0;
             transform: translateY(30px);
           }
+
           to {
             opacity: 1;
             transform: translateY(0);
@@ -687,11 +667,6 @@ const Hero = () => {
         }
 
         @media (max-width: 1024px) {
-          .hero-title {
-            font-size: 64px;
-            letter-spacing: -2px;
-          }
-
           .hero-capabilities {
             max-width: 720px;
           }
@@ -711,8 +686,8 @@ const Hero = () => {
           }
 
           .hero-title {
-            font-size: 44px;
-            letter-spacing: -1.5px;
+            font-size: 46px;
+            letter-spacing: -1.8px;
           }
 
           .hero-description {
@@ -730,7 +705,7 @@ const Hero = () => {
 
         @media (max-width: 480px) {
           .hero-title {
-            font-size: 36px;
+            font-size: 38px;
           }
 
           .hero-badge {
@@ -738,7 +713,8 @@ const Hero = () => {
             padding: 8px 16px;
           }
 
-          .btn-primary, .btn-secondary {
+          .btn-primary,
+          .btn-secondary {
             padding: 16px 28px;
             font-size: 14px;
             width: 100%;
@@ -748,7 +724,7 @@ const Hero = () => {
           .hero-cta-group {
             flex-direction: column;
             gap: 12px;
-            margin-bottom: 64px;
+            margin-bottom: 0;
           }
 
           .capability-content {
@@ -756,7 +732,6 @@ const Hero = () => {
           }
         }
 
-        /* Mobile performance: thin out heavy ambient effects */
         @media (max-width: 768px) {
           .liquid-blob {
             filter: blur(60px);
@@ -770,10 +745,6 @@ const Hero = () => {
           .blob-2 {
             width: 420px;
             height: 420px;
-          }
-
-          .electric-pulse {
-            opacity: 0.45;
           }
 
           .grid-overlay {
