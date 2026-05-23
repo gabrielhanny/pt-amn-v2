@@ -108,10 +108,6 @@ const LetsTalkPage = () => {
                 <ArrowRight size={20} />
               </button>
 
-              <p className="form-note">
-                MVP note: this form is currently prepared for UI/qualification flow.
-                Connect it later to email, Google Form, or backend submission.
-              </p>
             </form>
           </div>
         </section>
