@@ -14,7 +14,7 @@ const Footer = () => {
               commerce, technology, and AI-powered operations.
             </p>
 
-            <div className="footer-social">
+            {/* <div className="footer-social">
               <a href="https://instagram.com/pt.amnindonesia" target="_blank" rel="noopener noreferrer" className="social-link">
                 <Instagram size={20} />
               </a>
@@ -27,7 +27,21 @@ const Footer = () => {
               <a href="tel:+6285236724068" className="social-link">
                 <Phone size={20} />
               </a>
-            </div>
+            </div> */}
+            <div className="footer-social">
+  <a href="https://www.instagram.com/hypernusa" target="_blank" rel="noopener noreferrer" className="social-link">
+    <Instagram size={20} />
+  </a>
+  <a href="https://www.linkedin.com/company/hypernusa/about/" target="_blank" rel="noopener noreferrer" className="social-link">
+    <Linkedin size={20} />
+  </a>
+  <a href="mailto:hello@hypernusa.com" className="social-link">
+    <Mail size={20} />
+  </a>
+  <a href="https://wa.me/6285236724068" target="_blank" rel="noopener noreferrer" className="social-link">
+    <Phone size={20} />
+  </a>
+</div>
           </div>
 
           <div className="footer-links">
@@ -56,10 +70,14 @@ const Footer = () => {
             <div className="footer-column">
               <h4 className="footer-title">Contact</h4>
               <ul className="footer-list">
-                <li><a href="mailto:hello@amnindonesia.com">Email</a></li>
+                {/* <li><a href="mailto:hello@amnindonesia.com">Email</a></li>
                 <li><a href="https://wa.me/6285236724068" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
                 <li><a href="https://linkedin.com/company/pt-amn-indonesia" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-                <li><a href="https://instagram.com/pt.amnindonesia" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+                <li><a href="https://instagram.com/pt.amnindonesia" target="_blank" rel="noopener noreferrer">Instagram</a></li> */}
+                <li><a href="mailto:hello@hypernusa.com">Email</a></li>
+<li><a href="https://wa.me/6285236724068" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+<li><a href="https://www.linkedin.com/company/hypernusa/about/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+<li><a href="https://www.instagram.com/hypernusa" target="_blank" rel="noopener noreferrer">Instagram</a></li>
                 <li className="footer-location"><MapPin size={14} /> Indonesia</li>
               </ul>
             </div>
