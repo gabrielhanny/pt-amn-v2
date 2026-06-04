@@ -40,7 +40,7 @@ const LetsTalkPage = () => {
 
               <div className="contact-actions">
                 <a
-                  href="https://wa.me/6285236724068"
+                  href="https://wa.me/6285168157168"
                   target="_blank"
                   rel="noreferrer"
                   className="contact-action"
@@ -50,7 +50,7 @@ const LetsTalkPage = () => {
                 </a>
 
                 <a
-                  href="mailto:amn.itservices@gmail.com"
+                 href="mailto:hello@hypernusa.com"
                   className="contact-action secondary"
                 >
                   <Mail size={20} />
