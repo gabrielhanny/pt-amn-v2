@@ -381,7 +381,7 @@ section::before {
 }
 
 /* Responsive Loader */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .loader-letters {
     font-size: 28px;
     gap: 10px;
@@ -420,7 +420,7 @@ section::before {
 }
 
 /* MOBILE */
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
   .loader-letters {
     font-size: 24px;
     gap: 8px;
@@ -448,5 +448,90 @@ section::before {
     font-size: 8px;
     letter-spacing: 2.6px;
     margin-top: 24px;
+  }
+}  */
+/* Responsive Loader */
+@media (max-width: 768px) {
+  .loader-letters {
+    gap: 10px;
+    max-width: 88vw;
+    line-height: 1.25;
+    letter-spacing: 1px;
+  }
+
+  .loader-company-name {
+    display: inline-block;
+    font-size: 28px;
+    max-width: 88vw;
+    line-height: 1.25;
+    letter-spacing: 1px;
+    text-align: center;
+
+    background: linear-gradient(135deg, #f7f8ff 0%, #cfd6ff 45%, #b78cff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    opacity: 1;
+    filter:
+      drop-shadow(0 0 10px rgba(255, 255, 255, 0.32))
+      drop-shadow(0 0 18px rgba(167, 178, 255, 0.65));
+  }
+
+  .loader-energy-ring {
+    width: 320px;
+    height: 320px;
+    opacity: 0.42;
+    mask: radial-gradient(circle, transparent 158px, black 159px, black 161px, transparent 162px);
+    -webkit-mask: radial-gradient(circle, transparent 158px, black 159px, black 161px, transparent 162px);
+  }
+
+  .loader-tagline {
+    font-size: 9px;
+    letter-spacing: 3px;
+    margin-top: 28px;
+    color: rgba(255, 255, 255, 0.62);
+  }
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .loader-letters {
+    gap: 8px;
+    max-width: 86vw;
+    line-height: 1.3;
+    letter-spacing: 0.8px;
+  }
+
+  .loader-company-name {
+    font-size: 24px;
+    max-width: 86vw;
+    line-height: 1.3;
+    letter-spacing: 0.8px;
+
+    background: linear-gradient(135deg, #ffffff 0%, #d9deff 48%, #c49cff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    opacity: 1;
+    filter:
+      drop-shadow(0 0 12px rgba(255, 255, 255, 0.38))
+      drop-shadow(0 0 22px rgba(167, 178, 255, 0.75));
+  }
+
+  .loader-energy-ring {
+    width: 300px;
+    height: 300px;
+    opacity: 0.35;
+    mask: radial-gradient(circle, transparent 148px, black 149px, black 151px, transparent 152px);
+    -webkit-mask: radial-gradient(circle, transparent 148px, black 149px, black 151px, transparent 152px);
+  }
+
+  .loader-tagline {
+    font-size: 8px;
+    letter-spacing: 2.6px;
+    margin-top: 24px;
+    color: rgba(255, 255, 255, 0.68);
   }
 }
