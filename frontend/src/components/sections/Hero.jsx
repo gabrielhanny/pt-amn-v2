@@ -1,256 +1,44 @@
-import React, { useEffect, useRef } from 'react';
-import { ArrowRight, Sparkles, Compass, Cpu, Orbit } from 'lucide-react';
-
-const heroCapabilities = [
-  {
-    id: 'creative-campaign',
-    title: 'Creative & Campaign',
-    description: 'Campaign thinking built around brand movement.',
-    icon: 'compass',
-  },
-  {
-    id: 'experience-tech',
-    title: 'Experience & Tech',
-    description: 'Digital experiences designed to support growth.',
-    icon: 'cpu',
-  },
-  {
-    id: 'data-ai-operations',
-    title: 'Data & AI Operations',
-    description: 'Smarter workflows for measurable activation.',
-    icon: 'orbit',
-  },
-];
-
-const iconMap = {
-  compass: Compass,
-  cpu: Cpu,
-  orbit: Orbit,
-};
+import React from 'react';
+import { ArrowRight } from 'lucide-react';
 
 const Hero = () => {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    let animationFrameId;
-    let particles = [];
-    let trails = [];
-
-    const resizeCanvas = () => {
-      const ratio = window.devicePixelRatio || 1;
-      canvas.width = canvas.offsetWidth * ratio;
-      canvas.height = canvas.offsetHeight * ratio;
-      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-    };
-
-    const initParticles = () => {
-      particles = [];
-      trails = [];
-
-      const w = canvas.offsetWidth;
-      const h = canvas.offsetHeight;
-
-      const divisor = w < 768 ? 32000 : 20000;
-      const cap = w < 768 ? 28 : 55;
-      const count = Math.min(cap, Math.floor((w * h) / divisor));
-
-      for (let i = 0; i < count; i++) {
-        particles.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.22,
-          vy: (Math.random() - 0.5) * 0.22,
-          radius: Math.random() * 1.4 + 0.4,
-          opacity: Math.random() * 0.5 + 0.2,
-        });
-      }
-
-      const trailCount = w < 768 ? 2 : 5;
-
-      for (let i = 0; i < trailCount; i++) {
-        trails.push({
-          x: Math.random() * w,
-          y: Math.random() * h * 0.75,
-          length: Math.random() * 120 + 120,
-          speed: Math.random() * 0.9 + 0.35,
-          opacity: Math.random() * 0.25 + 0.12,
-          delay: Math.random() * 400,
-        });
-      }
-    };
-
-    const drawLightTrail = (trail, w, h) => {
-      const angle = -0.45;
-      const x2 = trail.x - Math.cos(angle) * trail.length;
-      const y2 = trail.y - Math.sin(angle) * trail.length;
-
-      const gradient = ctx.createLinearGradient(trail.x, trail.y, x2, y2);
-      gradient.addColorStop(0, `rgba(255, 255, 255, ${trail.opacity})`);
-      gradient.addColorStop(0.35, `rgba(167, 178, 255, ${trail.opacity * 0.8})`);
-      gradient.addColorStop(1, 'rgba(139, 92, 246, 0)');
-
-      ctx.strokeStyle = gradient;
-      ctx.lineWidth = 1;
-      ctx.shadowBlur = 12;
-      ctx.shadowColor = 'rgba(139, 92, 246, 0.45)';
-      ctx.beginPath();
-      ctx.moveTo(trail.x, trail.y);
-      ctx.lineTo(x2, y2);
-      ctx.stroke();
-      ctx.shadowBlur = 0;
-
-      trail.x += trail.speed;
-      trail.y -= trail.speed * 0.45;
-
-      if (trail.x > w + trail.length || trail.y < -trail.length) {
-        trail.x = -trail.length - Math.random() * 400;
-        trail.y = Math.random() * h * 0.8 + 80;
-        trail.opacity = Math.random() * 0.25 + 0.12;
-      }
-    };
-
-    const draw = () => {
-      const w = canvas.offsetWidth;
-      const h = canvas.offsetHeight;
-
-      ctx.clearRect(0, 0, w, h);
-
-      trails.forEach((trail) => drawLightTrail(trail, w, h));
-
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 140) {
-            const opacity = (1 - dist / 140) * 0.22;
-            ctx.strokeStyle = `rgba(139, 152, 247, ${opacity})`;
-            ctx.lineWidth = 0.5;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
-        }
-      }
-
-      particles.forEach((p) => {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0 || p.x > w) p.vx *= -1;
-        if (p.y < 0 || p.y > h) p.vy *= -1;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(167, 178, 255, ${p.opacity})`;
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius * 3, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(102, 126, 234, ${p.opacity * 0.15})`;
-        ctx.fill();
-      });
-
-      animationFrameId = requestAnimationFrame(draw);
-    };
-
-    resizeCanvas();
-    initParticles();
-    draw();
-
-    const handleResize = () => {
-      resizeCanvas();
-      initParticles();
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
   return (
     <section id="hero" className="hero-section" data-testid="hero-section">
-      <div className="mesh-gradient mesh-1"></div>
-      <div className="mesh-gradient mesh-2"></div>
-      <div className="mesh-gradient mesh-3"></div>
-
-      <div className="liquid-blob blob-1"></div>
-      <div className="liquid-blob blob-2"></div>
-
-      <canvas ref={canvasRef} className="particle-canvas"></canvas>
-
-      <div className="grid-overlay"></div>
+      <div className="hero-bg"></div>
+      <div className="hero-overlay"></div>
       <div className="noise-overlay"></div>
 
       <div className="hero-container">
         <div className="hero-badge" data-testid="hero-badge">
           <span className="badge-dot"></span>
-          <Sparkles size={14} className="badge-icon" />
           <span>Growth Activation Agency</span>
         </div>
 
         <h1 className="hero-title" data-testid="hero-title">
-         We Build Growth Systems
-<br />
-<span className="gradient-text">for Brands Ready to Move Forward</span>
+          HYPERNUSA
+          <br />
+          <span className="gradient-text">
+            Building The System Behind Brand Growth
+          </span>
         </h1>
 
-       <p className="hero-description" data-testid="hero-description">
-  AMN helps brands connect campaign thinking, digital presence, media performance,
-  <br className="desktop-br" />
-  commerce channels, automation, and AI-powered operations
-  <br className="desktop-br" />
-  into measurable growth activation.
-</p>
+        <p className="hero-description" data-testid="hero-description">
+          Strategy. Creative. Commerce. Technology. Automation.
+          <br className="desktop-br" />
+          We help brands turn marketing activity into measurable business movement.
+        </p>
 
         <div className="hero-cta-group">
           <a href="/lets-talk" className="btn-primary" data-testid="hero-cta-primary">
-           Let&apos;s Talk
+            Let&apos;s Talk
             <ArrowRight size={20} className="btn-icon" />
           </a>
 
-         <a href="/solutions" className="btn-secondary" data-testid="hero-cta-secondary">
-  Explore Solutions
-</a>
+          <a href="/solutions" className="btn-secondary" data-testid="hero-cta-secondary">
+            Explore Solutions
+          </a>
         </div>
-
-        {/* <div className="hero-capabilities" data-testid="hero-capabilities">
-          {heroCapabilities.map((cap, i) => {
-            const Icon = iconMap[cap.icon];
-
-            return (
-              <div
-                key={cap.id}
-                className="capability-card"
-                style={{ animationDelay: `${0.9 + i * 0.12}s` }}
-                data-testid={`hero-capability-${cap.id}`}
-              >
-                <div className="capability-border"></div>
-
-                <div className="capability-content">
-                  <div className="capability-icon-wrap">
-                    <Icon size={20} strokeWidth={1.75} />
-                  </div> */}
-
-                  {/* <div className="capability-text">
-                    <div className="capability-title">{cap.title}</div>
-                    <div className="capability-desc">{cap.description}</div>
-                  </div> */}
-                </div>
-              {/* </div>
-            );
-          })}
-        </div>
-      </div> */}
+      </div>
 
       <div className="scroll-indicator">
         <div className="scroll-line"></div>
@@ -265,118 +53,58 @@ const Hero = () => {
           position: relative;
           overflow: hidden;
           padding: 140px 40px 110px;
-          background: #07071a;
+          background: #0a1225;
           isolation: isolate;
         }
 
-        .mesh-gradient {
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          opacity: 0.6;
-        }
-
-        .mesh-1 {
-          background: radial-gradient(ellipse 80% 60% at 20% 30%, rgba(102, 126, 234, 0.35) 0%, transparent 50%);
-          animation: mesh-drift-1 20s ease-in-out infinite;
-        }
-
-        .mesh-2 {
-          background: radial-gradient(ellipse 60% 50% at 80% 70%, rgba(118, 75, 162, 0.3) 0%, transparent 50%);
-          animation: mesh-drift-2 25s ease-in-out infinite;
-        }
-
-        .mesh-3 {
-          background: radial-gradient(ellipse 50% 40% at 50% 50%, rgba(99, 102, 241, 0.25) 0%, transparent 50%);
-          animation: mesh-drift-3 30s ease-in-out infinite;
-        }
-
-        @keyframes mesh-drift-1 {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          33% { transform: translate(80px, -40px) scale(1.1); }
-          66% { transform: translate(-40px, 60px) scale(0.95); }
-        }
-
-        @keyframes mesh-drift-2 {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          50% { transform: translate(-60px, -80px) scale(1.15); }
-        }
-
-        @keyframes mesh-drift-3 {
-          0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
-          50% { transform: translate(40px, 30px) scale(1.2); opacity: 0.8; }
-        }
-
-        .liquid-blob {
-          position: absolute;
-          border-radius: 50%;
-          filter: blur(80px);
-          pointer-events: none;
-          mix-blend-mode: screen;
-        }
-
-        .blob-1 {
-          width: 500px;
-          height: 500px;
-          background: radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, transparent 70%);
-          top: 10%;
-          right: -100px;
-          animation: blob-morph-1 18s ease-in-out infinite;
-        }
-
-        .blob-2 {
-          width: 600px;
-          height: 600px;
-          background: radial-gradient(circle, rgba(79, 70, 229, 0.35) 0%, transparent 70%);
-          bottom: -100px;
-          left: -100px;
-          animation: blob-morph-2 22s ease-in-out infinite;
-        }
-
-        @keyframes blob-morph-1 {
-          0%, 100% { transform: translate(0, 0) scale(1); border-radius: 50%; }
-          33% { transform: translate(-60px, 40px) scale(1.1); border-radius: 60% 40% 50% 50%; }
-          66% { transform: translate(30px, -50px) scale(0.95); border-radius: 40% 60% 60% 40%; }
-        }
-
-        @keyframes blob-morph-2 {
-          0%, 100% { transform: translate(0, 0) scale(1); border-radius: 50%; }
-          50% { transform: translate(80px, -60px) scale(1.15); border-radius: 55% 45% 40% 60%; }
-        }
-
-        .particle-canvas {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          pointer-events: none;
-          opacity: 0.78;
-          z-index: 2;
-        }
-
-        .grid-overlay {
-          position: absolute;
-          inset: 0;
-          background-image:
-            linear-gradient(rgba(167, 178, 255, 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(167, 178, 255, 0.03) 1px, transparent 1px);
-          background-size: 80px 80px;
-          mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 80%);
-          -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 80%);
-          pointer-events: none;
-        }
+       .hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('/images/hero-city-bg.jpg') center/cover no-repeat;
+  z-index: 0;
+  transform: scale(1.02);
+  filter: brightness(1.18) saturate(1.18) contrast(1.05);
+}
+        .hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(10, 18, 37, 0.72) 0%,
+      rgba(10, 18, 37, 0.42) 45%,
+      rgba(10, 18, 37, 0.68) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(10, 18, 37, 0.32) 0%,
+      rgba(10, 18, 37, 0.78) 100%
+    ),
+    radial-gradient(
+      circle at 28% 45%,
+      rgba(102, 120, 225, 0.22),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 75% 48%,
+      rgba(228, 73, 164, 0.18),
+      transparent 34%
+    );
+  z-index: 1;
+}
 
         .noise-overlay {
           position: absolute;
           inset: 0;
           background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E");
-          opacity: 0.03;
+          opacity: 0.04;
           pointer-events: none;
           mix-blend-mode: overlay;
+          z-index: 2;
         }
 
         .hero-container {
-          max-width: 1280px;
+          max-width: 1180px;
           margin: 0 auto;
           text-align: center;
           position: relative;
@@ -388,56 +116,68 @@ const Hero = () => {
           align-items: center;
           gap: 10px;
           padding: 10px 22px;
-          background: rgba(255, 255, 255, 0.04);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border: 1px solid rgba(167, 178, 255, 0.15);
-          border-radius: 50px;
+          background: rgba(255, 255, 255, 0.075);
+          backdrop-filter: blur(22px);
+          -webkit-backdrop-filter: blur(22px);
+          border: 1px solid rgba(255, 255, 255, 0.14);
+          border-radius: 999px;
           font-size: 13px;
-          font-weight: 500;
-          color: rgba(255, 255, 255, 0.85);
-          margin-bottom: 40px;
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.88);
+          margin-bottom: 34px;
           animation: fade-in-up 1s ease;
-          box-shadow: 0 8px 32px rgba(102, 126, 234, 0.1);
+          box-shadow: 0 12px 38px rgba(10, 18, 37, 0.28);
         }
 
         .badge-dot {
-          width: 6px;
-          height: 6px;
-          background: #8b98f7;
+          width: 7px;
+          height: 7px;
+          background: #e449a4;
           border-radius: 50%;
-          box-shadow: 0 0 12px #8b98f7;
+          box-shadow: 0 0 16px rgba(228, 73, 164, 0.8);
           animation: pulse-dot 2s ease-in-out infinite;
         }
 
         @keyframes pulse-dot {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.5; transform: scale(0.8); }
-        }
+          0%, 100% {
+            opacity: 1;
+            transform: scale(1);
+          }
 
-        .badge-icon {
-          color: #a7b2ff;
+          50% {
+            opacity: 0.5;
+            transform: scale(0.82);
+          }
         }
 
         .hero-title {
-          font-size: clamp(58px, 8vw, 118px);
-          font-weight: 400;
+          font-size: clamp(56px, 8vw, 118px);
+          font-weight: 800;
           line-height: 0.98;
           margin-bottom: 34px;
           letter-spacing: -0.055em;
           animation: fade-in-up 1s ease 0.2s backwards;
           color: #ffffff;
+          text-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+        }
+
+        .hero-title .gradient-text {
+          display: inline-block;
+          font-size: clamp(34px, 4.7vw, 72px);
+          line-height: 1.05;
+          letter-spacing: -0.045em;
         }
 
         .hero-description {
           font-size: 20px;
-          color: rgba(255, 255, 255, 0.65);
+          color: rgba(255, 255, 255, 0.72);
           line-height: 1.75;
-          margin-bottom: 50px;
-          max-width: 980px;
+          margin-bottom: 48px;
+          max-width: 920px;
           margin-left: auto;
           margin-right: auto;
           animation: fade-in-up 1s ease 0.4s backwards;
+          text-shadow: 0 10px 34px rgba(0, 0, 0, 0.4);
         }
 
         .hero-cta-group {
@@ -445,7 +185,6 @@ const Hero = () => {
           gap: 18px;
           justify-content: center;
           flex-wrap: wrap;
-          margin-bottom: 90px;
           animation: fade-in-up 1s ease 0.6s backwards;
         }
 
@@ -454,25 +193,27 @@ const Hero = () => {
           align-items: center;
           gap: 10px;
           padding: 18px 36px;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #6678e1 0%, #e449a4 100%);
           color: white;
           text-decoration: none;
           border-radius: 12px;
-          font-weight: 600;
+          font-weight: 700;
           font-size: 15px;
-          transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
+          transition:
+            transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+            box-shadow 0.4s ease;
           border: none;
           cursor: pointer;
           position: relative;
           overflow: hidden;
-          box-shadow: 0 8px 30px rgba(102, 126, 234, 0.35);
+          box-shadow: 0 12px 34px rgba(102, 120, 225, 0.32);
         }
 
         .btn-primary::before {
           content: '';
           position: absolute;
           inset: 0;
-          background: linear-gradient(135deg, #7c8ff4 0%, #8c5dba 100%);
+          background: linear-gradient(135deg, #7c8ff4 0%, #f05ab3 100%);
           opacity: 0;
           transition: opacity 0.4s ease;
         }
@@ -484,7 +225,7 @@ const Hero = () => {
 
         .btn-primary:hover {
           transform: translateY(-3px);
-          box-shadow: 0 16px 45px rgba(102, 126, 234, 0.5);
+          box-shadow: 0 18px 48px rgba(228, 73, 164, 0.36);
         }
 
         .btn-primary:hover::before {
@@ -501,133 +242,23 @@ const Hero = () => {
 
         .btn-secondary {
           padding: 18px 36px;
-          background: rgba(255, 255, 255, 0.04);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border: 1px solid rgba(255, 255, 255, 0.12);
+          background: rgba(255, 255, 255, 0.07);
+          backdrop-filter: blur(22px);
+          -webkit-backdrop-filter: blur(22px);
+          border: 1px solid rgba(255, 255, 255, 0.14);
           color: white;
           text-decoration: none;
           border-radius: 12px;
-          font-weight: 600;
+          font-weight: 700;
           font-size: 15px;
           transition: all 0.4s ease;
           display: inline-block;
         }
 
         .btn-secondary:hover {
-          background: rgba(255, 255, 255, 0.08);
-          border-color: rgba(167, 178, 255, 0.4);
+          background: rgba(255, 255, 255, 0.11);
+          border-color: rgba(228, 73, 164, 0.42);
           transform: translateY(-3px);
-        }
-
-        .hero-capabilities {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 18px;
-          max-width: 980px;
-          margin: 0 auto;
-        }
-
-        .capability-card {
-          position: relative;
-          padding: 1px;
-          border-radius: 18px;
-          background: linear-gradient(
-            145deg,
-            rgba(167, 178, 255, 0.18) 0%,
-            rgba(167, 178, 255, 0.04) 40%,
-            rgba(139, 92, 246, 0.14) 100%
-          );
-          opacity: 0;
-          transform: translateY(20px);
-          animation: cap-reveal 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-          transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-          overflow: hidden;
-        }
-
-        @keyframes cap-reveal {
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .capability-card:hover {
-          transform: translateY(-6px);
-        }
-
-        .capability-border {
-          position: absolute;
-          inset: -50%;
-          background: conic-gradient(
-            from 0deg,
-            transparent 0deg,
-            transparent 320deg,
-            rgba(167, 178, 255, 0.6) 350deg,
-            rgba(139, 92, 246, 0.8) 360deg,
-            transparent 360deg
-          );
-          opacity: 0;
-          transition: opacity 0.5s ease;
-          animation: border-rotate 6s linear infinite;
-          pointer-events: none;
-        }
-
-        @keyframes border-rotate {
-          to { transform: rotate(360deg); }
-        }
-
-        .capability-card:hover .capability-border {
-          opacity: 1;
-        }
-
-        .capability-content {
-          position: relative;
-          z-index: 2;
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          padding: 22px 24px;
-          background: linear-gradient(145deg, rgba(15, 15, 35, 0.92) 0%, rgba(20, 20, 45, 0.88) 100%);
-          backdrop-filter: blur(24px);
-          -webkit-backdrop-filter: blur(24px);
-          border-radius: 17px;
-          text-align: left;
-          height: 100%;
-        }
-
-        .capability-icon-wrap {
-          width: 44px;
-          height: 44px;
-          min-width: 44px;
-          border-radius: 12px;
-          background: linear-gradient(145deg, rgba(102, 126, 234, 0.18) 0%, rgba(139, 92, 246, 0.18) 100%);
-          border: 1px solid rgba(167, 178, 255, 0.18);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #a7b2ff;
-          transition: background 0.4s ease, color 0.4s ease, transform 0.4s ease;
-        }
-
-        .capability-card:hover .capability-icon-wrap {
-          background: linear-gradient(145deg, rgba(102, 126, 234, 0.35) 0%, rgba(139, 92, 246, 0.35) 100%);
-          color: #ffffff;
-          transform: scale(1.05);
-        }
-
-        .capability-title {
-          font-size: 15px;
-          font-weight: 700;
-          color: #ffffff;
-          margin-bottom: 3px;
-          letter-spacing: -0.2px;
-        }
-
-        .capability-desc {
-          font-size: 12.5px;
-          color: rgba(255, 255, 255, 0.55);
-          line-height: 1.5;
         }
 
         .desktop-br {
@@ -645,13 +276,25 @@ const Hero = () => {
         .scroll-line {
           width: 1px;
           height: 56px;
-          background: linear-gradient(180deg, transparent, rgba(167, 178, 255, 0.6), transparent);
+          background: linear-gradient(
+            180deg,
+            transparent,
+            rgba(255, 255, 255, 0.7),
+            transparent
+          );
           animation: scroll-line-pulse 2.5s ease-in-out infinite;
         }
 
         @keyframes scroll-line-pulse {
-          0%, 100% { opacity: 0.3; transform: translateY(0); }
-          50% { opacity: 1; transform: translateY(10px); }
+          0%, 100% {
+            opacity: 0.3;
+            transform: translateY(0);
+          }
+
+          50% {
+            opacity: 1;
+            transform: translateY(10px);
+          }
         }
 
         @keyframes fade-in-up {
@@ -666,32 +309,64 @@ const Hero = () => {
           }
         }
 
-        @media (max-width: 1024px) {
-          .hero-capabilities {
-            max-width: 720px;
-          }
-        }
-
-        @media (max-width: 820px) {
-          .hero-capabilities {
-            grid-template-columns: 1fr;
-            max-width: 460px;
-            gap: 14px;
-          }
-        }
-
         @media (max-width: 768px) {
           .hero-section {
-            padding: 120px 20px 80px;
+            min-height: 92vh;
+            padding: 124px 20px 86px;
+          }
+
+          .hero-bg {
+            background-position: center;
+            transform: scale(1.04);
+          }
+
+         .hero-overlay {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(10, 18, 37, 0.5) 0%,
+      rgba(10, 18, 37, 0.86) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(10, 18, 37, 0.72) 0%,
+      rgba(10, 18, 37, 0.48) 50%,
+      rgba(10, 18, 37, 0.72) 100%
+    ),
+    radial-gradient(
+      circle at 50% 38%,
+      rgba(102, 120, 225, 0.2),
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 70% 50%,
+      rgba(228, 73, 164, 0.14),
+      transparent 38%
+    );
+}
+
+          .hero-badge {
+            font-size: 12px;
+            padding: 8px 16px;
+            margin-bottom: 28px;
           }
 
           .hero-title {
-            font-size: 46px;
+            font-size: 48px;
             letter-spacing: -1.8px;
+            margin-bottom: 28px;
+          }
+
+          .hero-title .gradient-text {
+            font-size: 30px;
+            line-height: 1.12;
+            letter-spacing: -1.2px;
           }
 
           .hero-description {
             font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 38px;
           }
 
           .desktop-br {
@@ -704,13 +379,20 @@ const Hero = () => {
         }
 
         @media (max-width: 480px) {
-          .hero-title {
-            font-size: 38px;
+          .hero-section {
+            padding: 116px 20px 74px;
           }
 
-          .hero-badge {
-            font-size: 11px;
-            padding: 8px 16px;
+          .hero-title {
+            font-size: 40px;
+          }
+
+          .hero-title .gradient-text {
+            font-size: 25px;
+          }
+
+          .hero-description {
+            font-size: 15px;
           }
 
           .btn-primary,
@@ -724,31 +406,6 @@ const Hero = () => {
           .hero-cta-group {
             flex-direction: column;
             gap: 12px;
-            margin-bottom: 0;
-          }
-
-          .capability-content {
-            padding: 18px 20px;
-          }
-        }
-
-        @media (max-width: 768px) {
-          .liquid-blob {
-            filter: blur(60px);
-          }
-
-          .blob-1 {
-            width: 360px;
-            height: 360px;
-          }
-
-          .blob-2 {
-            width: 420px;
-            height: 420px;
-          }
-
-          .grid-overlay {
-            background-size: 60px 60px;
           }
         }
       `}</style>

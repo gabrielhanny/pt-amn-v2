@@ -1,5 +1,12 @@
 import React from 'react';
-import { Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import {
+  Instagram,
+  Linkedin,
+  Facebook,
+  Mail,
+  Phone,
+  MapPin,
+} from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -7,37 +14,78 @@ const Footer = () => {
       <div className="footer-container">
         <div className="footer-top">
           <div className="footer-brand">
-            <div className="footer-logo gradient-text">AMN</div>
+            <img
+              src="/images/hypernusa-logo-color.svg"
+              alt="Hypernusa"
+              className="footer-logo-image"
+            />
 
             <p className="footer-tagline">
-              Growth Activation Agency helping brands connect strategy, creative execution,
-              commerce, technology, and AI-powered operations.
+              Growth Activation Agency that helps brands turn marketing activity into
+              measurable business movement. We connect strategy, creative, commerce,
+              technology, automation, and reporting into one integrated growth ecosystem.
             </p>
+
             <div className="footer-social">
-  <a href="https://www.instagram.com/hypernusa" target="_blank" rel="noopener noreferrer" className="social-link">
-    <Instagram size={20} />
-  </a>
-  <a href="https://www.linkedin.com/company/hypernusa/about/" target="_blank" rel="noopener noreferrer" className="social-link">
-    <Linkedin size={20} />
-  </a>
-  <a href="mailto:hello@hypernusa.com" className="social-link">
-    <Mail size={20} />
-  </a>
-  <a href="https://wa.me/6285168157168" target="_blank" rel="noopener noreferrer" className="social-link">
-  <Phone size={20} />
-</a>
-</div>
+              <a
+                href="https://www.instagram.com/hypernusa"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link"
+                aria-label="Instagram"
+              >
+                <Instagram size={19} />
+              </a>
+
+              <a
+                href="https://www.linkedin.com/company/hypernusa/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link"
+                aria-label="LinkedIn"
+              >
+                <Linkedin size={19} />
+              </a>
+
+              <a
+                href="https://facebook.com/hypernusa"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link"
+                aria-label="Facebook"
+              >
+                <Facebook size={19} />
+              </a>
+
+              <a
+                href="mailto:hello@hypernusa.com"
+                className="social-link"
+                aria-label="Email"
+              >
+                <Mail size={19} />
+              </a>
+
+              <a
+                href="https://wa.me/6285168157168"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link"
+                aria-label="WhatsApp"
+              >
+                <Phone size={19} />
+              </a>
+            </div>
           </div>
 
           <div className="footer-links">
             <div className="footer-column">
               <h4 className="footer-title">Solutions</h4>
               <ul className="footer-list">
-                <li><a href="/solutions">Creative & Campaign</a></li>
-                <li><a href="/solutions">Media & Performance</a></li>
-                <li><a href="/solutions">Experience & Tech</a></li>
-                <li><a href="/solutions">Commerce Growth</a></li>
-                <li><a href="/solutions">Data & AI Operations</a></li>
+                <li><a href="/solutions">Growth Activation Loop</a></li>
+                <li><a href="/solutions">Campaign / Launch Kit</a></li>
+                <li><a href="/solutions">Web & Automation Sprint</a></li>
+                <li><a href="/solutions">Commerce & Affiliate Growth</a></li>
+                <li><a href="/solutions">AI-Powered Growth Ops</a></li>
               </ul>
             </div>
 
@@ -56,10 +104,48 @@ const Footer = () => {
               <h4 className="footer-title">Contact</h4>
               <ul className="footer-list">
                 <li><a href="mailto:hello@hypernusa.com">Email</a></li>
-<li><a href="https://wa.me/6285168157168" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
-<li><a href="https://www.linkedin.com/company/hypernusa/about/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-<li><a href="https://www.instagram.com/hypernusa" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-                <li className="footer-location"><MapPin size={14} /> Indonesia</li>
+                <li>
+                  <a
+                    href="https://wa.me/6285168157168"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    WhatsApp
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.linkedin.com/company/hypernusa/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    LinkedIn
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://facebook.com/hypernusa"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Facebook
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.instagram.com/hypernusa"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Instagram
+                  </a>
+                </li>
+                <li className="footer-location">
+                  <MapPin size={14} />
+                  <span>
+                    Gedung BEI Tower 1 Level 3, Unit 304, Senayan, Jakarta Selatan
+                  </span>
+                </li>
               </ul>
             </div>
           </div>
@@ -71,34 +157,38 @@ const Footer = () => {
           </p>
 
           <div className="footer-credits">
-            <span>Made with </span>
-            <span className="gradient-text">passion</span>
+            <span>Crafted by </span>
+            <span className="gradient-text">Hypernusa</span>
             <span> in Indonesia</span>
           </div>
         </div>
       </div>
 
       <style jsx="true">{`
-        .footer {
-          position: relative;
-          background:
-            radial-gradient(circle at 20% 0%, rgba(102, 126, 234, 0.1), transparent 28%),
-            linear-gradient(180deg, #080818 0%, #050510 100%);
-          padding: 90px 40px 42px;
-          border-top: 1px solid rgba(167, 178, 255, 0.1);
-          overflow: hidden;
-        }
-
-        .footer::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          background-image:
-            linear-gradient(rgba(167, 178, 255, 0.018) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(167, 178, 255, 0.018) 1px, transparent 1px);
-          background-size: 88px 88px;
-          pointer-events: none;
-        }
+      .footer {
+  position: relative;
+  background:
+    linear-gradient(
+  rgba(10, 18, 37, 0.58),
+  rgba(10, 18, 37, 0.78)
+),
+    url('/images/footer-city-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 72px 40px 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+.footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(102, 120, 225, 0.08), transparent 28%),
+    radial-gradient(circle at 85% 24%, rgba(228, 73, 164, 0.07), transparent 30%);
+  pointer-events: none;
+}
 
         .footer-container {
           position: relative;
@@ -109,53 +199,54 @@ const Footer = () => {
 
         .footer-top {
           display: grid;
-          grid-template-columns: 1.2fr 2fr;
+          grid-template-columns: 0.9fr 2fr;
           gap: 90px;
-          margin-bottom: 64px;
-          padding-bottom: 64px;
+          margin-bottom: 48px;
+          padding-bottom: 48px;
           border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .footer-brand {
-          max-width: 430px;
+          max-width: 360px;
         }
 
-        .footer-logo {
-          font-size: 38px;
-          font-weight: 800;
-          letter-spacing: 2px;
+        .footer-logo-image {
+          width: 180px;
+          height: auto;
+          display: block;
           margin-bottom: 22px;
         }
 
         .footer-tagline {
-          font-size: 15px;
-          line-height: 1.85;
-          color: rgba(255, 255, 255, 0.58);
-          margin: 0 0 30px;
+          font-size: 14px;
+          line-height: 1.8;
+          color: rgba(255, 255, 255, 0.62);
+          margin: 0 0 28px;
         }
 
         .footer-social {
           display: flex;
+          flex-wrap: wrap;
           gap: 12px;
         }
 
         .social-link {
-          width: 44px;
-          height: 44px;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(167, 178, 255, 0.12);
+          width: 42px;
+          height: 42px;
+          background: rgba(255, 255, 255, 0.055);
+          border: 1px solid rgba(255, 255, 255, 0.12);
           border-radius: 999px;
           display: flex;
           align-items: center;
           justify-content: center;
-          color: rgba(255, 255, 255, 0.58);
+          color: rgba(255, 255, 255, 0.68);
           text-decoration: none;
           transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
         }
 
         .social-link:hover {
-          background: rgba(102, 126, 234, 0.12);
-          border-color: rgba(167, 178, 255, 0.34);
+          background: rgba(102, 120, 225, 0.16);
+          border-color: rgba(228, 73, 164, 0.35);
           color: #ffffff;
           transform: translateY(-3px);
         }
@@ -167,12 +258,12 @@ const Footer = () => {
         }
 
         .footer-title {
-          font-size: 13px;
-          font-weight: 700;
-          color: rgba(255, 255, 255, 0.88);
+          font-size: 12px;
+          font-weight: 800;
+          color: rgba(255, 255, 255, 0.92);
           margin: 0 0 22px;
           text-transform: uppercase;
-          letter-spacing: 0.16em;
+          letter-spacing: 0.18em;
         }
 
         .footer-list {
@@ -187,18 +278,22 @@ const Footer = () => {
 
         .footer-list a,
         .footer-location {
-          color: rgba(255, 255, 255, 0.55);
+          color: rgba(255, 255, 255, 0.58);
           text-decoration: none;
           font-size: 14px;
-          line-height: 1.5;
+          line-height: 1.55;
           transition: color 0.3s ease, transform 0.3s ease;
           display: inline-flex;
-          align-items: center;
+          align-items: flex-start;
           gap: 8px;
         }
 
+        .footer-location {
+          max-width: 280px;
+        }
+
         .footer-list a:hover {
-          color: #a7b2ff;
+          color: #ffffff;
           transform: translateX(3px);
         }
 
@@ -213,14 +308,18 @@ const Footer = () => {
         .footer-copyright,
         .footer-credits {
           font-size: 13px;
-          color: rgba(255, 255, 255, 0.48);
+          color: rgba(255, 255, 255, 0.5);
           margin: 0;
         }
 
         @media (max-width: 1024px) {
           .footer-top {
             grid-template-columns: 1fr;
-            gap: 60px;
+            gap: 56px;
+          }
+
+          .footer-brand {
+            max-width: 520px;
           }
 
           .footer-links {
@@ -230,12 +329,23 @@ const Footer = () => {
 
         @media (max-width: 768px) {
           .footer {
-            padding: 70px 24px 34px;
+            padding: 64px 24px 32px;
+            background-position: center;
+          }
+
+          .footer-top {
+            gap: 44px;
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+          }
+
+          .footer-logo-image {
+            width: 150px;
           }
 
           .footer-links {
             grid-template-columns: 1fr;
-            gap: 38px;
+            gap: 36px;
           }
 
           .footer-bottom {
