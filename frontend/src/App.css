@@ -148,10 +148,10 @@ button:focus-visible {
 }
 
 /* Slim energy ring around the logo */
-.loader-energy-ring {
+/* .loader-energy-ring {
   position: absolute;
-  width: 380px;
-  height: 380px;
+  width: 620px;
+  height: 620px;
   border-radius: 50%;
   border: 1px solid transparent;
   background: conic-gradient(
@@ -164,6 +164,25 @@ button:focus-visible {
   );
   mask: radial-gradient(circle, transparent 188px, black 189px, black 191px, transparent 192px);
   -webkit-mask: radial-gradient(circle, transparent 188px, black 189px, black 191px, transparent 192px);
+  animation: ring-rotate 4.5s linear infinite;
+  filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.4));
+} */
+ .loader-energy-ring {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(167, 178, 255, 0.34) 80deg,
+    rgba(139, 92, 246, 0.68) 130deg,
+    rgba(167, 178, 255, 0.28) 200deg,
+    transparent 280deg
+  );
+  mask: radial-gradient(circle, transparent 258px, black 259px, black 261px, transparent 262px);
+  -webkit-mask: radial-gradient(circle, transparent 258px, black 259px, black 261px, transparent 262px);
   animation: ring-rotate 4.5s linear infinite;
   filter: drop-shadow(0 0 12px rgba(139, 92, 246, 0.4));
 }
@@ -185,15 +204,20 @@ button:focus-visible {
 .loader-letters {
   display: flex;
   gap: 12px;
-  font-size: 96px;
+  font-size: 46px;
   font-weight: 800;
   letter-spacing: 2px;
   opacity: 0;
   transition: opacity 0.5s ease;
   position: relative;
   z-index: 2;
+  text-align: center;
+  padding: 0 24px;
 }
 
+.loader-company-name {
+  white-space: nowrap;
+}
 .loader-letters.visible {
   opacity: 1;
 }
@@ -340,13 +364,20 @@ section::before {
 /* Responsive Loader */
 @media (max-width: 768px) {
   .loader-letters {
-    font-size: 72px;
+    font-size: 30px;
     gap: 10px;
+    max-width: 90vw;
   }
 
-  .loader-energy-ring {
-    width: 300px;
-    height: 300px;
+  .loader-company-name {
+    white-space: normal;
+  }
+}
+    .loader-energy-ring {
+    width: 380px;
+    height: 380px;
+    mask: radial-gradient(circle, transparent 188px, black 189px, black 191px, transparent 192px);
+    -webkit-mask: radial-gradient(circle, transparent 188px, black 189px, black 191px, transparent 192px);
   }
 
   .loader-energy-ring {
@@ -358,18 +389,20 @@ section::before {
     font-size: 10px;
     letter-spacing: 4px;
   }
-}
+
 
 @media (max-width: 480px) {
   .loader-letters {
-    font-size: 56px;
+    font-size: 22px;
     gap: 8px;
-  }
-
-  .loader-energy-ring {
-    width: 240px;
-    height: 240px;
-    mask: radial-gradient(circle, transparent 118px, black 119px, black 121px, transparent 122px);
-    -webkit-mask: radial-gradient(circle, transparent 118px, black 119px, black 121px, transparent 122px);
+    max-width: 92vw;
   }
 }
+
+   .loader-energy-ring {
+    width: 300px;
+    height: 300px;
+    mask: radial-gradient(circle, transparent 148px, black 149px, black 151px, transparent 152px);
+    -webkit-mask: radial-gradient(circle, transparent 148px, black 149px, black 151px, transparent 152px);
+  }
+

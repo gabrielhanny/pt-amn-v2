@@ -16,16 +16,16 @@ const Loader = ({ fadeOut = false }) => {
       <div className="loader-grain"></div>
 
       <div className={`loader-letters ${visible ? 'visible' : ''}`}>
-        <span className="letter" style={{ animationDelay: '0s' }}>A</span>
-        <span className="letter" style={{ animationDelay: '0.12s' }}>M</span>
-        <span className="letter" style={{ animationDelay: '0.24s' }}>N</span>
-      </div>
+  <span className="letter loader-company-name" style={{ animationDelay: '0s' }}>
+    PT. ANAK MUDA NUSANTARA
+  </span>
+</div>
 
-      <div className="loader-tagline">
-        <span className="tagline-line"></span>
-        <span>Digital Growth Partner</span>
-        <span className="tagline-line"></span>
-      </div>
+<div className="loader-tagline">
+  <span className="tagline-line"></span>
+  <span>Growth Activation Agency</span>
+  <span className="tagline-line"></span>
+</div>
     </div>
   );
 };
