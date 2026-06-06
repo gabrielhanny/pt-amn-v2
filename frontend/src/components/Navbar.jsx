@@ -24,9 +24,13 @@ const Navbar = () => {
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} data-testid="navbar">
       <div className="navbar-shell">
         <div className="navbar-container">
-          <a href="/" className="navbar-logo" data-testid="navbar-logo">
-            <span className="logo-text gradient-text">AMN</span>
-          </a>
+         <a href="/" className="navbar-logo" data-testid="navbar-logo">
+  <img
+    src="/images/hypernusa-logo-color.svg"
+    alt="Hypernusa"
+    className="navbar-logo-image"
+  />
+</a>
 
           <ul className="navbar-menu desktop-menu">
             {menuItems.map((item) => (
@@ -142,14 +146,19 @@ const Navbar = () => {
           justify-content: space-between;
         }
 
-        .navbar-logo {
-          font-size: 28px;
-          font-weight: 800;
-          letter-spacing: 2px;
-          text-decoration: none;
-          transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+       .navbar-logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
+.navbar-logo-image {
+  height: 60px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
         .navbar.scrolled .navbar-logo {
           transform: scale(0.96);
         }
@@ -324,13 +333,13 @@ const Navbar = () => {
         }
 
         @media (max-width: 768px) {
-          .navbar-container {
-            padding: 0 20px;
-          }
+           .navbar-container {
+    padding: 0 20px;
+  }
 
-          .navbar-logo {
-            font-size: 24px;
-          }
+  .navbar-logo-image {
+    height: 54px;
+  }
         }
       `}</style>
     </nav>
