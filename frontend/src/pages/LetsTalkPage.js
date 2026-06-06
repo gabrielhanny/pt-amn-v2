@@ -1,9 +1,87 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/sections/Footer';
 import { Mail, MessageCircle, ArrowRight } from 'lucide-react';
 
 const LetsTalkPage = () => {
+    const [formData, setFormData] = useState({
+    name: '',
+    company: '',
+    role: '',
+    email: '',
+    phone: '',
+    website: '',
+    solution: '',
+    timeline: '',
+    budget: '',
+    message: '',
+  });
+
+  const [submitStatus, setSubmitStatus] = useState({
+    loading: false,
+    success: '',
+    error: '',
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    setSubmitStatus({
+      loading: true,
+      success: '',
+      error: '',
+    });
+
+    try {
+      const response = await fetch('http://localhost:5000/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to send inquiry');
+      }
+
+      setSubmitStatus({
+        loading: false,
+        success: 'Inquiry sent successfully. Our team will review it shortly.',
+        error: '',
+      });
+
+      setFormData({
+        name: '',
+        company: '',
+        role: '',
+        email: '',
+        phone: '',
+        website: '',
+        solution: '',
+        timeline: '',
+        budget: '',
+        message: '',
+      });
+    } catch (error) {
+      setSubmitStatus({
+        loading: false,
+        success: '',
+        error: 'Failed to send inquiry. Please contact us via WhatsApp or email.',
+      });
+    }
+  };
   return (
     <>
       <Navbar />
@@ -59,56 +137,129 @@ const LetsTalkPage = () => {
               </div>
             </div>
 
-            <form className="inquiry-form">
-              <div className="form-row">
-                <input type="text" placeholder="Name" />
-                <input type="text" placeholder="Company / Brand" />
-              </div>
+         <form className="inquiry-form" onSubmit={handleSubmit}>
+  <div className="form-row">
+    <input
+      type="text"
+      name="name"
+      placeholder="Name"
+      value={formData.name}
+      onChange={handleChange}
+      required
+    />
 
-              <div className="form-row">
-                <input type="text" placeholder="Role / Position" />
-                <input type="email" placeholder="Email" />
-              </div>
+    <input
+      type="text"
+      name="company"
+      placeholder="Company / Brand"
+      value={formData.company}
+      onChange={handleChange}
+    />
+  </div>
 
-              <div className="form-row">
-                <input type="text" placeholder="WhatsApp / Phone" />
-                <input type="text" placeholder="Website / Social Media Link" />
-              </div>
+  <div className="form-row">
+    <input
+      type="text"
+      name="role"
+      placeholder="Role / Position"
+      value={formData.role}
+      onChange={handleChange}
+    />
 
-              <div className="form-row">
-                <select defaultValue="">
-                  <option value="" disabled>Interested Solution</option>
-                  <option>Creative & Campaign</option>
-                  <option>Media & Performance</option>
-                  <option>Experience & Tech</option>
-                  <option>Commerce Growth</option>
-                  <option>Data & AI Operations</option>
-                  <option>Integrated Campaign / Launch Kit</option>
-                  <option>Growth Activation Loop</option>
-                  <option>Need Direction</option>
-                </select>
+    <input
+      type="email"
+      name="email"
+      placeholder="Email"
+      value={formData.email}
+      onChange={handleChange}
+      required
+    />
+  </div>
 
-                <input type="text" placeholder="Estimated Timeline" />
-              </div>
+  <div className="form-row">
+    <input
+      type="text"
+      name="phone"
+      placeholder="WhatsApp / Phone"
+      value={formData.phone}
+      onChange={handleChange}
+    />
 
-              <select defaultValue="">
-                <option value="" disabled>Estimated Budget Range</option>
-                <option>Below IDR 50M</option>
-                <option>IDR 50M–100M</option>
-                <option>IDR 100M–250M</option>
-                <option>IDR 250M–500M</option>
-                <option>Above IDR 500M</option>
-                <option>To be discussed</option>
-              </select>
+    <input
+      type="text"
+      name="website"
+      placeholder="Website / Social Media Link"
+      value={formData.website}
+      onChange={handleChange}
+    />
+  </div>
 
-              <textarea rows="6" placeholder="Message"></textarea>
+  <div className="form-row">
+    <select
+      name="solution"
+      value={formData.solution}
+      onChange={handleChange}
+    >
+      <option value="" disabled>Interested Solution</option>
+      <option value="Creative & Campaign">Creative & Campaign</option>
+      <option value="Media & Performance">Media & Performance</option>
+      <option value="Experience & Tech">Experience & Tech</option>
+      <option value="Commerce Growth">Commerce Growth</option>
+      <option value="Data & AI Operations">Data & AI Operations</option>
+      <option value="Integrated Campaign / Launch Kit">Integrated Campaign / Launch Kit</option>
+      <option value="Growth Activation Loop">Growth Activation Loop</option>
+      <option value="Need Direction">Need Direction</option>
+    </select>
 
-              <button type="button" className="submit-button">
-                Submit Inquiry
-                <ArrowRight size={20} />
-              </button>
+    <input
+      type="text"
+      name="timeline"
+      placeholder="Estimated Timeline"
+      value={formData.timeline}
+      onChange={handleChange}
+    />
+  </div>
 
-            </form>
+  <select
+    name="budget"
+    value={formData.budget}
+    onChange={handleChange}
+  >
+    <option value="" disabled>Estimated Budget Range</option>
+    <option value="Below IDR 50M">Below IDR 50M</option>
+    <option value="IDR 50M–100M">IDR 50M–100M</option>
+    <option value="IDR 100M–250M">IDR 100M–250M</option>
+    <option value="IDR 250M–500M">IDR 250M–500M</option>
+    <option value="Above IDR 500M">Above IDR 500M</option>
+    <option value="To be discussed">To be discussed</option>
+  </select>
+
+  <textarea
+    rows="6"
+    name="message"
+    placeholder="Message"
+    value={formData.message}
+    onChange={handleChange}
+    required
+  />
+
+  {submitStatus.success && (
+    <p className="form-note success-message">{submitStatus.success}</p>
+  )}
+
+  {submitStatus.error && (
+    <p className="form-note error-message">{submitStatus.error}</p>
+  )}
+
+  <button
+    type="submit"
+    className="submit-button"
+    disabled={submitStatus.loading}
+  >
+    {submitStatus.loading ? 'Sending Inquiry...' : 'Submit Inquiry'}
+    <ArrowRight size={20} />
+  </button>
+</form>
           </div>
         </section>
       </main>
