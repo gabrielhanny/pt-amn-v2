@@ -14,9 +14,8 @@ const Loader = ({ fadeOut = false }) => {
       <div className="loader-energy-field"></div>
       <div className="loader-energy-ring"></div>
       <div className="loader-grain"></div>
-
-      <div className={`loader-letters ${visible ? 'visible' : ''}`}>
-  <span className="letter loader-company-name" style={{ animationDelay: '0s' }}>
+<div className={`loader-letters ${visible ? 'visible' : ''}`}>
+  <span className="loader-company-name">
     PT. ANAK MUDA NUSANTARA
   </span>
 </div>
