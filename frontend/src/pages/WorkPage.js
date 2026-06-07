@@ -9,23 +9,23 @@ const works = [
     category: 'Campaign & Digital',
     industry: 'Public / Brand Activation',
     description:
-      'Campaign and digital activation experience shaped around audience movement, communication flow, and brand presence.',
+      'Brand communication, digital activation, content ecosystem, and audience engagement shaped through public-facing campaigns.',
     year: '2025',
   },
   {
-    project: 'Commerce Growth Enablement',
+    project: 'Marketplace & Live Commerce Enablement',
     category: 'Commerce Growth',
     industry: 'Retail / Marketplace',
     description:
-      'Marketplace, creator-led commerce, and conversion-oriented activation experience designed for scalable commerce movement.',
+      'Commerce-focused activation supporting marketplace growth, live selling, creator ecosystem, and sales-oriented content.',
     year: '2025',
   },
   {
-    project: 'CRM & Automation Systems',
-    category: 'Experience & Tech',
+    project: 'Growth Automation & CRM Experience',
+    category: 'CRM & Automation',
     industry: 'Technology / Operations',
     description:
-      'Operational workflow, automation structure, and reporting systems designed to support scalable growth operations.',
+      'Workflow automation, CRM structure, dashboard, and reporting systems designed to support scalable growth operations.',
     year: '2026',
   },
 ];
@@ -37,24 +37,26 @@ const WorkPage = () => {
 
       <main className="work-page">
         <section className="work-hero">
-          <div className="work-glow work-glow-one"></div>
-          <div className="work-glow work-glow-two"></div>
+          <div className="work-hero-bg"></div>
+          <div className="work-hero-overlay"></div>
+          <div className="work-noise"></div>
 
           <div className="work-container">
             <div className="work-label">
               <span className="work-line"></span>
-              <span>Selected Work</span>
+              <span>Selected Experience</span>
             </div>
 
             <h1>
-              Work Built Around
+              Experience Shaped
               <br />
-              <span>Brand Movement and Measurable Growth</span>
+              <span>Across Campaign, Commerce & Growth</span>
             </h1>
 
             <p>
-              A collection of campaign, digital, commerce, media, and
-              growth-related experience shaped by the people behind AMN.
+              A selection of campaign, commerce, digital transformation,
+              automation, and growth-related experience that shapes how
+              Hypernusa approaches every project today.
             </p>
           </div>
         </section>
@@ -102,7 +104,7 @@ const WorkPage = () => {
 
         .work-container {
           position: relative;
-          z-index: 3;
+          z-index: 4;
           width: 100%;
           max-width: 1180px;
           margin: 0 auto;
@@ -111,12 +113,63 @@ const WorkPage = () => {
 
         .work-hero {
           position: relative;
-          padding: 180px 0 130px;
+          padding: 190px 0 140px;
           overflow: hidden;
-          background:
-            radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.14), transparent 32%),
-            radial-gradient(circle at 88% 50%, rgba(236, 72, 153, 0.1), transparent 30%),
-            linear-gradient(180deg, #07071a 0%, #050510 100%);
+          background: #050510;
+          isolation: isolate;
+        }
+
+        .work-hero-bg {
+          position: absolute;
+          inset: 0;
+          background: url('/images/workpage-city-bg.jpg') center/cover no-repeat;
+          z-index: 0;
+           opacity: 0.72;
+
+  filter:
+    brightness(1.08)
+    saturate(1.18)
+    contrast(1.03);
+
+  transform: scale(1.02);
+        }
+
+       .work-hero-overlay {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(5, 5, 16, 0.12) 0%,
+      rgba(5, 5, 16, 0.52) 100%
+    ),
+
+    linear-gradient(
+      90deg,
+      rgba(5, 5, 16, 0.34) 0%,
+      rgba(5, 5, 16, 0.10) 50%,
+      rgba(5, 5, 16, 0.34) 100%
+    ),
+
+    radial-gradient(
+      circle at 18% 22%,
+      rgba(102, 126, 234, 0.16),
+      transparent 34%
+    ),
+
+    radial-gradient(
+      circle at 86% 54%,
+      rgba(236, 72, 153, 0.12),
+      transparent 32%
+    );
+}
+
+        .work-noise {
+          position: absolute;
+          inset: 0;
+          z-index: 2;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E");
+          opacity: 0.02;
+          pointer-events: none;
+          mix-blend-mode: overlay;
         }
 
         .work-hero::before,
@@ -128,8 +181,9 @@ const WorkPage = () => {
             linear-gradient(rgba(167, 178, 255, 0.022) 1px, transparent 1px),
             linear-gradient(90deg, rgba(167, 178, 255, 0.022) 1px, transparent 1px);
           background-size: 88px 88px;
-          opacity: 0.45;
+          opacity: 0.32;
           pointer-events: none;
+          z-index: 2;
         }
 
         .work-label {
@@ -142,25 +196,26 @@ const WorkPage = () => {
         .work-line {
           width: 52px;
           height: 1px;
-          background: linear-gradient(90deg, rgba(167, 178, 255, 0.7), transparent);
+          background: linear-gradient(90deg, rgba(167, 178, 255, 0.75), transparent);
         }
 
         .work-label span:last-child {
           font-size: 13px;
           letter-spacing: 0.18em;
           text-transform: uppercase;
-          color: rgba(255, 255, 255, 0.5);
-          font-weight: 600;
+          color: rgba(255, 255, 255, 0.58);
+          font-weight: 700;
         }
 
         .work-hero h1 {
           margin: 0;
-          max-width: 1100px;
+          max-width: 1120px;
           font-size: clamp(52px, 7vw, 96px);
           line-height: 0.95;
           letter-spacing: -0.06em;
           font-weight: 300;
           color: rgba(255, 255, 255, 0.96);
+          text-shadow: 0 18px 60px rgba(0, 0, 0, 0.42);
         }
 
         .work-hero h1 span {
@@ -171,12 +226,13 @@ const WorkPage = () => {
         }
 
         .work-hero p {
-          max-width: 800px;
+          max-width: 820px;
           margin-top: 44px;
           font-size: 21px;
           line-height: 1.8;
-          color: rgba(255, 255, 255, 0.64);
+          color: rgba(255, 255, 255, 0.68);
           font-weight: 300;
+          text-shadow: 0 10px 34px rgba(0, 0, 0, 0.38);
         }
 
         .work-listing {
@@ -201,14 +257,17 @@ const WorkPage = () => {
           padding: 28px;
           border-radius: 28px;
           overflow: hidden;
-          background: linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025));
-          border: 1px solid rgba(167, 178, 255, 0.12);
+          background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
+          border: 1px solid rgba(167, 178, 255, 0.16);
           box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.05),
-            0 24px 60px rgba(0, 0, 0, 0.2);
+            inset 0 1px 0 rgba(255, 255, 255, 0.07),
+            0 24px 60px rgba(0, 0, 0, 0.24);
+          backdrop-filter: blur(18px);
+          -webkit-backdrop-filter: blur(18px);
           transition:
             transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-            border-color 0.45s ease;
+            border-color 0.45s ease,
+            background 0.45s ease;
         }
 
         .work-card::before {
@@ -217,7 +276,7 @@ const WorkPage = () => {
           inset: 0;
           background:
             radial-gradient(circle at 20% 0%, rgba(167, 178, 255, 0.16), transparent 34%),
-            radial-gradient(circle at 90% 20%, rgba(236, 72, 153, 0.1), transparent 32%);
+            radial-gradient(circle at 90% 20%, rgba(236, 72, 153, 0.12), transparent 32%);
           opacity: 0;
           transition: opacity 0.45s ease;
           pointer-events: none;
@@ -225,7 +284,8 @@ const WorkPage = () => {
 
         .work-card:hover {
           transform: translateY(-8px);
-          border-color: rgba(167, 178, 255, 0.28);
+          border-color: rgba(167, 178, 255, 0.3);
+          background: linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.04));
         }
 
         .work-card:hover::before {
@@ -239,7 +299,7 @@ const WorkPage = () => {
           top: -80px;
           right: -60px;
           border-radius: 999px;
-          background: rgba(139, 92, 246, 0.1);
+          background: rgba(139, 92, 246, 0.12);
           filter: blur(42px);
         }
 
@@ -253,10 +313,10 @@ const WorkPage = () => {
           align-items: flex-end;
           padding: 22px;
           background:
-            radial-gradient(circle at 20% 20%, rgba(167, 178, 255, 0.22), transparent 34%),
-            radial-gradient(circle at 80% 60%, rgba(236, 72, 153, 0.16), transparent 34%),
-            linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
-          border: 1px solid rgba(167, 178, 255, 0.12);
+            radial-gradient(circle at 20% 20%, rgba(167, 178, 255, 0.24), transparent 34%),
+            radial-gradient(circle at 80% 60%, rgba(236, 72, 153, 0.18), transparent 34%),
+            linear-gradient(135deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03));
+          border: 1px solid rgba(167, 178, 255, 0.14);
           overflow: hidden;
         }
 
@@ -277,7 +337,7 @@ const WorkPage = () => {
           font-size: 12px;
           letter-spacing: 0.16em;
           text-transform: uppercase;
-          color: rgba(255,255,255,0.78);
+          color: rgba(255,255,255,0.8);
           font-weight: 700;
         }
 
@@ -289,7 +349,7 @@ const WorkPage = () => {
           justify-content: space-between;
           gap: 16px;
           margin-bottom: 34px;
-          color: rgba(167, 178, 255, 0.72);
+          color: rgba(167, 178, 255, 0.78);
           font-size: 12px;
           letter-spacing: 0.12em;
           text-transform: uppercase;
@@ -313,7 +373,7 @@ const WorkPage = () => {
           margin: 0;
           font-size: 15px;
           line-height: 1.78;
-          color: rgba(255, 255, 255, 0.58);
+          color: rgba(255, 255, 255, 0.64);
         }
 
         .work-card-footer {
@@ -330,30 +390,6 @@ const WorkPage = () => {
           color: #ffffff;
           font-size: 14px;
           font-weight: 700;
-        }
-
-        .work-glow {
-          position: absolute;
-          border-radius: 999px;
-          filter: blur(120px);
-          pointer-events: none;
-          z-index: 1;
-        }
-
-        .work-glow-one {
-          width: 360px;
-          height: 360px;
-          background: rgba(102, 126, 234, 0.12);
-          top: 120px;
-          left: 8%;
-        }
-
-        .work-glow-two {
-          width: 300px;
-          height: 300px;
-          background: rgba(236, 72, 153, 0.08);
-          bottom: 140px;
-          right: 8%;
         }
 
         @media (max-width: 980px) {
@@ -373,6 +409,38 @@ const WorkPage = () => {
 
           .work-hero {
             padding: 150px 0 100px;
+          }
+
+          .work-hero-bg {
+            opacity: 0.66;
+            background-position: center;
+            filter: brightness(1.08) saturate(1.18) contrast(1.02);
+            transform: scale(1.04);
+          }
+
+          .work-hero-overlay {
+            background:
+              linear-gradient(
+                180deg,
+                rgba(5, 5, 16, 0.18) 0%,
+                rgba(5, 5, 16, 0.56) 100%
+              ),
+              linear-gradient(
+                90deg,
+                rgba(5, 5, 16, 0.28) 0%,
+                rgba(5, 5, 16, 0.1) 50%,
+                rgba(5, 5, 16, 0.28) 100%
+              ),
+              radial-gradient(
+                circle at 50% 32%,
+                rgba(102, 126, 234, 0.18),
+                transparent 46%
+              ),
+              radial-gradient(
+                circle at 72% 48%,
+                rgba(236, 72, 153, 0.14),
+                transparent 42%
+              );
           }
 
           .work-listing {
@@ -398,6 +466,45 @@ const WorkPage = () => {
             left: 24px;
             right: 24px;
             bottom: 24px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .work-hero {
+            padding: 132px 0 92px;
+          }
+
+          .work-hero-bg {
+            opacity: 0.72;
+            background-position: center top;
+            filter: brightness(1.16) saturate(1.2) contrast(1.02);
+          }
+
+          .work-hero-overlay {
+            background:
+              linear-gradient(
+                180deg,
+                rgba(5, 5, 16, 0.14) 0%,
+                rgba(5, 5, 16, 0.5) 100%
+              ),
+              linear-gradient(
+                90deg,
+                rgba(5, 5, 16, 0.22) 0%,
+                rgba(5, 5, 16, 0.08) 50%,
+                rgba(5, 5, 16, 0.22) 100%
+              );
+          }
+
+          .work-hero h1 {
+            font-size: 42px;
+          }
+
+          .work-thumbnail {
+            height: 160px;
+          }
+
+          .work-card h2 {
+            font-size: 28px;
           }
         }
       `}</style>

@@ -2,87 +2,86 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/sections/Footer';
 import {
-  Megaphone,
-  BarChart3,
-  MonitorSmartphone,
-  ShoppingBag,
-  BrainCircuit,
   RefreshCcw,
   Rocket,
   Workflow,
-  Users,
+  ShoppingBag,
   Bot,
+  Target,
+  Network,
+  BarChart3,
+  Users,
   ArrowRight,
 } from 'lucide-react';
 
 const solutionCategories = [
   {
     number: '01',
-    title: 'Creative & Campaign',
-    icon: Megaphone,
+    title: 'Growth Activation Loop',
+    icon: RefreshCcw,
     services:
-      'Brand communication strategy, campaign strategy, integrated campaigns, content ecosystem, social media management direction, content production direction, campaign asset development.',
+      'An integrated monthly growth system for brands that need continuous movement, not random content. Includes growth strategy, communication direction, content system, campaign planning, media support, reporting, and optimization.',
   },
   {
     number: '02',
-    title: 'Media & Performance',
-    icon: BarChart3,
+    title: 'Campaign / Launch Kit',
+    icon: Rocket,
     services:
-      'Media planning direction, performance marketing, ads management, campaign amplification, influencer/KOL marketing, campaign management, media analytics & reporting.',
+      'A focused sprint for product launches, brand campaigns, seasonal campaigns, and public campaigns — covering campaign role, message, big idea, key visuals, content bursts, amplification, and measurable outcomes.',
   },
   {
     number: '03',
-    title: 'Experience & Tech',
-    icon: MonitorSmartphone,
+    title: 'Web & Automation Sprint',
+    icon: Workflow,
     services:
-      'Website development, landing page, microsite, digital experience design, SEO foundation, CRM setup, WhatsApp automation, lead capture system, reporting dashboard.',
+      'Digital infrastructure build for websites, landing pages, microsites, CRM, WhatsApp flows, dashboards, reporting automation, and AI workflows.',
   },
   {
     number: '04',
-    title: 'Commerce Growth',
+    title: 'Commerce & Affiliate Growth',
     icon: ShoppingBag,
     services:
-      'Live commerce direction, TikTok/Shopee Live support, affiliate growth strategy, marketplace activation, creator/UGC direction, product content, commerce campaign calendar.',
+      'Marketplace campaigns, live commerce, affiliate management, creator activation, commerce tracking, and sales-oriented content for consumer, retail, beauty, lifestyle, and FMCG brands.',
   },
   {
     number: '05',
-    title: 'Data & AI Operations',
-    icon: BrainCircuit,
+    title: 'AI-Powered Growth Ops',
+    icon: Bot,
     services:
-      'AI customer service assistant, AI sales assistant, AI FAQ assistant, lead qualification automation, automated reporting, internal knowledge assistant, CRM & data structuring.',
+      'AI assistants, customer and sales support, lead qualification, automated reporting, CRM structuring, workflow automation, and knowledge base systems.',
   },
 ];
 
 const engagementModels = [
   {
-    title: 'Growth Activation Loop',
-    icon: RefreshCcw,
+    title: 'Strategic Retainer',
+    icon: Target,
     description:
-      'Monthly growth partnership for brands that need consistent strategy, content system, media support, reporting, and optimization.',
+      'Continuous growth activation, content system, campaign planning, reporting, and optimization.',
   },
   {
-    title: 'Integrated Campaign / Launch Kit',
+    title: 'Campaign Sprint',
     icon: Rocket,
     description:
-      'Campaign sprint for product launch, brand activation, market entry, or digital campaign rollout.',
+      'Product launches, brand campaigns, seasonal campaigns, and public-facing activations.',
   },
   {
-    title: 'Web & Automation Sprint',
+    title: 'Digital Infrastructure Sprint',
     icon: Workflow,
     description:
-      'Scope-based sprint for website, landing page, CRM, automation, dashboard, and AI workflow.',
+      'Websites, CRM, dashboards, automation setup, and digital operation systems.',
   },
   {
-    title: 'Commerce & Affiliate Growth',
+    title: 'Commerce Activation',
     icon: Users,
     description:
-      'Commerce activation for brands growing through live commerce, affiliate, marketplace, and creator-led conversion.',
+      'Marketplace, live commerce, affiliate, creator-led conversion, and sales campaigns.',
   },
   {
-    title: 'AI-Powered Growth Operations',
+    title: 'AI & Automation Sprint',
     icon: Bot,
     description:
-      'AI and automation setup for lead qualification, reporting, customer service, sales support, and workflow acceleration.',
+      'AI assistants, lead qualification, workflow systems, and reporting automation.',
   },
 ];
 
@@ -93,8 +92,9 @@ const SolutionsPage = () => {
 
       <main className="solutions-page">
         <section className="solutions-hero">
-          <div className="page-glow page-glow-one"></div>
-          <div className="page-glow page-glow-two"></div>
+          <div className="solutions-hero-bg"></div>
+          <div className="solutions-hero-overlay"></div>
+          <div className="solutions-noise"></div>
 
           <div className="page-container">
             <div className="page-label">
@@ -103,15 +103,15 @@ const SolutionsPage = () => {
             </div>
 
             <h1>
-              Connected Solutions
+              Five Ways We Help
               <br />
-              <span>for Brand Growth</span>
+              <span>Brands Grow</span>
             </h1>
 
             <p>
-              From campaign strategy and media performance to digital experience,
-              commerce growth, and AI-powered operations, AMN builds connected
-              systems that help brands move with clarity.
+              From strategy and campaign activation to technology, commerce,
+              automation, and AI-powered operations — Hypernusa connects every
+              move into one measurable growth ecosystem.
             </p>
           </div>
         </section>
@@ -127,7 +127,9 @@ const SolutionsPage = () => {
             <p>
               Growth does not happen from one channel alone. It needs strategy,
               creative execution, media, commerce, technology, data, and
-              operations working in the same direction.
+              operations working in the same direction — so every campaign,
+              content, channel, website, and workflow has a clear role in moving
+              the brand forward.
             </p>
           </div>
         </section>
@@ -137,13 +139,13 @@ const SolutionsPage = () => {
             <div className="section-header">
               <div className="page-label">
                 <span className="page-line"></span>
-                <span>Solution Categories</span>
+                <span>Service Universe</span>
               </div>
 
               <h2>
                 Capabilities Built
                 <br />
-                <span>to Move Brands Forward</span>
+                <span>to Activate Growth</span>
               </h2>
             </div>
 
@@ -208,10 +210,15 @@ const SolutionsPage = () => {
         <section className="solutions-cta-section">
           <div className="page-container cta-box">
             <h2>
-              Ready to connect your next
+              Ready to move from
               <br />
-              growth system?
+              <span>fragmented activity?</span>
             </h2>
+
+            <p>
+              Let’s connect your strategy, campaign, commerce, technology,
+              automation, and reporting into one growth system.
+            </p>
 
             <a href="/lets-talk" className="cta-button">
               Let&apos;s Talk
@@ -233,7 +240,7 @@ const SolutionsPage = () => {
 
         .page-container {
           position: relative;
-          z-index: 3;
+          z-index: 4;
           width: 100%;
           max-width: 1180px;
           margin: 0 auto;
@@ -242,12 +249,58 @@ const SolutionsPage = () => {
 
         .solutions-hero {
           position: relative;
-          padding: 180px 0 130px;
-          background:
-            radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.14), transparent 32%),
-            radial-gradient(circle at 88% 50%, rgba(236, 72, 153, 0.1), transparent 30%),
-            linear-gradient(180deg, #07071a 0%, #050510 100%);
+          padding: 190px 0 140px;
+          background: #050510;
           overflow: hidden;
+          isolation: isolate;
+        }
+
+        .solutions-hero-bg {
+          position: absolute;
+          inset: 0;
+          background: url('/images/solutionpage-city-bg.jpg') center/cover no-repeat;
+          z-index: 0;
+          opacity: 0.48;
+          filter: brightness(0.88) saturate(1.18) contrast(1.04);
+          transform: scale(1.02);
+        }
+
+        .solutions-hero-overlay {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          background:
+            linear-gradient(
+              180deg,
+              rgba(5, 5, 16, 0.26) 0%,
+              rgba(5, 5, 16, 0.76) 100%
+            ),
+            linear-gradient(
+              90deg,
+              rgba(5, 5, 16, 0.58) 0%,
+              rgba(5, 5, 16, 0.18) 50%,
+              rgba(5, 5, 16, 0.58) 100%
+            ),
+            radial-gradient(
+              circle at 18% 22%,
+              rgba(102, 126, 234, 0.18),
+              transparent 34%
+            ),
+            radial-gradient(
+              circle at 86% 54%,
+              rgba(236, 72, 153, 0.14),
+              transparent 32%
+            );
+        }
+
+        .solutions-noise {
+          position: absolute;
+          inset: 0;
+          z-index: 2;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E");
+          opacity: 0.035;
+          pointer-events: none;
+          mix-blend-mode: overlay;
         }
 
         .solutions-hero::before,
@@ -260,8 +313,9 @@ const SolutionsPage = () => {
             linear-gradient(rgba(167, 178, 255, 0.022) 1px, transparent 1px),
             linear-gradient(90deg, rgba(167, 178, 255, 0.022) 1px, transparent 1px);
           background-size: 88px 88px;
-          opacity: 0.45;
+          opacity: 0.35;
           pointer-events: none;
+          z-index: 2;
         }
 
         .page-label {
@@ -274,15 +328,15 @@ const SolutionsPage = () => {
         .page-line {
           width: 52px;
           height: 1px;
-          background: linear-gradient(90deg, rgba(167, 178, 255, 0.7), transparent);
+          background: linear-gradient(90deg, rgba(167, 178, 255, 0.75), transparent);
         }
 
         .page-label span:last-child {
           font-size: 13px;
           letter-spacing: 0.18em;
           text-transform: uppercase;
-          color: rgba(255, 255, 255, 0.5);
-          font-weight: 600;
+          color: rgba(255, 255, 255, 0.58);
+          font-weight: 700;
         }
 
         .solutions-hero h1,
@@ -295,11 +349,13 @@ const SolutionsPage = () => {
           letter-spacing: -0.06em;
           font-weight: 300;
           color: rgba(255, 255, 255, 0.96);
+          text-shadow: 0 18px 60px rgba(0, 0, 0, 0.42);
         }
 
         .solutions-hero h1 span,
         .section-header h2 span,
-        .philosophy-grid h2 span {
+        .philosophy-grid h2 span,
+        .cta-box h2 span {
           background: linear-gradient(135deg, #ffffff 0%, #a78bfa 45%, #ec4899 100%);
           -webkit-background-clip: text;
           background-clip: text;
@@ -307,12 +363,13 @@ const SolutionsPage = () => {
         }
 
         .solutions-hero p {
-          max-width: 800px;
+          max-width: 820px;
           margin-top: 44px;
           font-size: 21px;
           line-height: 1.8;
-          color: rgba(255, 255, 255, 0.64);
+          color: rgba(255, 255, 255, 0.68);
           font-weight: 300;
+          text-shadow: 0 10px 34px rgba(0, 0, 0, 0.38);
         }
 
         .solution-philosophy {
@@ -331,7 +388,7 @@ const SolutionsPage = () => {
           margin: 12px 0 0;
           font-size: 22px;
           line-height: 1.85;
-          color: rgba(255, 255, 255, 0.66);
+          color: rgba(255, 255, 255, 0.68);
           font-weight: 300;
         }
 
@@ -365,18 +422,21 @@ const SolutionsPage = () => {
 
         .solution-card {
           position: relative;
-          min-height: 360px;
+          min-height: 390px;
           padding: 30px;
           border-radius: 26px;
           overflow: hidden;
-          background: linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025));
-          border: 1px solid rgba(167, 178, 255, 0.12);
+          background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
+          border: 1px solid rgba(167, 178, 255, 0.16);
           box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.05),
-            0 24px 60px rgba(0, 0, 0, 0.2);
+            inset 0 1px 0 rgba(255, 255, 255, 0.07),
+            0 24px 60px rgba(0, 0, 0, 0.24);
+          backdrop-filter: blur(18px);
+          -webkit-backdrop-filter: blur(18px);
           transition:
             transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-            border-color 0.45s ease;
+            border-color 0.45s ease,
+            background 0.45s ease;
         }
 
         .solution-card:nth-child(1),
@@ -397,7 +457,7 @@ const SolutionsPage = () => {
           inset: 0;
           background:
             radial-gradient(circle at 20% 0%, rgba(167, 178, 255, 0.16), transparent 34%),
-            radial-gradient(circle at 90% 20%, rgba(236, 72, 153, 0.1), transparent 32%);
+            radial-gradient(circle at 90% 20%, rgba(236, 72, 153, 0.12), transparent 32%);
           opacity: 0;
           transition: opacity 0.45s ease;
           pointer-events: none;
@@ -406,7 +466,8 @@ const SolutionsPage = () => {
         .solution-card:hover,
         .model-card:hover {
           transform: translateY(-8px);
-          border-color: rgba(167, 178, 255, 0.28);
+          border-color: rgba(167, 178, 255, 0.3);
+          background: linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.04));
         }
 
         .solution-card:hover::before,
@@ -421,7 +482,7 @@ const SolutionsPage = () => {
           top: -80px;
           right: -60px;
           border-radius: 999px;
-          background: rgba(139, 92, 246, 0.1);
+          background: rgba(139, 92, 246, 0.12);
           filter: blur(42px);
         }
 
@@ -431,13 +492,13 @@ const SolutionsPage = () => {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          margin-bottom: 70px;
+          margin-bottom: 64px;
         }
 
         .card-top span {
           font-size: 13px;
           letter-spacing: 0.18em;
-          color: rgba(167, 178, 255, 0.72);
+          color: rgba(167, 178, 255, 0.78);
           font-weight: 700;
         }
 
@@ -450,8 +511,8 @@ const SolutionsPage = () => {
           align-items: center;
           justify-content: center;
           color: #a7b2ff;
-          background: rgba(167, 178, 255, 0.09);
-          border: 1px solid rgba(167, 178, 255, 0.14);
+          background: rgba(167, 178, 255, 0.1);
+          border: 1px solid rgba(167, 178, 255, 0.16);
         }
 
         .solution-card h3,
@@ -473,7 +534,7 @@ const SolutionsPage = () => {
           margin: 0;
           font-size: 15px;
           line-height: 1.78;
-          color: rgba(255, 255, 255, 0.58);
+          color: rgba(255, 255, 255, 0.64);
         }
 
         .models-grid {
@@ -488,11 +549,14 @@ const SolutionsPage = () => {
           padding: 28px;
           border-radius: 24px;
           overflow: hidden;
-          background: linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025));
-          border: 1px solid rgba(167, 178, 255, 0.12);
+          background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
+          border: 1px solid rgba(167, 178, 255, 0.16);
+          backdrop-filter: blur(18px);
+          -webkit-backdrop-filter: blur(18px);
           transition:
             transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-            border-color 0.45s ease;
+            border-color 0.45s ease,
+            background 0.45s ease;
         }
 
         .model-icon {
@@ -518,6 +582,15 @@ const SolutionsPage = () => {
           font-size: clamp(48px, 6vw, 82px);
         }
 
+        .cta-box p {
+          max-width: 760px;
+          margin: 32px auto 0;
+          font-size: 19px;
+          line-height: 1.8;
+          color: rgba(255, 255, 255, 0.66);
+          font-weight: 300;
+        }
+
         .cta-button {
           display: inline-flex;
           align-items: center;
@@ -529,14 +602,14 @@ const SolutionsPage = () => {
           color: #ffffff;
           font-size: 15px;
           font-weight: 700;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #667eea 0%, #ec4899 100%);
           box-shadow: 0 16px 48px rgba(102, 126, 234, 0.3);
           transition: transform 0.35s ease, box-shadow 0.35s ease;
         }
 
         .cta-button:hover {
           transform: translateY(-4px);
-          box-shadow: 0 24px 60px rgba(102, 126, 234, 0.42);
+          box-shadow: 0 24px 60px rgba(236, 72, 153, 0.34);
         }
 
         @media (max-width: 1100px) {
@@ -563,6 +636,38 @@ const SolutionsPage = () => {
 
           .solutions-hero {
             padding: 150px 0 100px;
+          }
+
+          .solutions-hero-bg {
+            opacity: 0.66;
+            background-position: center;
+            filter: brightness(1.08) saturate(1.18) contrast(1.02);
+            transform: scale(1.04);
+          }
+
+          .solutions-hero-overlay {
+            background:
+              linear-gradient(
+                180deg,
+                rgba(5, 5, 16, 0.18) 0%,
+                rgba(5, 5, 16, 0.56) 100%
+              ),
+              linear-gradient(
+                90deg,
+                rgba(5, 5, 16, 0.28) 0%,
+                rgba(5, 5, 16, 0.1) 50%,
+                rgba(5, 5, 16, 0.28) 100%
+              ),
+              radial-gradient(
+                circle at 50% 32%,
+                rgba(102, 126, 234, 0.18),
+                transparent 46%
+              ),
+              radial-gradient(
+                circle at 72% 48%,
+                rgba(236, 72, 153, 0.14),
+                transparent 42%
+              );
           }
 
           .solution-philosophy,
@@ -598,6 +703,10 @@ const SolutionsPage = () => {
 
           .models-grid {
             grid-template-columns: 1fr;
+          }
+
+          .cta-box p {
+            font-size: 17px;
           }
         }
       `}</style>

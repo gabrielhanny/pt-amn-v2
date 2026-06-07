@@ -1,32 +1,45 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/sections/Footer';
-import { Target, Layers3, Network, ShieldCheck, ArrowRight } from 'lucide-react';
+import {
+  Target,
+  Lightbulb,
+  ShoppingBag,
+  Workflow,
+  BarChart3,
+  ArrowRight,
+} from 'lucide-react';
 
 const differences = [
   {
-    title: 'Strategy-Led',
+    title: 'Strategy Before Assets',
     description:
-      'We start from brand objective, business context, audience movement, and growth logic.',
+      'We begin with business direction, brand objective, audience movement, and growth logic before producing any asset.',
     icon: Target,
   },
   {
-    title: 'Creative + Commerce + Tech Integrator',
+    title: 'Creative with Commercial Logic',
     description:
-      'We connect campaign, content, media, commerce, web, CRM, automation, and reporting into one growth direction.',
-    icon: Layers3,
+      'Ideas are designed not only to look good, but to move audiences toward action, conversion, and measurable outcomes.',
+    icon: Lightbulb,
   },
   {
-    title: 'System-Driven',
+    title: 'Commerce-Aware Activation',
     description:
-      'We work with scope clarity, project governance, timeline, quality gate, and delivery accountability.',
-    icon: Network,
+      'Campaigns, content, channels, and digital experiences are connected to conversion, sales movement, and business impact.',
+    icon: ShoppingBag,
   },
   {
-    title: 'Feasibility-Based',
+    title: 'Tech-Enabled Operation',
     description:
-      'Every project is reviewed based on scope, delivery capacity, cost structure, timeline, and commercial feasibility.',
-    icon: ShieldCheck,
+      'Web, CRM, automation, AI workflows, reporting, and dashboards become part of a scalable growth infrastructure.',
+    icon: Workflow,
+  },
+  {
+    title: 'Learning-Driven Execution',
+    description:
+      'Performance is treated as intelligence, not just reporting — helping every next move become sharper.',
+    icon: BarChart3,
   },
 ];
 
@@ -37,25 +50,26 @@ const AboutPage = () => {
 
       <main className="about-page">
         <section className="about-hero">
-          <div className="about-glow about-glow-one"></div>
-          <div className="about-glow about-glow-two"></div>
+          <div className="about-hero-bg"></div>
+          <div className="about-hero-overlay"></div>
+          <div className="about-noise"></div>
 
           <div className="about-container">
             <div className="about-label">
               <span className="about-line"></span>
-              <span>About AMN</span>
+              <span>About Hypernusa</span>
             </div>
 
             <h1>
-              A Growth Activation Agency
+              Built as a Growth Partner,
               <br />
-              <span>Built for the Next Business Move</span>
+              <span>Not a Conventional Vendor</span>
             </h1>
 
             <p>
-              AMN connects strategy, creative execution, media, commerce,
-              technology, and AI-powered operations to help brands move from
-              visibility to measurable growth.
+              Hypernusa is a Growth Activation Agency by PT Anak Muda Nusantara,
+              built to connect strategy, creative, commerce, technology,
+              automation, and reporting into one integrated growth ecosystem.
             </p>
           </div>
         </section>
@@ -68,13 +82,17 @@ const AboutPage = () => {
                 <span>Who We Are</span>
               </div>
 
-              <h2>We Are AMN</h2>
+              <h2>
+                Growth Partner
+                <br />
+                <span>for Connected Brand Movement</span>
+              </h2>
             </div>
 
             <p>
-              AMN is a growth activation agency built to help brands create
-              connected systems for campaign, content, media, commerce, digital
-              experience, automation, and reporting.
+              We help brands move beyond scattered marketing activity by building
+              connected systems for strategy, campaign, content, commerce,
+              digital experience, automation, and performance learning.
             </p>
           </div>
         </section>
@@ -84,13 +102,13 @@ const AboutPage = () => {
             <div className="section-header">
               <div className="about-label">
                 <span className="about-line"></span>
-                <span>What Makes AMN Different</span>
+                <span>What Makes Hypernusa Different</span>
               </div>
 
               <h2>
-                Strategy-Led,
+                Clearer Direction.
                 <br />
-                <span>System-Driven, Feasibility-Based</span>
+                <span>Sharper Execution. Smarter Systems.</span>
               </h2>
             </div>
 
@@ -123,16 +141,16 @@ const AboutPage = () => {
             </div>
 
             <h2>
-              Built as a
+              Strategy, Creative,
               <br />
-              <span>Growth Engine</span>
+              <span>Commerce, Tech & Learning</span>
             </h2>
 
             <p>
-              AMN holds the strategy, client relationship, scope lock, project
-              governance, quality standard, reporting, and commercial structure.
-              Delivery can be supported by internal or external partners based
-              on project scope.
+              Hypernusa connects strategy, creative direction, campaign activation,
+              commerce, technology, automation, AI, and performance learning into
+              one growth ecosystem — so every campaign, content, channel, website,
+              and workflow has a clear role in moving the brand forward.
             </p>
           </div>
         </section>
@@ -142,7 +160,7 @@ const AboutPage = () => {
             <h2>
               Let&apos;s Build the Next
               <br />
-              Growth Move Together
+              <span>Growth Move Together</span>
             </h2>
 
             <a href="/lets-talk" className="cta-button">
@@ -165,7 +183,7 @@ const AboutPage = () => {
 
         .about-container {
           position: relative;
-          z-index: 3;
+          z-index: 4;
           width: 100%;
           max-width: 1180px;
           margin: 0 auto;
@@ -174,12 +192,58 @@ const AboutPage = () => {
 
         .about-hero {
           position: relative;
-          padding: 180px 0 130px;
-          background:
-            radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.14), transparent 32%),
-            radial-gradient(circle at 88% 50%, rgba(236, 72, 153, 0.1), transparent 30%),
-            linear-gradient(180deg, #07071a 0%, #050510 100%);
+          padding: 190px 0 140px;
+          background: #050510;
           overflow: hidden;
+          isolation: isolate;
+        }
+
+        .about-hero-bg {
+          position: absolute;
+          inset: 0;
+          background: url('/images/aboutpage-city-bg.jpg') center/cover no-repeat;
+          z-index: 0;
+          opacity: 0.72;
+           filter: brightness(1.08) saturate(1.18) contrast(1.02);
+          transform: scale(1.02);
+        }
+
+        .about-hero-overlay {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          background:
+            linear-gradient(
+              180deg,
+              rgba(5, 5, 16, 0.28) 0%,
+              rgba(5, 5, 16, 0.78) 100%
+            ),
+           linear-gradient(
+  90deg,
+  rgba(5, 5, 16, 0.42) 0%,
+  rgba(5, 5, 16, 0.08) 50%,
+  rgba(5, 5, 16, 0.42) 100%
+),
+            radial-gradient(
+              circle at 18% 22%,
+              rgba(102, 126, 234, 0.18),
+              transparent 34%
+            ),
+            radial-gradient(
+              circle at 86% 54%,
+              rgba(236, 72, 153, 0.14),
+              transparent 32%
+            );
+        }
+
+        .about-noise {
+          position: absolute;
+          inset: 0;
+          z-index: 2;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E");
+          opacity: 0.025;
+          pointer-events: none;
+          mix-blend-mode: overlay;
         }
 
         .about-hero::before,
@@ -192,8 +256,9 @@ const AboutPage = () => {
             linear-gradient(rgba(167, 178, 255, 0.022) 1px, transparent 1px),
             linear-gradient(90deg, rgba(167, 178, 255, 0.022) 1px, transparent 1px);
           background-size: 88px 88px;
-          opacity: 0.45;
+          opacity: 0.32;
           pointer-events: none;
+          z-index: 2;
         }
 
         .about-label {
@@ -206,15 +271,15 @@ const AboutPage = () => {
         .about-line {
           width: 52px;
           height: 1px;
-          background: linear-gradient(90deg, rgba(167, 178, 255, 0.7), transparent);
+          background: linear-gradient(90deg, rgba(167, 178, 255, 0.75), transparent);
         }
 
         .about-label span:last-child {
           font-size: 13px;
           letter-spacing: 0.18em;
           text-transform: uppercase;
-          color: rgba(255, 255, 255, 0.5);
-          font-weight: 600;
+          color: rgba(255, 255, 255, 0.58);
+          font-weight: 700;
         }
 
         .about-hero h1,
@@ -223,16 +288,19 @@ const AboutPage = () => {
         .operating-box h2,
         .cta-box h2 {
           margin: 0;
-          font-size: clamp(52px, 7vw, 96px);
+         font-size: clamp(48px, 6vw, 82px);
           line-height: 0.95;
           letter-spacing: -0.06em;
           font-weight: 300;
           color: rgba(255, 255, 255, 0.96);
+          text-shadow: 0 18px 60px rgba(0, 0, 0, 0.42);
         }
 
         .about-hero h1 span,
         .section-header h2 span,
-        .operating-box h2 span {
+        .who-grid h2 span,
+        .operating-box h2 span,
+        .cta-box h2 span {
           background: linear-gradient(135deg, #ffffff 0%, #a78bfa 45%, #ec4899 100%);
           -webkit-background-clip: text;
           background-clip: text;
@@ -240,12 +308,13 @@ const AboutPage = () => {
         }
 
         .about-hero p {
-          max-width: 820px;
+          max-width: 850px;
           margin-top: 44px;
           font-size: 21px;
           line-height: 1.8;
-          color: rgba(255, 255, 255, 0.64);
+          color: rgba(255, 255, 255, 0.68);
           font-weight: 300;
+          text-shadow: 0 10px 34px rgba(0, 0, 0, 0.38);
         }
 
         .who-we-are {
@@ -253,19 +322,19 @@ const AboutPage = () => {
           background: linear-gradient(180deg, #050510 0%, #080818 100%);
         }
 
-        .who-grid {
-          display: grid;
-          grid-template-columns: 0.8fr 1fr;
-          gap: 80px;
-          align-items: start;
-        }
-
+       .who-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 64px;
+  align-items: center;
+}
         .who-grid p {
           margin: 12px 0 0;
           font-size: 22px;
           line-height: 1.85;
-          color: rgba(255, 255, 255, 0.66);
+          color: rgba(255, 255, 255, 0.68);
           font-weight: 300;
+          max-width: 620px;
         }
 
         .different-section {
@@ -285,24 +354,38 @@ const AboutPage = () => {
 
         .difference-grid {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 24px;
+          grid-template-columns: repeat(6, 1fr);
+          gap: 20px;
         }
 
         .difference-card {
           position: relative;
-          min-height: 330px;
-          padding: 32px;
-          border-radius: 28px;
+          min-height: 320px;
+          padding: 30px;
+          border-radius: 26px;
           overflow: hidden;
-          background: linear-gradient(145deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025));
-          border: 1px solid rgba(167, 178, 255, 0.12);
+          background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
+          border: 1px solid rgba(167, 178, 255, 0.16);
           box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.05),
-            0 24px 60px rgba(0, 0, 0, 0.2);
+            inset 0 1px 0 rgba(255, 255, 255, 0.07),
+            0 24px 60px rgba(0, 0, 0, 0.24);
+          backdrop-filter: blur(18px);
+          -webkit-backdrop-filter: blur(18px);
           transition:
             transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-            border-color 0.45s ease;
+            border-color 0.45s ease,
+            background 0.45s ease;
+        }
+
+        .difference-card:nth-child(1),
+        .difference-card:nth-child(2),
+        .difference-card:nth-child(3) {
+          grid-column: span 2;
+        }
+
+        .difference-card:nth-child(4),
+        .difference-card:nth-child(5) {
+          grid-column: span 3;
         }
 
         .difference-card::before {
@@ -311,7 +394,7 @@ const AboutPage = () => {
           inset: 0;
           background:
             radial-gradient(circle at 20% 0%, rgba(167, 178, 255, 0.16), transparent 34%),
-            radial-gradient(circle at 90% 20%, rgba(236, 72, 153, 0.1), transparent 32%);
+            radial-gradient(circle at 90% 20%, rgba(236, 72, 153, 0.12), transparent 32%);
           opacity: 0;
           transition: opacity 0.45s ease;
           pointer-events: none;
@@ -319,7 +402,8 @@ const AboutPage = () => {
 
         .difference-card:hover {
           transform: translateY(-8px);
-          border-color: rgba(167, 178, 255, 0.28);
+          border-color: rgba(167, 178, 255, 0.3);
+          background: linear-gradient(145deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.04));
         }
 
         .difference-card:hover::before {
@@ -333,7 +417,7 @@ const AboutPage = () => {
           top: -80px;
           right: -60px;
           border-radius: 999px;
-          background: rgba(139, 92, 246, 0.1);
+          background: rgba(139, 92, 246, 0.12);
           filter: blur(42px);
         }
 
@@ -347,16 +431,16 @@ const AboutPage = () => {
           align-items: center;
           justify-content: center;
           color: #a7b2ff;
-          background: rgba(167, 178, 255, 0.09);
-          border: 1px solid rgba(167, 178, 255, 0.14);
-          margin-bottom: 82px;
+          background: rgba(167, 178, 255, 0.1);
+          border: 1px solid rgba(167, 178, 255, 0.16);
+          margin-bottom: 72px;
         }
 
         .difference-card h3 {
           position: relative;
           z-index: 2;
           margin: 0 0 18px;
-          font-size: 30px;
+          font-size: 28px;
           line-height: 1.08;
           letter-spacing: -0.045em;
           color: #ffffff;
@@ -369,7 +453,7 @@ const AboutPage = () => {
           margin: 0;
           font-size: 15px;
           line-height: 1.78;
-          color: rgba(255, 255, 255, 0.58);
+          color: rgba(255, 255, 255, 0.64);
         }
 
         .operating-model {
@@ -384,17 +468,19 @@ const AboutPage = () => {
         .operating-box {
           padding: 72px 40px;
           border-radius: 34px;
-          background: linear-gradient(145deg, rgba(255,255,255,0.055), rgba(255,255,255,0.025));
-          border: 1px solid rgba(167, 178, 255, 0.12);
-          box-shadow: 0 24px 70px rgba(0,0,0,0.22);
+          background: linear-gradient(145deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+          border: 1px solid rgba(167, 178, 255, 0.16);
+          box-shadow: 0 24px 70px rgba(0,0,0,0.24);
+          backdrop-filter: blur(18px);
+          -webkit-backdrop-filter: blur(18px);
         }
 
         .operating-box p {
-          max-width: 850px;
+          max-width: 880px;
           margin-top: 42px;
           font-size: 20px;
           line-height: 1.85;
-          color: rgba(255, 255, 255, 0.64);
+          color: rgba(255, 255, 255, 0.68);
           font-weight: 300;
         }
 
@@ -422,44 +508,24 @@ const AboutPage = () => {
           color: #ffffff;
           font-size: 15px;
           font-weight: 700;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          background: linear-gradient(135deg, #667eea 0%, #ec4899 100%);
           box-shadow: 0 16px 48px rgba(102, 126, 234, 0.3);
           transition: transform 0.35s ease, box-shadow 0.35s ease;
         }
 
         .cta-button:hover {
           transform: translateY(-4px);
-          box-shadow: 0 24px 60px rgba(102, 126, 234, 0.42);
-        }
-
-        .about-glow {
-          position: absolute;
-          border-radius: 999px;
-          filter: blur(120px);
-          pointer-events: none;
-          z-index: 1;
-        }
-
-        .about-glow-one {
-          width: 360px;
-          height: 360px;
-          background: rgba(102, 126, 234, 0.12);
-          top: 120px;
-          left: 8%;
-        }
-
-        .about-glow-two {
-          width: 300px;
-          height: 300px;
-          background: rgba(236, 72, 153, 0.08);
-          bottom: 140px;
-          right: 8%;
+          box-shadow: 0 24px 60px rgba(236, 72, 153, 0.34);
         }
 
         @media (max-width: 980px) {
           .who-grid,
           .difference-grid {
             grid-template-columns: 1fr;
+          }
+
+          .difference-card:nth-child(n) {
+            grid-column: auto;
           }
         }
 
@@ -472,12 +538,56 @@ const AboutPage = () => {
             padding: 150px 0 100px;
           }
 
+          .about-hero-bg {
+            opacity: 0.68;
+            background-position: center;
+            filter: brightness(1.08) saturate(1.18) contrast(1.02);
+            transform: scale(1.04);
+          }
+
+          .about-hero-overlay {
+            background:
+              linear-gradient(
+                180deg,
+                rgba(5, 5, 16, 0.18) 0%,
+                rgba(5, 5, 16, 0.56) 100%
+              ),
+              linear-gradient(
+                90deg,
+                rgba(5, 5, 16, 0.28) 0%,
+                rgba(5, 5, 16, 0.1) 50%,
+                rgba(5, 5, 16, 0.28) 100%
+              ),
+              radial-gradient(
+                circle at 50% 32%,
+                rgba(102, 126, 234, 0.18),
+                transparent 46%
+              ),
+              radial-gradient(
+                circle at 72% 48%,
+                rgba(236, 72, 153, 0.14),
+                transparent 42%
+              );
+          }
+
           .who-we-are,
           .different-section,
           .operating-model,
           .about-cta {
             padding: 110px 0;
           }
+            .who-grid {
+  gap: 32px;
+}
+
+.who-grid h2 {
+  font-size: 44px;
+  line-height: 1.02;
+}
+
+.who-grid p {
+  margin-top: 0;
+}
 
           .about-hero h1,
           .section-header h2,
@@ -506,6 +616,64 @@ const AboutPage = () => {
           .operating-box {
             padding: 34px 26px;
             border-radius: 26px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .about-hero {
+            padding: 132px 0 92px;
+          }
+
+          .about-hero-bg {
+            opacity: 0.74;
+            background-position: center top;
+            filter: brightness(1.16) saturate(1.2) contrast(1.02);
+          }
+
+          .about-hero-overlay {
+            background:
+              linear-gradient(
+                180deg,
+                rgba(5, 5, 16, 0.14) 0%,
+                rgba(5, 5, 16, 0.5) 100%
+              ),
+              linear-gradient(
+                90deg,
+                rgba(5, 5, 16, 0.22) 0%,
+                rgba(5, 5, 16, 0.08) 50%,
+                rgba(5, 5, 16, 0.22) 100%
+              );
+          }
+
+          .about-hero h1 {
+            font-size: 42px;
+          }
+
+          .who-grid h2,
+          .section-header h2,
+          .operating-box h2 {
+            font-size: 42px;
+          }
+
+          .who-grid {
+  gap: 28px;
+}
+
+.who-grid h2 {
+  font-size: 38px;
+}
+
+          .difference-card h3 {
+            font-size: 25px;
+          }
+
+          .cta-box h2 {
+            font-size: 42px;
+          }
+
+          .cta-button {
+            width: 100%;
+            justify-content: center;
           }
         }
       `}</style>
