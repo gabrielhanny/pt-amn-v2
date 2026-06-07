@@ -83,6 +83,11 @@ const Navbar = () => {
                 Let&apos;s Talk
               </a>
             </li>
+            <li className="mobile-menu-note">
+  Growth Activation Agency
+  <br />
+  Jakarta, Indonesia
+</li>
           </ul>
         </div>
       )}
@@ -252,20 +257,33 @@ const Navbar = () => {
           background: rgba(255, 255, 255, 0.08);
           border-color: rgba(167, 178, 255, 0.25);
         }
+.mobile-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(10, 10, 28, 0.96) 0%,
+      rgba(5, 5, 16, 0.98) 100%
+    );
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(167, 178, 255, 0.1);
+  animation: slideDown 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-        .mobile-menu {
-          position: absolute;
-          top: 100%;
-          left: 0;
-          right: 0;
-          background: rgba(10, 10, 28, 0.92);
-          backdrop-filter: blur(24px);
-          -webkit-backdrop-filter: blur(24px);
-          border-top: 1px solid rgba(255, 255, 255, 0.06);
-          border-bottom: 1px solid rgba(167, 178, 255, 0.1);
-          animation: slideDown 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
+.mobile-menu-note {
+  margin-top: 28px !important;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 13px;
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+}
         @keyframes slideDown {
           from {
             opacity: 0;
@@ -333,12 +351,26 @@ const Navbar = () => {
         }
 
         @media (max-width: 768px) {
-           .navbar-container {
+           .navbar {
+    padding: 14px 0;
+    background: rgba(6, 8, 24, 0.28);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .navbar-container {
     padding: 0 20px;
   }
 
   .navbar-logo-image {
-    height: 54px;
+    height: 58px;
+  }
+     .mobile-menu-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.055);
+    border-color: rgba(167, 178, 255, 0.18);
   }
         }
       `}</style>

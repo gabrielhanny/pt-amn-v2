@@ -273,8 +273,13 @@ const BrandStatement = () => {
   }
 
   .brand-description {
-    font-size: 16px;
+    font-size: 17px;
   }
+    .brand-supporting {
+  font-size: 15px;
+  line-height: 1.65;
+  margin-top: 22px;
+}
 }
       `}</style>
     </section>

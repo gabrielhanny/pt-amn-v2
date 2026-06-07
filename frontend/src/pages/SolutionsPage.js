@@ -255,44 +255,43 @@ const SolutionsPage = () => {
           isolation: isolate;
         }
 
-        .solutions-hero-bg {
-          position: absolute;
-          inset: 0;
-          background: url('/images/solutionpage-city-bg.jpg') center/cover no-repeat;
-          z-index: 0;
-          opacity: 0.48;
-          filter: brightness(0.88) saturate(1.18) contrast(1.04);
-          transform: scale(1.02);
-        }
+       .solutions-hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('/images/solutionpage-city-bg.jpg') center/cover no-repeat;
+  z-index: 0;
+  opacity: 0.66;
+  filter: brightness(1.05) saturate(1.18) contrast(1.02);
+  transform: scale(1.02);
+}
 
-        .solutions-hero-overlay {
-          position: absolute;
-          inset: 0;
-          z-index: 1;
-          background:
-            linear-gradient(
-              180deg,
-              rgba(5, 5, 16, 0.26) 0%,
-              rgba(5, 5, 16, 0.76) 100%
-            ),
-            linear-gradient(
-              90deg,
-              rgba(5, 5, 16, 0.58) 0%,
-              rgba(5, 5, 16, 0.18) 50%,
-              rgba(5, 5, 16, 0.58) 100%
-            ),
-            radial-gradient(
-              circle at 18% 22%,
-              rgba(102, 126, 234, 0.18),
-              transparent 34%
-            ),
-            radial-gradient(
-              circle at 86% 54%,
-              rgba(236, 72, 153, 0.14),
-              transparent 32%
-            );
-        }
-
+.solutions-hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(5, 5, 16, 0.18) 0%,
+      rgba(5, 5, 16, 0.62) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(5, 5, 16, 0.42) 0%,
+      rgba(5, 5, 16, 0.08) 50%,
+      rgba(5, 5, 16, 0.42) 100%
+    ),
+    radial-gradient(
+      circle at 18% 22%,
+      rgba(102, 126, 234, 0.22),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 86% 54%,
+      rgba(236, 72, 153, 0.18),
+      transparent 32%
+    );
+}
         .solutions-noise {
           position: absolute;
           inset: 0;
