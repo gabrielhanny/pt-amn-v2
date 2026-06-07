@@ -15,7 +15,7 @@ const Footer = () => {
         <div className="footer-top">
           <div className="footer-brand">
             <img
-              src="/images/hypernusa-logo-color.svg"
+              src="/images/footer-logo.svg"
               alt="Hypernusa"
               className="footer-logo-image"
             />
@@ -168,35 +168,62 @@ const Footer = () => {
       .footer {
   position: relative;
   background:
-    linear-gradient(
-  rgba(10, 18, 37, 0.58),
-  rgba(10, 18, 37, 0.78)
-),
-    url('/images/footer-city-bg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+    url('/images/footer-city-bg.jpg')
+    center / cover
+    no-repeat;
   padding: 72px 40px 32px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   overflow: hidden;
+  isolation: isolate;
 }
+
+
 .footer::before {
   content: '';
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 18% 18%, rgba(102, 120, 225, 0.08), transparent 28%),
-    radial-gradient(circle at 85% 24%, rgba(228, 73, 164, 0.07), transparent 30%);
+    linear-gradient(
+      180deg,
+      rgba(5, 5, 16, 0.72) 0%,
+      rgba(5, 5, 16, 0.84) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(5, 5, 16, 0.62) 0%,
+      rgba(5, 5, 16, 0.36) 50%,
+      rgba(5, 5, 16, 0.62) 100%
+    ),
+    radial-gradient(
+      circle at 18% 18%,
+      rgba(102, 120, 225, 0.08),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 24%,
+      rgba(228, 73, 164, 0.06),
+      transparent 30%
+    );
   pointer-events: none;
+  z-index: 1;
 }
 
-        .footer-container {
-          position: relative;
-          z-index: 2;
-          max-width: 1400px;
-          margin: 0 auto;
-        }
 
+.footer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 5, 16, 0.50);
+  pointer-events: none;
+  z-index: 2;
+}
+
+      .footer-container {
+  position: relative;
+  z-index: 3;
+  max-width: 1400px;
+  margin: 0 auto;
+}
         .footer-top {
           display: grid;
           grid-template-columns: 0.9fr 2fr;
@@ -211,7 +238,7 @@ const Footer = () => {
         }
 
         .footer-logo-image {
-          width: 180px;
+          width: 220px;
           height: auto;
           display: block;
           margin-bottom: 22px;
@@ -332,6 +359,19 @@ const Footer = () => {
             padding: 64px 24px 32px;
             background-position: center;
           }
+            .footer::before {
+  opacity: 0.3;
+  filter: brightness(0.72) saturate(1.1) contrast(1.02);
+}
+
+.footer::after {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(5, 5, 16, 0.68) 0%,
+      rgba(5, 5, 16, 0.9) 100%
+    );
+}
 
           .footer-top {
             gap: 44px;
@@ -340,7 +380,7 @@ const Footer = () => {
           }
 
           .footer-logo-image {
-            width: 150px;
+            width: 170px;
           }
 
           .footer-links {

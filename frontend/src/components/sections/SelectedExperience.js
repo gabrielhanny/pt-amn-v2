@@ -6,31 +6,32 @@ const works = [
     category: 'Campaign & Digital',
     title: 'Public Brand Activation Campaign',
     description:
-      'Integrated campaign execution combining digital communication, content ecosystem, and audience activation strategy.',
+      'Brand communication, digital activation, content ecosystem, and audience engagement shaped through public-facing campaigns.',
     year: '2025',
   },
   {
     category: 'Commerce Growth',
     title: 'Marketplace & Live Commerce Enablement',
     description:
-      'Commerce-focused activation supporting conversion movement, creator ecosystem, and marketplace growth operations.',
+      'Commerce-focused activation supporting marketplace growth, live selling, creator ecosystem, and sales-oriented content.',
     year: '2025',
   },
   {
-    category: 'CRM & Automation Systems',
+    category: 'CRM & Automation',
     title: 'Growth Automation & CRM Experience',
     description:
-      'Operational workflow, automation structure, and reporting systems designed to support scalable growth operations.',
+      'Workflow automation, CRM structure, dashboard, and reporting systems designed to support scalable growth operations.',
     year: '2026',
   },
 ];
 
 const SelectedExperience = () => {
   return (
-    <section
-      className="selected-experience"
-      data-testid="selected-experience"
-    >
+    <section className="selected-experience" data-testid="selected-experience">
+      <div className="experience-bg"></div>
+      <div className="experience-overlay"></div>
+      <div className="experience-noise"></div>
+
       <div className="experience-glow experience-glow-one"></div>
       <div className="experience-glow experience-glow-two"></div>
 
@@ -38,18 +39,19 @@ const SelectedExperience = () => {
         <div className="experience-header">
           <div className="experience-label">
             <span className="experience-line"></span>
-            <span>Selected Experience</span>
+            <span>Cross-Industry Experience</span>
           </div>
 
           <h2 className="experience-title">
-            Selected Experience
+            Built by People
             <br />
-            <span>from the People Behind AMN</span>
+            <span>Behind Hypernusa</span>
           </h2>
 
           <p className="experience-description">
-            A selection of campaign, digital, content, commerce, public brand,
-            and growth-related experience shaped by the people behind AMN.
+            Our team brings experience across brand campaigns, digital activation,
+            creative production, commerce, automation, and growth projects for
+            diverse industries.
           </p>
         </div>
 
@@ -59,24 +61,17 @@ const SelectedExperience = () => {
               <div className="experience-card-overlay"></div>
 
               <div className="experience-card-top">
-                <span className="experience-category">
-                  {work.category}
-                </span>
-
-                <span className="experience-year">
-                  {work.year}
-                </span>
+                <span className="experience-category">{work.category}</span>
+                <span className="experience-year">{work.year}</span>
               </div>
 
               <div className="experience-card-content">
                 <h3>{work.title}</h3>
-
                 <p>{work.description}</p>
               </div>
 
               <div className="experience-link">
                 <span>Experience Preview</span>
-
                 <ArrowUpRight size={18} />
               </div>
             </article>
@@ -93,28 +88,61 @@ const SelectedExperience = () => {
           position: relative;
           padding: 180px 0;
           overflow: hidden;
-          background:
-            radial-gradient(circle at top right,
-              rgba(139, 92, 246, 0.14),
-              transparent 30%),
-            linear-gradient(180deg, #050510 0%, #080818 100%);
+          background: #050510;
+          isolation: isolate;
         }
 
-        .selected-experience::before {
-          content: '';
+        .experience-bg {
           position: absolute;
           inset: 0;
-          background-image:
-            linear-gradient(rgba(167, 178, 255, 0.02) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(167, 178, 255, 0.02) 1px, transparent 1px);
-          background-size: 88px 88px;
-          opacity: 0.45;
+          background: url('/images/selected-city-bg.jpg') center/cover no-repeat;
+          z-index: 0;
+          opacity: 0.4;
+          filter: brightness(0.86) saturate(1.18) contrast(1.04);
+          transform: scale(1.02);
+        }
+
+        .experience-overlay {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          background:
+            linear-gradient(
+              180deg,
+              rgba(5, 5, 16, 0.28) 0%,
+              rgba(5, 5, 16, 0.78) 100%
+            ),
+            linear-gradient(
+              90deg,
+              rgba(5, 5, 16, 0.58) 0%,
+              rgba(5, 5, 16, 0.2) 50%,
+              rgba(5, 5, 16, 0.58) 100%
+            ),
+            radial-gradient(
+              circle at 16% 18%,
+              rgba(102, 126, 234, 0.16),
+              transparent 34%
+            ),
+            radial-gradient(
+              circle at 86% 54%,
+              rgba(236, 72, 153, 0.13),
+              transparent 32%
+            );
+        }
+
+        .experience-noise {
+          position: absolute;
+          inset: 0;
+          z-index: 2;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E");
+          opacity: 0.035;
           pointer-events: none;
+          mix-blend-mode: overlay;
         }
 
         .experience-container {
           position: relative;
-          z-index: 3;
+          z-index: 4;
           width: 100%;
           max-width: 1180px;
           margin: 0 auto;
@@ -136,20 +164,15 @@ const SelectedExperience = () => {
         .experience-line {
           width: 52px;
           height: 1px;
-          background:
-            linear-gradient(
-              90deg,
-              rgba(167, 178, 255, 0.7),
-              transparent
-            );
+          background: linear-gradient(90deg, rgba(167, 178, 255, 0.7), transparent);
         }
 
         .experience-label span:last-child {
           font-size: 13px;
           letter-spacing: 0.18em;
           text-transform: uppercase;
-          color: rgba(255, 255, 255, 0.48);
-          font-weight: 600;
+          color: rgba(255, 255, 255, 0.56);
+          font-weight: 700;
         }
 
         .experience-title {
@@ -159,17 +182,11 @@ const SelectedExperience = () => {
           letter-spacing: -0.06em;
           font-weight: 300;
           color: rgba(255, 255, 255, 0.96);
+          text-shadow: 0 18px 60px rgba(0, 0, 0, 0.42);
         }
 
         .experience-title span {
-          background:
-            linear-gradient(
-              135deg,
-              #ffffff 0%,
-              #a78bfa 45%,
-              #ec4899 100%
-            );
-
+          background: linear-gradient(135deg, #ffffff 0%, #a78bfa 45%, #ec4899 100%);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
@@ -180,8 +197,9 @@ const SelectedExperience = () => {
           margin-top: 42px;
           font-size: 20px;
           line-height: 1.8;
-          color: rgba(255, 255, 255, 0.62);
+          color: rgba(255, 255, 255, 0.68);
           font-weight: 300;
+          text-shadow: 0 10px 34px rgba(0, 0, 0, 0.38);
         }
 
         .experience-grid {
@@ -190,36 +208,38 @@ const SelectedExperience = () => {
           gap: 24px;
         }
 
-        .experience-card {
-          position: relative;
-          min-height: 460px;
-          padding: 34px;
-          border-radius: 28px;
-          overflow: hidden;
+       .experience-card {
+  position: relative;
+  min-height: 380px;
+  padding: 34px;
+  border-radius: 28px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.07),
+      rgba(255, 255, 255, 0.03)
+    );
+  border: 1px solid rgba(167, 178, 255, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 24px 60px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  transition:
+    transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.45s ease,
+    background 0.45s ease;
+}
 
-          background:
-            linear-gradient(
-              145deg,
-              rgba(255, 255, 255, 0.06),
-              rgba(255, 255, 255, 0.025)
-            );
-
-          border: 1px solid rgba(167, 178, 255, 0.12);
-
-          box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.05),
-            0 24px 60px rgba(0, 0, 0, 0.2);
-
-          transition:
-            transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-            border-color 0.45s ease;
-        }
 
         .experience-card::before {
           content: '';
           position: absolute;
           inset: 0;
-
           background:
             radial-gradient(
               circle at top left,
@@ -231,14 +251,19 @@ const SelectedExperience = () => {
               rgba(236, 72, 153, 0.12),
               transparent 34%
             );
-
           opacity: 0;
           transition: opacity 0.45s ease;
         }
 
         .experience-card:hover {
           transform: translateY(-10px);
-          border-color: rgba(167, 178, 255, 0.26);
+          border-color: rgba(167, 178, 255, 0.3);
+          background:
+            linear-gradient(
+              145deg,
+              rgba(255, 255, 255, 0.09),
+              rgba(255, 255, 255, 0.04)
+            );
         }
 
         .experience-card:hover::before {
@@ -248,47 +273,45 @@ const SelectedExperience = () => {
         .experience-card-overlay {
           position: absolute;
           inset: 0;
-
           background:
             linear-gradient(
               180deg,
               transparent 0%,
-              rgba(0, 0, 0, 0.36) 100%
+              rgba(0, 0, 0, 0.32) 100%
             );
         }
 
         .experience-card-top {
-          position: relative;
-          z-index: 2;
-
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-
-          margin-bottom: 220px;
-        }
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 90px;
+}
 
         .experience-category {
           font-size: 13px;
           letter-spacing: 0.14em;
           text-transform: uppercase;
-          color: rgba(167, 178, 255, 0.8);
-          font-weight: 600;
+          color: rgba(167, 178, 255, 0.84);
+          font-weight: 700;
         }
 
         .experience-year {
           font-size: 14px;
-          color: rgba(255, 255, 255, 0.42);
+          color: rgba(255, 255, 255, 0.46);
+          white-space: nowrap;
         }
 
         .experience-card-content {
-          position: relative;
-          z-index: 2;
-        }
+  position: relative;
+  z-index: 2;
+}
 
         .experience-card h3 {
           margin: 0 0 18px;
-
           font-size: 32px;
           line-height: 1.08;
           letter-spacing: -0.04em;
@@ -298,53 +321,35 @@ const SelectedExperience = () => {
 
         .experience-card p {
           margin: 0;
-
           font-size: 15px;
           line-height: 1.8;
-          color: rgba(255, 255, 255, 0.6);
+          color: rgba(255, 255, 255, 0.64);
         }
 
-        .experience-link {
-          position: relative;
-          z-index: 2;
-
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-
-          margin-top: 42px;
-
-          color: #ffffff;
-          font-size: 14px;
-          font-weight: 600;
-        }
-
+      .experience-link {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 36px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+}
         .experience-cta {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-
           margin-top: 52px;
-
           padding: 16px 28px;
-
           border-radius: 14px;
-
           text-decoration: none;
           color: #ffffff;
           font-size: 15px;
           font-weight: 700;
-
-          background:
-            linear-gradient(
-              135deg,
-              #667eea 0%,
-              #764ba2 100%
-            );
-
-          box-shadow:
-            0 14px 40px rgba(102, 126, 234, 0.28);
-
+          background: linear-gradient(135deg, #667eea 0%, #ec4899 100%);
+          box-shadow: 0 14px 40px rgba(102, 126, 234, 0.28);
           transition:
             transform 0.35s ease,
             box-shadow 0.35s ease;
@@ -352,9 +357,7 @@ const SelectedExperience = () => {
 
         .experience-cta:hover {
           transform: translateY(-3px);
-
-          box-shadow:
-            0 20px 52px rgba(102, 126, 234, 0.42);
+          box-shadow: 0 20px 52px rgba(236, 72, 153, 0.34);
         }
 
         .experience-glow {
@@ -362,13 +365,13 @@ const SelectedExperience = () => {
           border-radius: 999px;
           filter: blur(120px);
           pointer-events: none;
-          z-index: 1;
+          z-index: 2;
         }
 
         .experience-glow-one {
           width: 340px;
           height: 340px;
-          background: rgba(102, 126, 234, 0.12);
+          background: rgba(102, 126, 234, 0.14);
           top: 100px;
           left: 8%;
         }
@@ -376,7 +379,7 @@ const SelectedExperience = () => {
         .experience-glow-two {
           width: 280px;
           height: 280px;
-          background: rgba(236, 72, 153, 0.08);
+          background: rgba(236, 72, 153, 0.1);
           bottom: 100px;
           right: 8%;
         }
@@ -387,12 +390,12 @@ const SelectedExperience = () => {
           }
 
           .experience-card {
-            min-height: auto;
-          }
+    min-height: auto;
+  }
 
-          .experience-card-top {
-            margin-bottom: 100px;
-          }
+  .experience-card-top {
+    margin-bottom: 56px;
+  }
         }
 
         @media (max-width: 768px) {
@@ -400,16 +403,61 @@ const SelectedExperience = () => {
             padding: 120px 0;
           }
 
+          .experience-bg {
+            opacity: 0.66;
+            background-position: center;
+            filter: brightness(1.08) saturate(1.18) contrast(1.02);
+            transform: scale(1.04);
+          }
+
+          .experience-overlay {
+            background:
+              linear-gradient(
+                180deg,
+                rgba(5, 5, 16, 0.18) 0%,
+                rgba(5, 5, 16, 0.58) 100%
+              ),
+              linear-gradient(
+                90deg,
+                rgba(5, 5, 16, 0.28) 0%,
+                rgba(5, 5, 16, 0.1) 50%,
+                rgba(5, 5, 16, 0.28) 100%
+              ),
+              radial-gradient(
+                circle at 50% 32%,
+                rgba(102, 126, 234, 0.18),
+                transparent 46%
+              ),
+              radial-gradient(
+                circle at 72% 48%,
+                rgba(236, 72, 153, 0.14),
+                transparent 42%
+              );
+          }
+
           .experience-container {
             padding: 0 24px;
           }
 
+          .experience-header {
+            margin-bottom: 56px;
+          }
+
+          .experience-label {
+            margin-bottom: 26px;
+          }
+
+          .experience-label span:last-child {
+            font-size: 11px;
+          }
+
           .experience-title {
-            font-size: 54px;
+            font-size: 50px;
             line-height: 1;
           }
 
           .experience-description {
+            margin-top: 32px;
             font-size: 17px;
             line-height: 1.8;
           }
@@ -420,6 +468,53 @@ const SelectedExperience = () => {
 
           .experience-card h3 {
             font-size: 28px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .selected-experience {
+            padding: 96px 0;
+          }
+
+          .experience-bg {
+            opacity: 0.72;
+            background-position: center top;
+            filter: brightness(1.16) saturate(1.2) contrast(1.02);
+          }
+
+          .experience-overlay {
+            background:
+              linear-gradient(
+                180deg,
+                rgba(5, 5, 16, 0.14) 0%,
+                rgba(5, 5, 16, 0.5) 100%
+              ),
+              linear-gradient(
+                90deg,
+                rgba(5, 5, 16, 0.22) 0%,
+                rgba(5, 5, 16, 0.08) 50%,
+                rgba(5, 5, 16, 0.22) 100%
+              );
+          }
+
+          .experience-title {
+            font-size: 42px;
+          }
+
+          .experience-description {
+            font-size: 16px;
+          }
+
+          .experience-card-top {
+            align-items: flex-start;
+          }
+
+          .experience-card h3 {
+            font-size: 25px;
+          }
+
+          .experience-cta {
+            width: 100%;
           }
         }
       `}</style>

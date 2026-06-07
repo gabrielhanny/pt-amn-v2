@@ -316,34 +316,34 @@ const Hero = () => {
           }
 
           .hero-bg {
-            background-position: center;
-            transform: scale(1.04);
-          }
+    background-position: center;
+    transform: scale(1.04);
+  }
 
-         .hero-overlay {
-  background:
-    linear-gradient(
-      180deg,
-      rgba(10, 18, 37, 0.5) 0%,
-      rgba(10, 18, 37, 0.86) 100%
-    ),
-    linear-gradient(
-      90deg,
-      rgba(10, 18, 37, 0.72) 0%,
-      rgba(10, 18, 37, 0.48) 50%,
-      rgba(10, 18, 37, 0.72) 100%
-    ),
-    radial-gradient(
-      circle at 50% 38%,
-      rgba(102, 120, 225, 0.2),
-      transparent 42%
-    ),
-    radial-gradient(
-      circle at 70% 50%,
-      rgba(228, 73, 164, 0.14),
-      transparent 38%
-    );
-}
+  .hero-overlay {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(10, 18, 37, 0.28) 0%,
+        rgba(10, 18, 37, 0.58) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(10, 18, 37, 0.38) 0%,
+        rgba(10, 18, 37, 0.18) 50%,
+        rgba(10, 18, 37, 0.38) 100%
+      ),
+      radial-gradient(
+        circle at 50% 34%,
+        rgba(102, 120, 225, 0.22),
+        transparent 44%
+      ),
+      radial-gradient(
+        circle at 72% 48%,
+        rgba(228, 73, 164, 0.16),
+        transparent 40%
+      );
+  }
 
           .hero-badge {
             font-size: 12px;
@@ -394,6 +394,35 @@ const Hero = () => {
           .hero-description {
             font-size: 15px;
           }
+             .hero-bg {
+    background-position: center top;
+    filter: brightness(1.28) saturate(1.18) contrast(1.02);
+  }
+
+  .hero-overlay {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(10, 18, 37, 0.22) 0%,
+        rgba(10, 18, 37, 0.52) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(10, 18, 37, 0.3) 0%,
+        rgba(10, 18, 37, 0.12) 50%,
+        rgba(10, 18, 37, 0.3) 100%
+      ),
+      radial-gradient(
+        circle at 50% 32%,
+        rgba(102, 120, 225, 0.2),
+        transparent 46%
+      ),
+      radial-gradient(
+        circle at 72% 48%,
+        rgba(228, 73, 164, 0.14),
+        transparent 42%
+      );
+  }
 
           .btn-primary,
           .btn-secondary {
