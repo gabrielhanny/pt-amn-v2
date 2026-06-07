@@ -146,11 +146,15 @@ button:focus-visible {
 .loader-container {
   position: fixed;
   inset: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
   background: radial-gradient(ellipse 100% 80% at 50% 50%, #0d0d24 0%, #07071a 70%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 0 24px;
   z-index: 9999;
   overflow: hidden;
   opacity: 1;
@@ -475,4 +479,21 @@ section::before {
     margin-top: 24px;
     color: rgba(255, 255, 255, 0.68);
   }
+  .loader-container {
+  justify-content: center;
+  padding-bottom: 10vh;
+}
+
+.loader-energy-field {
+  width: 420px;
+  height: 420px;
+}
+
+.loader-letters {
+  transform: translateY(-5vh);
+}
+
+.loader-tagline {
+  transform: translateY(-5vh);
+}
 }
