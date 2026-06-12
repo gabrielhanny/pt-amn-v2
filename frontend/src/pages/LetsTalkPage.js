@@ -42,7 +42,7 @@ const LetsTalkPage = () => {
     });
 
     try {
-     const response = await fetch('/api/contact', {
+    const response = await fetch('https://pt-amn-v2-backend.vercel.app/api/contact', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
