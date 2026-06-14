@@ -1,40 +1,117 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Package, Landmark, Route, ShoppingCart, Building2 } from 'lucide-react';
 
-const industries = [
-  {
-    title: 'Consumer & Commerce Brands',
-    description:
-      'For lifestyle, beauty, F&B, retail, and product-driven businesses that need stronger market presence and customer movement.',
-    icon: Package,
-  },
-  {
-    title: 'B2B, Tech & Digital Services',
-    description:
-      'For service-driven and technology-enabled brands building trust, clarity, lead generation, and digital growth systems.',
-    icon: Landmark,
-  },
-  {
-    title: 'Public, Mobility & Infrastructure',
-    description:
-      'For public-facing organizations, mobility, infrastructure, and large-scale audience engagement initiatives.',
-    icon: Route,
-  },
-  {
-    title: 'Marketplace & Live Commerce',
-    description:
-      'For brands growing through marketplace activation, live commerce, affiliate, creator-led conversion, and product content.',
-    icon: ShoppingCart,
-  },
-  {
-    title: 'Corporate & Growth Organizations',
-    description:
-      'For organizations that need sharper communication, better digital experience, operational systems, and measurable activation.',
-    icon: Building2,
-  },
-];
+const industryIcons = {
+  Package,
+  Landmark,
+  Route,
+  ShoppingCart,
+  Building2,
+};
 
 const IndustriesPreview = () => {
+  const [language, setLanguage] = useState('en');
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('hypernusa_language') || 'en';
+
+    setLanguage(savedLanguage);
+
+    const handleLanguageChange = (event) => {
+      setLanguage(event.detail);
+    };
+
+    window.addEventListener('hypernusa-language-change', handleLanguageChange);
+
+    return () => {
+      window.removeEventListener('hypernusa-language-change', handleLanguageChange);
+    };
+  }, []);
+
+  const copy = {
+    en: {
+      label: 'Industries We Serve',
+      titleLine1: 'Relevant for Brands',
+      titleLine2: 'Preparing for Scale',
+      description:
+        'Hypernusa works across sectors where connected growth systems create measurable business movement.',
+      industries: [
+        {
+          title: 'Consumer & Commerce Brands',
+          description:
+            'For lifestyle, beauty, F&B, retail, and product-driven businesses that need stronger market presence and customer movement.',
+          icon: 'Package',
+        },
+        {
+          title: 'B2B, Tech & Digital Services',
+          description:
+            'For service-driven and technology-enabled brands building trust, clarity, lead generation, and digital growth systems.',
+          icon: 'Landmark',
+        },
+        {
+          title: 'Public, Mobility & Infrastructure',
+          description:
+            'For public-facing organizations, mobility, infrastructure, and large-scale audience engagement initiatives.',
+          icon: 'Route',
+        },
+        {
+          title: 'Marketplace & Live Commerce',
+          description:
+            'For brands growing through marketplace activation, live commerce, affiliate, creator-led conversion, and product content.',
+          icon: 'ShoppingCart',
+        },
+        {
+          title: 'Corporate & Growth Organizations',
+          description:
+            'For organizations that need sharper communication, better digital experience, operational systems, and measurable activation.',
+          icon: 'Building2',
+        },
+      ],
+    },
+
+    id: {
+      label: 'Industri yang Kami Layani',
+      titleLine1: 'Relevan untuk Brand',
+      titleLine2: 'yang Siap Bertumbuh',
+      description:
+        'Hypernusa bekerja lintas sektor, terutama di area yang membutuhkan sistem pertumbuhan terhubung untuk menciptakan pergerakan bisnis yang terukur.',
+      industries: [
+        {
+          title: 'Consumer & Commerce Brands',
+          description:
+            'Untuk bisnis lifestyle, beauty, F&B, retail, dan produk yang membutuhkan kehadiran pasar yang lebih kuat dan pergerakan pelanggan.',
+          icon: 'Package',
+        },
+        {
+          title: 'B2B, Tech & Digital Services',
+          description:
+            'Untuk brand berbasis layanan dan teknologi yang membangun kepercayaan, kejelasan komunikasi, lead generation, dan sistem pertumbuhan digital.',
+          icon: 'Landmark',
+        },
+        {
+          title: 'Public, Mobility & Infrastructure',
+          description:
+            'Untuk organisasi publik, mobilitas, infrastruktur, dan inisiatif engagement audiens dalam skala besar.',
+          icon: 'Route',
+        },
+        {
+          title: 'Marketplace & Live Commerce',
+          description:
+            'Untuk brand yang bertumbuh melalui aktivasi marketplace, live commerce, afiliasi, creator-led conversion, dan konten produk.',
+          icon: 'ShoppingCart',
+        },
+        {
+          title: 'Corporate & Growth Organizations',
+          description:
+            'Untuk organisasi yang membutuhkan komunikasi lebih tajam, pengalaman digital lebih baik, sistem operasional, dan aktivasi yang terukur.',
+          icon: 'Building2',
+        },
+      ],
+    },
+  };
+
+  const currentCopy = copy[language];
+
   return (
     <section className="industries-preview" data-testid="industries-preview">
       <div className="industries-bg"></div>
@@ -48,24 +125,21 @@ const IndustriesPreview = () => {
         <div className="industries-header">
           <div className="industries-label">
             <span className="industries-line"></span>
-            <span>Industries We Serve</span>
+            <span>{currentCopy.label}</span>
           </div>
 
           <h2 className="industries-title">
-            Relevant for Brands
+            {currentCopy.titleLine1}
             <br />
-            <span>Preparing for Scale</span>
+            <span>{currentCopy.titleLine2}</span>
           </h2>
 
-          <p className="industries-description">
-            Hypernusa works across sectors where connected growth systems create
-            measurable business movement.
-          </p>
+          <p className="industries-description">{currentCopy.description}</p>
         </div>
 
         <div className="industries-grid">
-          {industries.map((industry) => {
-            const Icon = industry.icon;
+          {currentCopy.industries.map((industry) => {
+            const Icon = industryIcons[industry.icon];
 
             return (
               <article className="industry-card" key={industry.title}>
@@ -85,7 +159,7 @@ const IndustriesPreview = () => {
         </div>
       </div>
 
-      <style jsx="true">{`
+        <style jsx="true">{`
         .industries-preview {
           position: relative;
           padding: 170px 0;

@@ -1,31 +1,95 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 
-const works = [
-  {
-    category: 'Campaign & Digital',
-    title: 'Public Brand Activation Campaign',
-    description:
-      'Brand communication, digital activation, content ecosystem, and audience engagement shaped through public-facing campaigns.',
-    year: '2025',
-  },
-  {
-    category: 'Commerce Growth',
-    title: 'Marketplace & Live Commerce Enablement',
-    description:
-      'Commerce-focused activation supporting marketplace growth, live selling, creator ecosystem, and sales-oriented content.',
-    year: '2025',
-  },
-  {
-    category: 'CRM & Automation',
-    title: 'Growth Automation & CRM Experience',
-    description:
-      'Workflow automation, CRM structure, dashboard, and reporting systems designed to support scalable growth operations.',
-    year: '2026',
-  },
-];
-
 const SelectedExperience = () => {
+  const [language, setLanguage] = useState('en');
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('hypernusa_language') || 'en';
+
+    setLanguage(savedLanguage);
+
+    const handleLanguageChange = (event) => {
+      setLanguage(event.detail);
+    };
+
+    window.addEventListener('hypernusa-language-change', handleLanguageChange);
+
+    return () => {
+      window.removeEventListener('hypernusa-language-change', handleLanguageChange);
+    };
+  }, []);
+
+  const copy = {
+    en: {
+      label: 'Cross-Industry Experience',
+      titleLine1: 'Built by People',
+      titleLine2: 'Behind Hypernusa',
+      description:
+        'Our team brings experience across brand campaigns, digital activation, creative production, commerce, automation, and growth projects for diverse industries.',
+      preview: 'Experience Preview',
+      cta: 'View Selected Work',
+      works: [
+        {
+          category: 'Campaign & Digital',
+          title: 'Public Brand Activation Campaign',
+          description:
+            'Brand communication, digital activation, content ecosystem, and audience engagement shaped through public-facing campaigns.',
+          year: '2025',
+        },
+        {
+          category: 'Commerce Growth',
+          title: 'Marketplace & Live Commerce Enablement',
+          description:
+            'Commerce-focused activation supporting marketplace growth, live selling, creator ecosystem, and sales-oriented content.',
+          year: '2025',
+        },
+        {
+          category: 'CRM & Automation',
+          title: 'Growth Automation & CRM Experience',
+          description:
+            'Workflow automation, CRM structure, dashboard, and reporting systems designed to support scalable growth operations.',
+          year: '2026',
+        },
+      ],
+    },
+
+    id: {
+      label: 'Pengalaman Lintas Industri',
+      titleLine1: 'Dibangun oleh Tim',
+      titleLine2: 'di Balik Hypernusa',
+      description:
+        'Tim kami membawa pengalaman dalam kampanye brand, aktivasi digital, produksi kreatif, commerce, otomasi, dan proyek pertumbuhan di berbagai industri.',
+      preview: 'Lihat Pengalaman',
+      cta: 'Lihat Karya Terpilih',
+      works: [
+        {
+          category: 'Kampanye & Digital',
+          title: 'Kampanye Aktivasi Brand Publik',
+          description:
+            'Komunikasi brand, aktivasi digital, ekosistem konten, dan engagement audiens melalui kampanye yang menyasar publik.',
+          year: '2025',
+        },
+        {
+          category: 'Pertumbuhan Commerce',
+          title: 'Marketplace & Live Commerce Enablement',
+          description:
+            'Aktivasi commerce untuk mendukung pertumbuhan marketplace, live selling, creator ecosystem, dan konten berorientasi penjualan.',
+          year: '2025',
+        },
+        {
+          category: 'CRM & Otomasi',
+          title: 'Growth Automation & CRM Experience',
+          description:
+            'Workflow automation, struktur CRM, dashboard, dan sistem pelaporan untuk mendukung operasional pertumbuhan yang scalable.',
+          year: '2026',
+        },
+      ],
+    },
+  };
+
+  const currentCopy = copy[language];
+
   return (
     <section className="selected-experience" data-testid="selected-experience">
       <div className="experience-bg"></div>
@@ -39,25 +103,21 @@ const SelectedExperience = () => {
         <div className="experience-header">
           <div className="experience-label">
             <span className="experience-line"></span>
-            <span>Cross-Industry Experience</span>
+            <span>{currentCopy.label}</span>
           </div>
 
           <h2 className="experience-title">
-            Built by People
+            {currentCopy.titleLine1}
             <br />
-            <span>Behind Hypernusa</span>
+            <span>{currentCopy.titleLine2}</span>
           </h2>
 
-          <p className="experience-description">
-            Our team brings experience across brand campaigns, digital activation,
-            creative production, commerce, automation, and growth projects for
-            diverse industries.
-          </p>
+          <p className="experience-description">{currentCopy.description}</p>
         </div>
 
         <div className="experience-grid">
-          {works.map((work, index) => (
-            <article className="experience-card" key={index}>
+          {currentCopy.works.map((work, index) => (
+            <article className="experience-card" key={`${work.title}-${index}`}>
               <div className="experience-card-overlay"></div>
 
               <div className="experience-card-top">
@@ -71,7 +131,7 @@ const SelectedExperience = () => {
               </div>
 
               <div className="experience-link">
-                <span>Experience Preview</span>
+                <span>{currentCopy.preview}</span>
                 <ArrowUpRight size={18} />
               </div>
             </article>
@@ -79,7 +139,7 @@ const SelectedExperience = () => {
         </div>
 
         <a href="/work" className="experience-cta">
-          View Selected Work
+          {currentCopy.cta}
         </a>
       </div>
 

@@ -1,31 +1,93 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Target, Network, BarChart3 } from 'lucide-react';
 
-const pillars = [
-  {
-    number: '01',
-    title: 'Growth First',
-    description:
-      'Every engagement begins with business objectives, customer movement, market realities, and growth priorities.',
-    icon: Target,
-  },
-  {
-    number: '02',
-    title: 'Connected Systems',
-    description:
-      'Strategy, content, media, commerce, technology, automation, and reporting work as one growth ecosystem.',
-    icon: Network,
-  },
-  {
-    number: '03',
-    title: 'Measurable Execution',
-    description:
-      'Every initiative is tracked through clear deliverables, performance indicators, and optimization cycles.',
-    icon: BarChart3,
-  },
-];
+const pillarIcons = {
+  Target,
+  Network,
+  BarChart3,
+};
 
 const HowAMNWork = () => {
+  const [language, setLanguage] = useState('en');
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('hypernusa_language') || 'en';
+
+    setLanguage(savedLanguage);
+
+    const handleLanguageChange = (event) => {
+      setLanguage(event.detail);
+    };
+
+    window.addEventListener('hypernusa-language-change', handleLanguageChange);
+
+    return () => {
+      window.removeEventListener('hypernusa-language-change', handleLanguageChange);
+    };
+  }, []);
+
+  const copy = {
+    en: {
+      label: 'Our Working Approach',
+      titleLine1: 'Designed for Growth.',
+      titleLine2: 'Built for Execution.',
+      pillars: [
+        {
+          number: '01',
+          title: 'Growth First',
+          description:
+            'Every engagement begins with business objectives, customer movement, market realities, and growth priorities.',
+          icon: 'Target',
+        },
+        {
+          number: '02',
+          title: 'Connected Systems',
+          description:
+            'Strategy, content, media, commerce, technology, automation, and reporting work as one growth ecosystem.',
+          icon: 'Network',
+        },
+        {
+          number: '03',
+          title: 'Measurable Execution',
+          description:
+            'Every initiative is tracked through clear deliverables, performance indicators, and optimization cycles.',
+          icon: 'BarChart3',
+        },
+      ],
+    },
+
+    id: {
+      label: 'Cara Kami Bekerja',
+      titleLine1: 'Dirancang untuk Bertumbuh.',
+      titleLine2: 'Dibangun untuk Eksekusi.',
+      pillars: [
+        {
+          number: '01',
+          title: 'Growth First',
+          description:
+            'Setiap pekerjaan dimulai dari tujuan bisnis, pergerakan pelanggan, realitas pasar, dan prioritas pertumbuhan.',
+          icon: 'Target',
+        },
+        {
+          number: '02',
+          title: 'Sistem yang Terhubung',
+          description:
+            'Strategi, konten, media, commerce, teknologi, otomasi, dan pelaporan bekerja sebagai satu ekosistem pertumbuhan.',
+          icon: 'Network',
+        },
+        {
+          number: '03',
+          title: 'Eksekusi Terukur',
+          description:
+            'Setiap inisiatif dipantau melalui deliverable yang jelas, indikator performa, dan siklus optimasi.',
+          icon: 'BarChart3',
+        },
+      ],
+    },
+  };
+
+  const currentCopy = copy[language];
+
   return (
     <section className="how-work" data-testid="how-amn-work">
       <div className="how-bg"></div>
@@ -39,22 +101,22 @@ const HowAMNWork = () => {
         <div className="how-header">
           <div className="how-label">
             <span className="how-line"></span>
-            <span>Our Working Approach</span>
+            <span>{currentCopy.label}</span>
           </div>
 
           <h2 className="how-title">
-            Designed for Growth.
+            {currentCopy.titleLine1}
             <br />
-            <span>Built for Execution.</span>
+            <span>{currentCopy.titleLine2}</span>
           </h2>
         </div>
 
         <div className="pillar-grid">
-          {pillars.map((pillar) => {
-            const Icon = pillar.icon;
+          {currentCopy.pillars.map((pillar) => {
+            const Icon = pillarIcons[pillar.icon];
 
             return (
-              <article className="pillar-card" key={pillar.title}>
+              <article className="pillar-card" key={pillar.number}>
                 <div className="pillar-card-glow"></div>
 
                 <div className="pillar-top">
@@ -74,8 +136,7 @@ const HowAMNWork = () => {
           })}
         </div>
       </div>
-
-      <style jsx="true">{`
+ <style jsx="true">{`
         .how-work {
           position: relative;
           padding: 170px 0;

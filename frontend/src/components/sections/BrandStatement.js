@@ -1,6 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const BrandStatement = () => {
+  const [language, setLanguage] = useState('en');
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('hypernusa_language') || 'en';
+
+    setLanguage(savedLanguage);
+
+    const handleLanguageChange = (event) => {
+      setLanguage(event.detail);
+    };
+
+    window.addEventListener('hypernusa-language-change', handleLanguageChange);
+
+    return () => {
+      window.removeEventListener('hypernusa-language-change', handleLanguageChange);
+    };
+  }, []);
+
+  const copy = {
+    en: {
+      label: 'Brand Statement',
+      titleLine1: 'Visibility is easy.',
+      titleLine2: 'Movement is harder.',
+      description:
+        'Modern brands do not lack activity. They need connected systems that turn attention into engagement, engagement into action, and action into measurable growth.',
+      supporting:
+        'Hypernusa connects strategy, creative, commerce, technology, automation, and reporting into one growth activation system — so every campaign, content, channel, website, and workflow has a clear role in moving the brand forward.',
+    },
+    id: {
+      label: 'Pernyataan Brand',
+      titleLine1: 'Terlihat itu mudah.',
+      titleLine2: 'Bergerak lebih sulit.',
+      description:
+        'Brand modern tidak kekurangan aktivitas. Yang mereka butuhkan adalah sistem yang terhubung untuk mengubah perhatian menjadi keterlibatan, keterlibatan menjadi tindakan, dan tindakan menjadi pertumbuhan yang terukur.',
+      supporting:
+        'Hypernusa menghubungkan strategi, kreatif, komersial, teknologi, otomasi, dan pelaporan ke dalam satu sistem aktivasi pertumbuhan — agar setiap kampanye, konten, kanal, website, dan workflow memiliki peran yang jelas dalam mendorong brand bergerak maju.',
+    },
+  };
+
   return (
     <section className="brand-statement" data-testid="brand-statement">
       <div className="brand-bg"></div>
@@ -10,27 +49,18 @@ const BrandStatement = () => {
       <div className="brand-container">
         <div className="brand-label">
           <span className="brand-line"></span>
-          <span className="brand-mini-title">Brand Statement</span>
+          <span className="brand-mini-title">{copy[language].label}</span>
         </div>
 
         <h2 className="brand-title">
-          Visibility is easy.
+          {copy[language].titleLine1}
           <br />
-          <span>Movement is harder.</span>
+          <span>{copy[language].titleLine2}</span>
         </h2>
 
-        <p className="brand-description">
-          Modern brands do not lack activity. They need connected systems that
-          turn attention into engagement, engagement into action, and action into
-          measurable growth.
-        </p>
+        <p className="brand-description">{copy[language].description}</p>
 
-        <p className="brand-supporting">
-          Hypernusa connects strategy, creative, commerce, technology, automation,
-          and reporting into one growth activation system — so every campaign,
-          content, channel, website, and workflow has a clear role in moving the
-          brand forward.
-        </p>
+        <p className="brand-supporting">{copy[language].supporting}</p>
       </div>
 
       <style jsx="true">{`
@@ -42,50 +72,50 @@ const BrandStatement = () => {
           isolation: isolate;
         }
 
-       .brand-bg {
-  position: absolute;
-  inset: 0;
-  background: url('/images/brand-city-bg.jpg') center/cover no-repeat;
+        .brand-bg {
+          position: absolute;
+          inset: 0;
+          background: url('/images/brand-city-bg.jpg') center/cover no-repeat;
 
-  filter:
-    brightness(1.22)
-    saturate(1.20)
-    contrast(1.06);
+          filter:
+            brightness(1.22)
+            saturate(1.20)
+            contrast(1.06);
 
-  transform: scale(1.02);
-}
+          transform: scale(1.02);
+        }
 
-       .brand-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
+        .brand-overlay {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
 
-  background:
-    linear-gradient(
-      90deg,
-      rgba(10, 18, 37, 0.72) 0%,
-      rgba(10, 18, 37, 0.38) 48%,
-      rgba(10, 18, 37, 0.68) 100%
-    ),
+          background:
+            linear-gradient(
+              90deg,
+              rgba(10, 18, 37, 0.72) 0%,
+              rgba(10, 18, 37, 0.38) 48%,
+              rgba(10, 18, 37, 0.68) 100%
+            ),
 
-    linear-gradient(
-      180deg,
-      rgba(10, 18, 37, 0.28) 0%,
-      rgba(10, 18, 37, 0.72) 100%
-    ),
+            linear-gradient(
+              180deg,
+              rgba(10, 18, 37, 0.28) 0%,
+              rgba(10, 18, 37, 0.72) 100%
+            ),
 
-    radial-gradient(
-      circle at 22% 45%,
-      rgba(102, 120, 225, 0.18),
-      transparent 34%
-    ),
+            radial-gradient(
+              circle at 22% 45%,
+              rgba(102, 120, 225, 0.18),
+              transparent 34%
+            ),
 
-    radial-gradient(
-      circle at 82% 40%,
-      rgba(228, 73, 164, 0.14),
-      transparent 32%
-    );
-}
+            radial-gradient(
+              circle at 82% 40%,
+              rgba(228, 73, 164, 0.14),
+              transparent 32%
+            );
+        }
 
         .brand-noise {
           position: absolute;
@@ -166,121 +196,122 @@ const BrandStatement = () => {
           text-shadow: 0 10px 34px rgba(0, 0, 0, 0.34);
         }
 
-       @media (max-width: 768px) {
-  .brand-statement {
-    padding: 118px 0;
-  }
+        @media (max-width: 768px) {
+          .brand-statement {
+            padding: 118px 0;
+          }
 
-  .brand-bg {
-    background-position: center;
-    filter: brightness(1.24) saturate(1.16) contrast(1.03);
-    transform: scale(1.04);
-  }
+          .brand-bg {
+            background-position: center;
+            filter: brightness(1.24) saturate(1.16) contrast(1.03);
+            transform: scale(1.04);
+          }
 
-  .brand-overlay {
-    background:
-      linear-gradient(
-        180deg,
-        rgba(10, 18, 37, 0.28) 0%,
-        rgba(10, 18, 37, 0.58) 100%
-      ),
-      linear-gradient(
-        90deg,
-        rgba(10, 18, 37, 0.38) 0%,
-        rgba(10, 18, 37, 0.18) 50%,
-        rgba(10, 18, 37, 0.38) 100%
-      ),
-      radial-gradient(
-        circle at 50% 36%,
-        rgba(102, 120, 225, 0.22),
-        transparent 44%
-      ),
-      radial-gradient(
-        circle at 72% 48%,
-        rgba(228, 73, 164, 0.15),
-        transparent 40%
-      );
-  }
+          .brand-overlay {
+            background:
+              linear-gradient(
+                180deg,
+                rgba(10, 18, 37, 0.28) 0%,
+                rgba(10, 18, 37, 0.58) 100%
+              ),
+              linear-gradient(
+                90deg,
+                rgba(10, 18, 37, 0.38) 0%,
+                rgba(10, 18, 37, 0.18) 50%,
+                rgba(10, 18, 37, 0.38) 100%
+              ),
+              radial-gradient(
+                circle at 50% 36%,
+                rgba(102, 120, 225, 0.22),
+                transparent 44%
+              ),
+              radial-gradient(
+                circle at 72% 48%,
+                rgba(228, 73, 164, 0.15),
+                transparent 40%
+              );
+          }
 
-  .brand-container {
-    padding: 0 24px;
-  }
+          .brand-container {
+            padding: 0 24px;
+          }
 
-  .brand-label {
-    margin-bottom: 26px;
-  }
+          .brand-label {
+            margin-bottom: 26px;
+          }
 
-  .brand-mini-title {
-    font-size: 11px;
-  }
+          .brand-mini-title {
+            font-size: 11px;
+          }
 
-  .brand-title {
-    font-size: 48px;
-    line-height: 1.02;
-    letter-spacing: -0.045em;
-  }
+          .brand-title {
+            font-size: 48px;
+            line-height: 1.02;
+            letter-spacing: -0.045em;
+          }
 
-  .brand-description {
-    margin-top: 34px;
-    font-size: 18px;
-    line-height: 1.75;
-  }
+          .brand-description {
+            margin-top: 34px;
+            font-size: 18px;
+            line-height: 1.75;
+          }
 
-  .brand-supporting {
-    margin-top: 26px;
-    font-size: 15px;
-    line-height: 1.8;
-  }
-}
+          .brand-supporting {
+            margin-top: 26px;
+            font-size: 15px;
+            line-height: 1.8;
+          }
+        }
 
-       @media (max-width: 480px) {
-  .brand-statement {
-    padding: 96px 0;
-  }
+        @media (max-width: 480px) {
+          .brand-statement {
+            padding: 96px 0;
+          }
 
-  .brand-bg {
-    background-position: center top;
-    filter: brightness(1.32) saturate(1.18) contrast(1.02);
-  }
+          .brand-bg {
+            background-position: center top;
+            filter: brightness(1.32) saturate(1.18) contrast(1.02);
+          }
 
-  .brand-overlay {
-    background:
-      linear-gradient(
-        180deg,
-        rgba(10, 18, 37, 0.22) 0%,
-        rgba(10, 18, 37, 0.52) 100%
-      ),
-      linear-gradient(
-        90deg,
-        rgba(10, 18, 37, 0.3) 0%,
-        rgba(10, 18, 37, 0.12) 50%,
-        rgba(10, 18, 37, 0.3) 100%
-      ),
-      radial-gradient(
-        circle at 50% 34%,
-        rgba(102, 120, 225, 0.2),
-        transparent 46%
-      ),
-      radial-gradient(
-        circle at 72% 48%,
-        rgba(228, 73, 164, 0.13),
-        transparent 42%
-      );
-  }
+          .brand-overlay {
+            background:
+              linear-gradient(
+                180deg,
+                rgba(10, 18, 37, 0.22) 0%,
+                rgba(10, 18, 37, 0.52) 100%
+              ),
+              linear-gradient(
+                90deg,
+                rgba(10, 18, 37, 0.3) 0%,
+                rgba(10, 18, 37, 0.12) 50%,
+                rgba(10, 18, 37, 0.3) 100%
+              ),
+              radial-gradient(
+                circle at 50% 34%,
+                rgba(102, 120, 225, 0.2),
+                transparent 46%
+              ),
+              radial-gradient(
+                circle at 72% 48%,
+                rgba(228, 73, 164, 0.13),
+                transparent 42%
+              );
+          }
 
-  .brand-title {
-    font-size: 39px;
-  }
+          .brand-title {
+            font-size: 39px;
+          }
 
-  .brand-description {
-    font-size: 17px;
-  }
-    .brand-supporting {
-  font-size: 15px;
-  line-height: 1.65;
-  margin-top: 22px;
-}
-}
+          .brand-description {
+            font-size: 17px;
+          }
+
+          .brand-supporting {
+            font-size: 15px;
+            line-height: 1.65;
+            margin-top: 22px;
+          }
+        }
       `}</style>
     </section>
   );

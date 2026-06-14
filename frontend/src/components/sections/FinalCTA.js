@@ -1,7 +1,48 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 
 const FinalCTA = () => {
+  const [language, setLanguage] = useState('en');
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('hypernusa_language') || 'en';
+
+    setLanguage(savedLanguage);
+
+    const handleLanguageChange = (event) => {
+      setLanguage(event.detail);
+    };
+
+    window.addEventListener('hypernusa-language-change', handleLanguageChange);
+
+    return () => {
+      window.removeEventListener('hypernusa-language-change', handleLanguageChange);
+    };
+  }, []);
+
+  const copy = {
+    en: {
+      label: "Let's Build",
+      titleLine1: "Let's Build",
+      titleLine2: 'What Moves',
+      titleLine3: 'Your Brand Next',
+      description:
+        'Ready to move from fragmented activity to connected growth? We connect strategy, creative direction, campaign activation, commerce, technology, automation, AI, and performance learning into one growth ecosystem built for your brand.',
+      cta: "Let's Talk",
+    },
+    id: {
+      label: 'Mari Bangun',
+      titleLine1: 'Mari Bangun',
+      titleLine2: 'Sistem yang',
+      titleLine3: 'Menggerakkan Brand',
+      description:
+        'Siap bergerak dari aktivitas yang terpisah-pisah menuju pertumbuhan yang terhubung? Kami menghubungkan strategi, arahan kreatif, aktivasi kampanye, commerce, teknologi, otomasi, AI, dan pembelajaran performa ke dalam satu ekosistem pertumbuhan untuk brand Anda.',
+      cta: 'Diskusi',
+    },
+  };
+
+  const currentCopy = copy[language];
+
   return (
     <section className="final-cta" data-testid="final-cta">
       <div className="final-cta-bg"></div>
@@ -23,26 +64,21 @@ const FinalCTA = () => {
       <div className="cta-container">
         <div className="cta-label">
           <span className="cta-line"></span>
-          <span>Let&apos;s Build</span>
+          <span>{currentCopy.label}</span>
         </div>
 
         <h2 className="cta-title">
-          Let&apos;s Build
+          {currentCopy.titleLine1}
           <br />
-          <span>What Moves</span>
+          <span>{currentCopy.titleLine2}</span>
           <br />
-          Your Brand Next
+          {currentCopy.titleLine3}
         </h2>
 
-        <p className="cta-description">
-          Ready to move from fragmented activity to connected growth? We connect
-          strategy, creative direction, campaign activation, commerce, technology,
-          automation, AI, and performance learning into one growth ecosystem built
-          for your brand.
-        </p>
+        <p className="cta-description">{currentCopy.description}</p>
 
         <a href="/lets-talk" className="cta-button">
-          Let&apos;s Talk
+          {currentCopy.cta}
           <ArrowRight size={20} />
         </a>
       </div>

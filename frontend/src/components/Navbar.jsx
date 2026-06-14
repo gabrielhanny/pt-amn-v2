@@ -4,6 +4,15 @@ import { Menu, X } from 'lucide-react';
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [language, setLanguage] = useState('en');
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('hypernusa_language');
+
+    if (savedLanguage === 'id' || savedLanguage === 'en') {
+      setLanguage(savedLanguage);
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -13,28 +22,59 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleLanguageChange = (selectedLanguage) => {
+    setLanguage(selectedLanguage);
+    localStorage.setItem('hypernusa_language', selectedLanguage);
+    window.dispatchEvent(
+      new CustomEvent('hypernusa-language-change', {
+        detail: selectedLanguage,
+      })
+    );
+  };
+
+  const copy = {
+    en: {
+      home: 'Home',
+      solutions: 'Solutions',
+      work: 'Work',
+      about: 'About',
+      letsTalk: "Let’s Talk",
+      noteLine1: 'Growth Activation Agency',
+      noteLine2: 'Jakarta, Indonesia',
+    },
+    id: {
+      home: 'Beranda',
+      solutions: 'Solusi',
+      work: 'Karya',
+      about: 'Tentang',
+      letsTalk: 'Diskusi',
+      noteLine1: 'Agensi Aktivasi Pertumbuhan',
+      noteLine2: 'Jakarta, Indonesia',
+    },
+  };
+
   const menuItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Solutions', href: '/solutions' },
-    { label: 'Work', href: '/work' },
-    { label: 'About', href: '/about' },
+    { label: copy[language].home, href: '/' },
+    { label: copy[language].solutions, href: '/solutions' },
+    { label: copy[language].work, href: '/work' },
+    { label: copy[language].about, href: '/about' },
   ];
 
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} data-testid="navbar">
       <div className="navbar-shell">
         <div className="navbar-container">
-         <a href="/" className="navbar-logo" data-testid="navbar-logo">
-  <img
-    src="/images/hypernusa-logo-color.svg"
-    alt="Hypernusa"
-    className="navbar-logo-image"
-  />
-</a>
+          <a href="/" className="navbar-logo" data-testid="navbar-logo">
+            <img
+              src="/images/hypernusa-logo-color.svg"
+              alt="Hypernusa"
+              className="navbar-logo-image"
+            />
+          </a>
 
           <ul className="navbar-menu desktop-menu">
             {menuItems.map((item) => (
-              <li key={item.label}>
+              <li key={item.href}>
                 <a href={item.href} className="nav-link">
                   {item.label}
                 </a>
@@ -42,9 +82,27 @@ const Navbar = () => {
             ))}
           </ul>
 
-          <div className="navbar-cta desktop-cta">
+          <div className="navbar-actions desktop-actions">
+            <div className="language-toggle" aria-label="Language selector">
+              <button
+                type="button"
+                className={`language-btn ${language === 'id' ? 'active' : ''}`}
+                onClick={() => handleLanguageChange('id')}
+              >
+                ID
+              </button>
+              <span></span>
+              <button
+                type="button"
+                className={`language-btn ${language === 'en' ? 'active' : ''}`}
+                onClick={() => handleLanguageChange('en')}
+              >
+                EN
+              </button>
+            </div>
+
             <a href="/lets-talk" className="btn-contact" data-testid="navbar-cta">
-              Let&apos;s Talk
+              {copy[language].letsTalk}
             </a>
           </div>
 
@@ -63,7 +121,7 @@ const Navbar = () => {
         <div className="mobile-menu">
           <ul className="mobile-menu-items">
             {menuItems.map((item) => (
-              <li key={item.label}>
+              <li key={item.href}>
                 <a
                   href={item.href}
                   className="mobile-nav-link"
@@ -80,14 +138,32 @@ const Navbar = () => {
                 className="mobile-cta-btn"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Let&apos;s Talk
+                {copy[language].letsTalk}
               </a>
             </li>
+
+            <li className="mobile-language-row">
+              <button
+                type="button"
+                className={`mobile-language-btn ${language === 'id' ? 'active' : ''}`}
+                onClick={() => handleLanguageChange('id')}
+              >
+                Indonesia
+              </button>
+              <button
+                type="button"
+                className={`mobile-language-btn ${language === 'en' ? 'active' : ''}`}
+                onClick={() => handleLanguageChange('en')}
+              >
+                English
+              </button>
+            </li>
+
             <li className="mobile-menu-note">
-  Growth Activation Agency
-  <br />
-  Jakarta, Indonesia
-</li>
+              {copy[language].noteLine1}
+              <br />
+              {copy[language].noteLine2}
+            </li>
           </ul>
         </div>
       )}
@@ -151,25 +227,22 @@ const Navbar = () => {
           justify-content: space-between;
         }
 
-       .navbar-logo {
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.navbar-logo-image {
-  height: 60px;
-  width: auto;
-  display: block;
-  object-fit: contain;
-}
-        .navbar.scrolled .navbar-logo {
-          transform: scale(0.96);
+        .navbar-logo {
+          display: inline-flex;
+          align-items: center;
+          text-decoration: none;
+          transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .logo-text {
-          cursor: pointer;
+        .navbar-logo-image {
+          height: 60px;
+          width: auto;
+          display: block;
+          object-fit: contain;
+        }
+
+        .navbar.scrolled .navbar-logo {
+          transform: scale(0.96);
         }
 
         .navbar-menu {
@@ -215,8 +288,41 @@ const Navbar = () => {
           width: 100%;
         }
 
-        .navbar-cta {
+        .navbar-actions {
           display: none;
+          align-items: center;
+          gap: 14px;
+        }
+
+        .language-toggle {
+          display: inline-flex;
+          align-items: center;
+          gap: 7px;
+          padding: 7px 10px;
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.045);
+          border: 1px solid rgba(167, 178, 255, 0.14);
+        }
+
+        .language-toggle span {
+          width: 1px;
+          height: 13px;
+          background: rgba(255, 255, 255, 0.16);
+        }
+
+        .language-btn {
+          border: 0;
+          background: transparent;
+          color: rgba(255, 255, 255, 0.42);
+          font-size: 11px;
+          font-weight: 700;
+          cursor: pointer;
+          padding: 0;
+          letter-spacing: 0.05em;
+        }
+
+        .language-btn.active {
+          color: #ffffff;
         }
 
         .btn-contact {
@@ -257,33 +363,59 @@ const Navbar = () => {
           background: rgba(255, 255, 255, 0.08);
           border-color: rgba(167, 178, 255, 0.25);
         }
-.mobile-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(10, 10, 28, 0.96) 0%,
-      rgba(5, 5, 16, 0.98) 100%
-    );
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  border-bottom: 1px solid rgba(167, 178, 255, 0.1);
-  animation: slideDown 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
 
-.mobile-menu-note {
-  margin-top: 28px !important;
-  padding-top: 22px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.42);
-  font-size: 13px;
-  line-height: 1.8;
-  letter-spacing: 0.02em;
-}
+        .mobile-menu {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background:
+            linear-gradient(
+              180deg,
+              rgba(10, 10, 28, 0.96) 0%,
+              rgba(5, 5, 16, 0.98) 100%
+            );
+          backdrop-filter: blur(24px);
+          -webkit-backdrop-filter: blur(24px);
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
+          border-bottom: 1px solid rgba(167, 178, 255, 0.1);
+          animation: slideDown 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-menu-note {
+          margin-top: 28px !important;
+          padding-top: 22px;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          color: rgba(255, 255, 255, 0.42);
+          font-size: 13px;
+          line-height: 1.8;
+          letter-spacing: 0.02em;
+        }
+
+        .mobile-language-row {
+          display: flex;
+          gap: 10px;
+          margin-top: 22px !important;
+        }
+
+        .mobile-language-btn {
+          flex: 1;
+          padding: 11px 14px;
+          border-radius: 12px;
+          border: 1px solid rgba(167, 178, 255, 0.14);
+          background: rgba(255, 255, 255, 0.045);
+          color: rgba(255, 255, 255, 0.55);
+          font-size: 13px;
+          font-weight: 700;
+          cursor: pointer;
+        }
+
+        .mobile-language-btn.active {
+          color: #ffffff;
+          background: rgba(102, 126, 234, 0.18);
+          border-color: rgba(167, 178, 255, 0.32);
+        }
+
         @keyframes slideDown {
           from {
             opacity: 0;
@@ -341,8 +473,8 @@ const Navbar = () => {
             display: flex;
           }
 
-          .desktop-cta {
-            display: block;
+          .desktop-actions {
+            display: flex;
           }
 
           .mobile-menu-btn {
@@ -351,27 +483,28 @@ const Navbar = () => {
         }
 
         @media (max-width: 768px) {
-           .navbar {
-    padding: 14px 0;
-    background: rgba(6, 8, 24, 0.28);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
+          .navbar {
+            padding: 14px 0;
+            background: rgba(6, 8, 24, 0.28);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+          }
 
-  .navbar-container {
-    padding: 0 20px;
-  }
+          .navbar-container {
+            padding: 0 20px;
+          }
 
-  .navbar-logo-image {
-    height: 58px;
-  }
-     .mobile-menu-btn {
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.055);
-    border-color: rgba(167, 178, 255, 0.18);
-  }
+          .navbar-logo-image {
+            height: 58px;
+          }
+
+          .mobile-menu-btn {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.055);
+            border-color: rgba(167, 178, 255, 0.18);
+          }
         }
       `}</style>
     </nav>

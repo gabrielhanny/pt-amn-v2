@@ -1,7 +1,65 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 
-const Hero = () => {
+const Hero = () => {const [language, setLanguage] = useState('en');
+
+useEffect(() => {
+  const savedLanguage =
+    localStorage.getItem('hypernusa_language') || 'en';
+
+  setLanguage(savedLanguage);
+
+  const handleLanguageChange = (event) => {
+    setLanguage(event.detail);
+  };
+
+  window.addEventListener(
+    'hypernusa-language-change',
+    handleLanguageChange
+  );
+
+  return () => {
+    window.removeEventListener(
+      'hypernusa-language-change',
+      handleLanguageChange
+    );
+  };
+}, []);
+const copy = {
+  en: {
+    badge: 'Growth Activation Agency',
+
+    title:
+      'Building The System Behind Brand Growth',
+
+    description:
+      'Strategy. Creative. Commerce. Technology. Automation.',
+
+    description2:
+      'We help brands turn marketing activity into measurable business movement.',
+
+    primaryCTA: "Let's Talk",
+
+    secondaryCTA: 'Explore Solutions',
+  },
+
+  id: {
+    badge: 'Mitra Pertumbuhan Bisnis',
+
+    title:
+      'Membangun Sistem di Balik Pertumbuhan Brand',
+
+    description:
+      'Strategi. Kreatif. Komersial. Teknologi. Otomasi',
+
+    description2:
+      'Kami membantu brand menerjemahkan aktivitas pemasaran menjadi hasil bisnis yang nyata dan terukur',
+
+    primaryCTA: 'Diskusi',
+
+    secondaryCTA: 'Lihat Solusi',
+  },
+};
   return (
     <section id="hero" className="hero-section" data-testid="hero-section">
       <div className="hero-bg"></div>
@@ -11,31 +69,33 @@ const Hero = () => {
       <div className="hero-container">
         <div className="hero-badge" data-testid="hero-badge">
           <span className="badge-dot"></span>
-          <span>Growth Activation Agency</span>
+          <span>{copy[language].badge}</span>
         </div>
 
         <h1 className="hero-title" data-testid="hero-title">
           HYPERNUSA
           <br />
           <span className="gradient-text">
-            Building The System Behind Brand Growth
+            {copy[language].title}
           </span>
         </h1>
 
-        <p className="hero-description" data-testid="hero-description">
-          Strategy. Creative. Commerce. Technology. Automation.
-          <br className="desktop-br" />
-          We help brands turn marketing activity into measurable business movement.
-        </p>
+        <p className="hero-description">
+  {copy[language].description}
+
+  <br className="desktop-br" />
+
+  {copy[language].description2}
+</p>
 
         <div className="hero-cta-group">
           <a href="/lets-talk" className="btn-primary" data-testid="hero-cta-primary">
-            Let&apos;s Talk
+           {copy[language].primaryCTA}
             <ArrowRight size={20} className="btn-icon" />
           </a>
 
           <a href="/solutions" className="btn-secondary" data-testid="hero-cta-secondary">
-            Explore Solutions
+           {copy[language].secondaryCTA}
           </a>
         </div>
       </div>

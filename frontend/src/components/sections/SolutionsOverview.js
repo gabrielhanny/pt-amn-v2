@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Megaphone,
   BarChart3,
@@ -8,45 +8,129 @@ import {
   ArrowRight,
 } from 'lucide-react';
 
-const solutions = [
-  {
-    number: '01',
-    title: 'Growth Activation Loop',
-    description:
-      'An integrated monthly growth system that aligns strategy, content, campaigns, and performance.',
-    icon: Megaphone,
-  },
-  {
-    number: '02',
-    title: 'Campaign & Launch Kit',
-    description:
-      'Launch campaigns with clear messaging, creative assets, amplification, and measurable outcomes.',
-    icon: BarChart3,
-  },
-  {
-    number: '03',
-    title: 'Web & Automation Sprint',
-    description:
-      'Websites, CRM, dashboards, automation workflows, and digital infrastructure.',
-    icon: MonitorSmartphone,
-  },
-  {
-    number: '04',
-    title: 'Commerce & Affiliate Growth',
-    description:
-      'Marketplace activation, live commerce, affiliate programs, and creator growth.',
-    icon: ShoppingBag,
-  },
-  {
-    number: '05',
-    title: 'AI-Powered Growth Ops',
-    description:
-      'AI assistants, workflow automation, lead qualification, and reporting systems.',
-    icon: BrainCircuit,
-  },
-];
+const solutionIcons = {
+  Megaphone,
+  BarChart3,
+  MonitorSmartphone,
+  ShoppingBag,
+  BrainCircuit,
+};
 
 const SolutionsOverview = () => {
+  const [language, setLanguage] = useState('en');
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('hypernusa_language') || 'en';
+
+    setLanguage(savedLanguage);
+
+    const handleLanguageChange = (event) => {
+      setLanguage(event.detail);
+    };
+
+    window.addEventListener('hypernusa-language-change', handleLanguageChange);
+
+    return () => {
+      window.removeEventListener('hypernusa-language-change', handleLanguageChange);
+    };
+  }, []);
+
+  const copy = {
+    en: {
+      label: 'Service Universe',
+      titleLine1: 'Five Ways We Help',
+      titleLine2: 'Brands Grow',
+      intro:
+        'From strategy and campaign activation to technology, commerce, automation, and AI-powered operations.',
+      cta: 'Explore Solutions',
+      solutions: [
+        {
+          number: '01',
+          title: 'Growth Activation Loop',
+          description:
+            'An integrated monthly growth system that aligns strategy, content, campaigns, and performance.',
+          icon: 'Megaphone',
+        },
+        {
+          number: '02',
+          title: 'Campaign & Launch Kit',
+          description:
+            'Launch campaigns with clear messaging, creative assets, amplification, and measurable outcomes.',
+          icon: 'BarChart3',
+        },
+        {
+          number: '03',
+          title: 'Web & Automation Sprint',
+          description:
+            'Websites, CRM, dashboards, automation workflows, and digital infrastructure.',
+          icon: 'MonitorSmartphone',
+        },
+        {
+          number: '04',
+          title: 'Commerce & Affiliate Growth',
+          description:
+            'Marketplace activation, live commerce, affiliate programs, and creator growth.',
+          icon: 'ShoppingBag',
+        },
+        {
+          number: '05',
+          title: 'AI-Powered Growth Ops',
+          description:
+            'AI assistants, workflow automation, lead qualification, and reporting systems.',
+          icon: 'BrainCircuit',
+        },
+      ],
+    },
+
+    id: {
+      label: 'Ruang Layanan',
+      titleLine1: 'Lima Cara Kami Membantu',
+      titleLine2: 'Brand Bertumbuh',
+      intro:
+        'Dari strategi dan aktivasi kampanye hingga teknologi, komersial, otomasi, dan operasional berbasis AI.',
+      cta: 'Lihat Solusi',
+      solutions: [
+        {
+          number: '01',
+          title: 'Growth Activation Loop',
+          description:
+            'Sistem pertumbuhan bulanan yang menghubungkan strategi, konten, kampanye, dan performa.',
+          icon: 'Megaphone',
+        },
+        {
+          number: '02',
+          title: 'Campaign & Launch Kit',
+          description:
+            'Aktivasi kampanye dengan pesan yang jelas, aset kreatif, amplifikasi, dan hasil yang terukur.',
+          icon: 'BarChart3',
+        },
+        {
+          number: '03',
+          title: 'Web & Automation Sprint',
+          description:
+            'Website, CRM, dashboard, workflow automation, dan infrastruktur digital untuk operasional.',
+          icon: 'MonitorSmartphone',
+        },
+        {
+          number: '04',
+          title: 'Commerce & Affiliate Growth',
+          description:
+            'Aktivasi marketplace, live commerce, program afiliasi, dan pertumbuhan creator ecosystem.',
+          icon: 'ShoppingBag',
+        },
+        {
+          number: '05',
+          title: 'AI-Powered Growth Ops',
+          description:
+            'AI assistant, workflow automation, kualifikasi lead, dan sistem pelaporan yang lebih efisien.',
+          icon: 'BrainCircuit',
+        },
+      ],
+    },
+  };
+
+  const currentCopy = copy[language];
+
   return (
     <section className="solutions-overview" data-testid="solutions-overview">
       <div className="solutions-bg"></div>
@@ -60,27 +144,24 @@ const SolutionsOverview = () => {
         <div className="solutions-header">
           <div className="solutions-label">
             <span className="solutions-line"></span>
-            <span>Service Universe</span>
+            <span>{currentCopy.label}</span>
           </div>
 
           <h2 className="solutions-title">
-            Five Ways We Help
+            {currentCopy.titleLine1}
             <br />
-            <span>Brands Grow</span>
+            <span>{currentCopy.titleLine2}</span>
           </h2>
 
-          <p className="solutions-intro">
-            From strategy and campaign activation to technology, commerce,
-            automation, and AI-powered operations.
-          </p>
+          <p className="solutions-intro">{currentCopy.intro}</p>
         </div>
 
         <div className="solutions-grid">
-          {solutions.map((solution) => {
-            const Icon = solution.icon;
+          {currentCopy.solutions.map((solution) => {
+            const Icon = solutionIcons[solution.icon];
 
             return (
-              <article className="solution-card" key={solution.title}>
+              <article className="solution-card" key={solution.number}>
                 <div className="solution-card-glow"></div>
 
                 <div className="solution-card-top">
@@ -99,12 +180,12 @@ const SolutionsOverview = () => {
         </div>
 
         <a href="/solutions" className="solutions-cta">
-          Explore Solutions
+          {currentCopy.cta}
           <ArrowRight size={18} />
         </a>
       </div>
 
-      <style jsx="true">{`
+       <style jsx="true">{`
         .solutions-overview {
           position: relative;
           padding: 170px 0;

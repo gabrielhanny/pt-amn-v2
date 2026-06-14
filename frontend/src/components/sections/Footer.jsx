@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Instagram,
   Linkedin,
@@ -9,6 +9,78 @@ import {
 } from 'lucide-react';
 
 const Footer = () => {
+  const [language, setLanguage] = useState('en');
+
+useEffect(() => {
+  const savedLanguage =
+    localStorage.getItem('hypernusa_language') || 'en';
+
+  setLanguage(savedLanguage);
+
+  const handleLanguageChange = (event) => {
+    setLanguage(event.detail);
+  };
+
+  window.addEventListener(
+    'hypernusa-language-change',
+    handleLanguageChange
+  );
+
+  return () => {
+    window.removeEventListener(
+      'hypernusa-language-change',
+      handleLanguageChange
+    );
+  };
+}, []);
+
+const copy = {
+  en: {
+    tagline:
+      'Growth Activation Agency that helps brands turn marketing activity into measurable business movement. We connect strategy, creative, commerce, technology, automation, and reporting into one integrated growth ecosystem.',
+
+    solutions: 'Solutions',
+    company: 'Company',
+    contact: 'Contact',
+
+    home: 'Home',
+    work: 'Work',
+    about: 'About',
+    letsTalk: "Let's Talk",
+
+    email: 'Email',
+    whatsapp: 'WhatsApp',
+
+    copyright:
+      '© 2026 PT Anak Muda Nusantara. All rights reserved.',
+
+    crafted1: 'Crafted by ',
+    crafted2: ' in Indonesia',
+  },
+
+  id: {
+    tagline:
+      'Agensi aktivasi pertumbuhan yang membantu brand mengubah aktivitas pemasaran menjadi hasil bisnis yang nyata dan terukur. Kami menghubungkan strategi, kreatif, komersial, teknologi, otomasi, dan pelaporan ke dalam satu ekosistem pertumbuhan yang terintegrasi.',
+
+    solutions: 'Solusi',
+    company: 'Perusahaan',
+    contact: 'Kontak',
+
+    home: 'Beranda',
+    work: 'Karya',
+    about: 'Tentang',
+    letsTalk: 'Diskusi',
+
+    email: 'Email',
+    whatsapp: 'WhatsApp',
+
+    copyright:
+      '© 2026 PT Anak Muda Nusantara. Seluruh hak dilindungi.',
+
+    crafted1: 'Dibangun oleh ',
+    crafted2: ' di Indonesia',
+  },
+};
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -20,11 +92,9 @@ const Footer = () => {
               className="footer-logo-image"
             />
 
-            <p className="footer-tagline">
-              Growth Activation Agency that helps brands turn marketing activity into
-              measurable business movement. We connect strategy, creative, commerce,
-              technology, automation, and reporting into one integrated growth ecosystem.
-            </p>
+           <p className="footer-tagline">
+  {copy[language].tagline}
+</p>
 
             <div className="footer-social">
               <a
@@ -90,20 +160,38 @@ const Footer = () => {
             </div>
 
             <div className="footer-column">
-              <h4 className="footer-title">Company</h4>
+              <h4 className="footer-title">
+  {copy[language].solutions}
+</h4>
+
+<h4 className="footer-title">
+  {copy[language].company}
+</h4>
+
+<h4 className="footer-title">
+  {copy[language].contact}
+</h4>
               <ul className="footer-list">
-                <li><a href="/">Home</a></li>
-                <li><a href="/work">Work</a></li>
-                <li><a href="/solutions">Solutions</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/lets-talk">Let&apos;s Talk</a></li>
+               <li><a href="/">{copy[language].home}</a></li>
+
+<li><a href="/work">{copy[language].work}</a></li>
+
+<li><a href="/solutions">{copy[language].solutions}</a></li>
+
+<li><a href="/about">{copy[language].about}</a></li>
+
+<li><a href="/lets-talk">{copy[language].letsTalk}</a></li>
               </ul>
             </div>
 
             <div className="footer-column">
               <h4 className="footer-title">Contact</h4>
               <ul className="footer-list">
-                <li><a href="mailto:hello@hypernusa.com">Email</a></li>
+                <li>
+  <a href="mailto:hello@hypernusa.com">
+    {copy[language].email}
+  </a>
+</li>
                 <li>
                   <a
                     href="https://wa.me/6285168157168"
@@ -153,13 +241,17 @@ const Footer = () => {
 
         <div className="footer-bottom">
           <p className="footer-copyright">
-            © 2026 PT Anak Muda Nusantara. All rights reserved.
+           {copy[language].copyright}
           </p>
 
           <div className="footer-credits">
-            <span>Crafted by </span>
-            <span className="gradient-text">Hypernusa</span>
-            <span> in Indonesia</span>
+            <span>{copy[language].crafted1}</span>
+
+<span className="gradient-text">
+  Hypernusa
+</span>
+
+<span>{copy[language].crafted2}</span>
           </div>
         </div>
       </div>
