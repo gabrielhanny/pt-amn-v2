@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/sections/Footer';
 import { Mail, MessageCircle, ArrowRight } from 'lucide-react';
 
 const LetsTalkPage = () => {
+  const [language, setLanguage] = useState('en');
+
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -22,6 +24,109 @@ const LetsTalkPage = () => {
     success: '',
     error: '',
   });
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('hypernusa_language') || 'en';
+    setLanguage(savedLanguage);
+
+    const handleLanguageChange = (event) => {
+      setLanguage(event.detail);
+    };
+
+    window.addEventListener('hypernusa-language-change', handleLanguageChange);
+
+    return () => {
+      window.removeEventListener('hypernusa-language-change', handleLanguageChange);
+    };
+  }, []);
+
+  const copy = {
+    en: {
+      label: "Let's Talk",
+      heroTitle1: "Let's Talk About",
+      heroTitle2: 'Your Next Growth Move',
+      heroDesc:
+        "Tell us what your brand is trying to build, launch, improve, or scale — and we'll help identify the most relevant next step.",
+
+      introTitle: 'Start the conversation.',
+      introDesc:
+        'Share your business context, current challenge, and growth objective. Hypernusa will review your inquiry and recommend the right way to move forward.',
+
+      whatsapp: 'WhatsApp Hypernusa',
+      emailButton: 'Email Hypernusa',
+
+      placeholders: {
+        name: 'Name',
+        company: 'Company / Brand',
+        role: 'Role / Position',
+        email: 'Email',
+        phone: 'WhatsApp / Phone',
+        website: 'Website / Social Media Link',
+        solution: 'Interested Solution',
+        timeline: 'Estimated Timeline',
+        budget: 'Estimated Budget Range',
+        message: 'Tell us about your challenge, objective, or idea',
+      },
+
+      solutionOptions: {
+        needDirection: 'Need Direction',
+      },
+
+      budgetOptions: {
+        below50: 'Below IDR 50M',
+        discuss: 'To be discussed',
+      },
+
+      success: 'Inquiry sent successfully. Our team will review it shortly.',
+      error: 'Failed to send inquiry. Please contact us via WhatsApp or email.',
+      sending: 'Sending Inquiry...',
+      submit: 'Submit Inquiry',
+    },
+
+    id: {
+      label: 'Diskusi',
+      heroTitle1: 'Mari Diskusikan',
+      heroTitle2: 'Langkah Pertumbuhan Berikutnya',
+      heroDesc:
+        'Ceritakan apa yang ingin brand Anda bangun, luncurkan, perbaiki, atau scale — dan kami akan membantu mengidentifikasi langkah paling relevan berikutnya.',
+
+      introTitle: 'Mulai percakapan.',
+      introDesc:
+        'Bagikan konteks bisnis, tantangan saat ini, dan tujuan pertumbuhan Anda. Hypernusa akan meninjau inquiry Anda dan merekomendasikan cara terbaik untuk bergerak maju.',
+
+      whatsapp: 'WhatsApp Hypernusa',
+      emailButton: 'Email Hypernusa',
+
+      placeholders: {
+        name: 'Nama',
+        company: 'Perusahaan / Brand',
+        role: 'Jabatan / Posisi',
+        email: 'Email',
+        phone: 'WhatsApp / Telepon',
+        website: 'Website / Link Media Sosial',
+        solution: 'Solusi yang Diminati',
+        timeline: 'Estimasi Timeline',
+        budget: 'Estimasi Budget',
+        message: 'Ceritakan tantangan, tujuan, atau ide Anda',
+      },
+
+      solutionOptions: {
+        needDirection: 'Butuh Arahan',
+      },
+
+      budgetOptions: {
+        below50: 'Di bawah IDR 50M',
+        discuss: 'Perlu didiskusikan',
+      },
+
+      success: 'Inquiry berhasil dikirim. Tim kami akan meninjaunya segera.',
+      error: 'Inquiry gagal dikirim. Silakan hubungi kami melalui WhatsApp atau email.',
+      sending: 'Mengirim Inquiry...',
+      submit: 'Kirim Inquiry',
+    },
+  };
+
+  const currentCopy = copy[language];
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -42,13 +147,13 @@ const LetsTalkPage = () => {
     });
 
     try {
-    const response = await fetch('https://pt-amn-v2-backend.vercel.app/api/contact', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(formData),
-});
+      const response = await fetch('https://pt-amn-v2-backend.vercel.app/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
       const data = await response.json();
 
@@ -58,7 +163,7 @@ const LetsTalkPage = () => {
 
       setSubmitStatus({
         loading: false,
-        success: 'Inquiry sent successfully. Our team will review it shortly.',
+        success: currentCopy.success,
         error: '',
       });
 
@@ -78,7 +183,7 @@ const LetsTalkPage = () => {
       setSubmitStatus({
         loading: false,
         success: '',
-        error: 'Failed to send inquiry. Please contact us via WhatsApp or email.',
+        error: currentCopy.error,
       });
     }
   };
@@ -96,32 +201,25 @@ const LetsTalkPage = () => {
           <div className="talk-container">
             <div className="talk-label">
               <span className="talk-line"></span>
-              <span>Let&apos;s Talk</span>
+              <span>{currentCopy.label}</span>
             </div>
 
             <h1>
-              Let&apos;s Talk About
+              {currentCopy.heroTitle1}
               <br />
-              <span>Your Next Growth Move</span>
+              <span>{currentCopy.heroTitle2}</span>
             </h1>
 
-            <p>
-              Tell us what your brand is trying to build, launch, improve, or
-              scale — and we&apos;ll help identify the most relevant next step.
-            </p>
+            <p>{currentCopy.heroDesc}</p>
           </div>
         </section>
 
         <section className="talk-content">
           <div className="talk-container talk-grid">
             <div className="contact-info">
-              <h2>Start the conversation.</h2>
+              <h2>{currentCopy.introTitle}</h2>
 
-              <p>
-                Share your business context, current challenge, and growth
-                objective. Hypernusa will review your inquiry and recommend the
-                right way to move forward.
-              </p>
+              <p>{currentCopy.introDesc}</p>
 
               <div className="contact-actions">
                 <a
@@ -131,15 +229,12 @@ const LetsTalkPage = () => {
                   className="contact-action"
                 >
                   <MessageCircle size={20} />
-                  WhatsApp Hypernusa
+                  {currentCopy.whatsapp}
                 </a>
 
-                <a
-                  href="mailto:hello@hypernusa.com"
-                  className="contact-action secondary"
-                >
+                <a href="mailto:hello@hypernusa.com" className="contact-action secondary">
                   <Mail size={20} />
-                  Email Hypernusa
+                  {currentCopy.emailButton}
                 </a>
               </div>
             </div>
@@ -149,7 +244,7 @@ const LetsTalkPage = () => {
                 <input
                   type="text"
                   name="name"
-                  placeholder="Name"
+                  placeholder={currentCopy.placeholders.name}
                   value={formData.name}
                   onChange={handleChange}
                   required
@@ -158,7 +253,7 @@ const LetsTalkPage = () => {
                 <input
                   type="text"
                   name="company"
-                  placeholder="Company / Brand"
+                  placeholder={currentCopy.placeholders.company}
                   value={formData.company}
                   onChange={handleChange}
                 />
@@ -168,7 +263,7 @@ const LetsTalkPage = () => {
                 <input
                   type="text"
                   name="role"
-                  placeholder="Role / Position"
+                  placeholder={currentCopy.placeholders.role}
                   value={formData.role}
                   onChange={handleChange}
                 />
@@ -176,7 +271,7 @@ const LetsTalkPage = () => {
                 <input
                   type="email"
                   name="email"
-                  placeholder="Email"
+                  placeholder={currentCopy.placeholders.email}
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -187,7 +282,7 @@ const LetsTalkPage = () => {
                 <input
                   type="text"
                   name="phone"
-                  placeholder="WhatsApp / Phone"
+                  placeholder={currentCopy.placeholders.phone}
                   value={formData.phone}
                   onChange={handleChange}
                 />
@@ -195,77 +290,57 @@ const LetsTalkPage = () => {
                 <input
                   type="text"
                   name="website"
-                  placeholder="Website / Social Media Link"
+                  placeholder={currentCopy.placeholders.website}
                   value={formData.website}
                   onChange={handleChange}
                 />
               </div>
 
               <div className="form-row">
-                <select
-                  name="solution"
-                  value={formData.solution}
-                  onChange={handleChange}
-                >
+                <select name="solution" value={formData.solution} onChange={handleChange}>
                   <option value="" disabled>
-                    Interested Solution
+                    {currentCopy.placeholders.solution}
                   </option>
-                  <option value="Growth Activation Loop">
-                    Growth Activation Loop
-                  </option>
-                  <option value="Campaign / Launch Kit">
-                    Campaign / Launch Kit
-                  </option>
-                  <option value="Web & Automation Sprint">
-                    Web & Automation Sprint
-                  </option>
-                  <option value="Commerce & Affiliate Growth">
-                    Commerce & Affiliate Growth
-                  </option>
-                  <option value="AI-Powered Growth Ops">
-                    AI-Powered Growth Ops
-                  </option>
-                  <option value="Need Direction">Need Direction</option>
+                  <option value="Growth Activation Loop">Growth Activation Loop</option>
+                  <option value="Campaign / Launch Kit">Campaign / Launch Kit</option>
+                  <option value="Web & Automation Sprint">Web & Automation Sprint</option>
+                  <option value="Commerce & Affiliate Growth">Commerce & Affiliate Growth</option>
+                  <option value="AI-Powered Growth Ops">AI-Powered Growth Ops</option>
+                  <option value="Need Direction">{currentCopy.solutionOptions.needDirection}</option>
                 </select>
 
                 <input
                   type="text"
                   name="timeline"
-                  placeholder="Estimated Timeline"
+                  placeholder={currentCopy.placeholders.timeline}
                   value={formData.timeline}
                   onChange={handleChange}
                 />
               </div>
 
-              <select
-                name="budget"
-                value={formData.budget}
-                onChange={handleChange}
-              >
+              <select name="budget" value={formData.budget} onChange={handleChange}>
                 <option value="" disabled>
-                  Estimated Budget Range
+                  {currentCopy.placeholders.budget}
                 </option>
-                <option value="Below IDR 50M">Below IDR 50M</option>
+                <option value="Below IDR 50M">{currentCopy.budgetOptions.below50}</option>
                 <option value="IDR 50M–100M">IDR 50M–100M</option>
                 <option value="IDR 100M–250M">IDR 100M–250M</option>
                 <option value="IDR 250M–500M">IDR 250M–500M</option>
                 <option value="Above IDR 500M">Above IDR 500M</option>
-                <option value="To be discussed">To be discussed</option>
+                <option value="To be discussed">{currentCopy.budgetOptions.discuss}</option>
               </select>
 
               <textarea
                 rows="6"
                 name="message"
-                placeholder="Tell us about your challenge, objective, or idea"
+                placeholder={currentCopy.placeholders.message}
                 value={formData.message}
                 onChange={handleChange}
                 required
               />
 
               {submitStatus.success && (
-                <p className="form-note success-message">
-                  {submitStatus.success}
-                </p>
+                <p className="form-note success-message">{submitStatus.success}</p>
               )}
 
               {submitStatus.error && (
@@ -277,7 +352,7 @@ const LetsTalkPage = () => {
                 className="submit-button"
                 disabled={submitStatus.loading}
               >
-                {submitStatus.loading ? 'Sending Inquiry...' : 'Submit Inquiry'}
+                {submitStatus.loading ? currentCopy.sending : currentCopy.submit}
                 <ArrowRight size={20} />
               </button>
             </form>
@@ -287,7 +362,7 @@ const LetsTalkPage = () => {
 
       <Footer />
 
-      <style jsx="true">{`
+     <style jsx="true">{`
         .talk-page {
           min-height: 100vh;
           background: #050510;

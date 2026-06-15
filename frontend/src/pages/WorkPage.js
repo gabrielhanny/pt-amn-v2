@@ -1,36 +1,89 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/sections/Footer';
 import { ArrowUpRight } from 'lucide-react';
 
-const works = [
-  {
-    project: 'Public Brand Activation',
-    category: 'Campaign & Digital',
-    industry: 'Public / Brand Activation',
-    description:
-      'Brand communication, digital activation, content ecosystem, and audience engagement shaped through public-facing campaigns.',
-    year: '2025',
-  },
-  {
-    project: 'Marketplace & Live Commerce Enablement',
-    category: 'Commerce Growth',
-    industry: 'Retail / Marketplace',
-    description:
-      'Commerce-focused activation supporting marketplace growth, live selling, creator ecosystem, and sales-oriented content.',
-    year: '2025',
-  },
-  {
-    project: 'Growth Automation & CRM Experience',
-    category: 'CRM & Automation',
-    industry: 'Technology / Operations',
-    description:
-      'Workflow automation, CRM structure, dashboard, and reporting systems designed to support scalable growth operations.',
-    year: '2026',
-  },
-];
+const workData = {
+  en: [
+    {
+      project: 'Public Brand Activation',
+      category: 'Campaign & Digital',
+      industry: 'Public / Brand Activation',
+      description:
+        'Brand communication, digital activation, content ecosystem, and audience engagement shaped through public-facing campaigns.',
+      year: '2025',
+    },
+    {
+      project: 'Marketplace & Live Commerce Enablement',
+      category: 'Commerce Growth',
+      industry: 'Retail / Marketplace',
+      description:
+        'Commerce-focused activation supporting marketplace growth, live selling, creator ecosystem, and sales-oriented content.',
+      year: '2025',
+    },
+    {
+      project: 'Growth Automation & CRM Experience',
+      category: 'CRM & Automation',
+      industry: 'Technology / Operations',
+      description:
+        'Workflow automation, CRM structure, dashboard, and reporting systems designed to support scalable growth operations.',
+      year: '2026',
+    },
+  ],
+
+  id: [
+    {
+      project: 'Aktivasi Brand Publik',
+      category: 'Kampanye & Digital',
+      industry: 'Publik / Aktivasi Brand',
+      description:
+        'Komunikasi brand, aktivasi digital, ekosistem konten, dan keterlibatan audiens melalui berbagai kampanye publik.',
+      year: '2025',
+    },
+    {
+      project: 'Pengembangan Marketplace & Live Commerce',
+      category: 'Pertumbuhan Commerce',
+      industry: 'Retail / Marketplace',
+      description:
+        'Aktivasi berbasis commerce untuk mendukung pertumbuhan marketplace, live selling, ekosistem kreator, dan konten berorientasi penjualan.',
+      year: '2025',
+    },
+    {
+      project: 'Otomasi Pertumbuhan & Pengalaman CRM',
+      category: 'CRM & Otomasi',
+      industry: 'Teknologi / Operasional',
+      description:
+        'Otomasi workflow, struktur CRM, dashboard, dan sistem pelaporan untuk mendukung operasional pertumbuhan yang skalabel.',
+      year: '2026',
+    },
+  ],
+};
 
 const WorkPage = () => {
+  const [language, setLanguage] = useState('en');
+
+useEffect(() => {
+  const savedLanguage =
+    localStorage.getItem('hypernusa_language') || 'en';
+
+  setLanguage(savedLanguage);
+
+  const handleLanguageChange = (event) => {
+    setLanguage(event.detail);
+  };
+
+  window.addEventListener(
+    'hypernusa-language-change',
+    handleLanguageChange
+  );
+
+  return () => {
+    window.removeEventListener(
+      'hypernusa-language-change',
+      handleLanguageChange
+    );
+  };
+}, []);
   return (
     <>
       <Navbar />
@@ -44,27 +97,35 @@ const WorkPage = () => {
           <div className="work-container">
             <div className="work-label">
               <span className="work-line"></span>
-              <span>Selected Experience</span>
+              <span>
+  {language === 'id'
+    ? 'Pengalaman Terpilih'
+    : 'Selected Experience'}
+</span>
             </div>
 
             <h1>
-              Experience Shaped
-              <br />
-              <span>Across Campaign, Commerce & Growth</span>
-            </h1>
+  {language === 'id' ? 'Pengalaman yang Dibentuk' : 'Experience Shaped'}
+  <br />
+  <span>
+    {language === 'id'
+      ? 'Melalui Kampanye, Commerce & Pertumbuhan'
+      : 'Across Campaign, Commerce & Growth'}
+  </span>
+</h1>
 
-            <p>
-              A selection of campaign, commerce, digital transformation,
-              automation, and growth-related experience that shapes how
-              Hypernusa approaches every project today.
-            </p>
+           <p>
+  {language === 'id'
+    ? 'Pilihan pengalaman dalam kampanye, commerce, transformasi digital, otomasi, dan pertumbuhan yang membentuk cara Hypernusa menjalankan setiap proyek saat ini.'
+    : 'A selection of campaign, commerce, digital transformation, automation, and growth-related experience that shapes how Hypernusa approaches every project today.'}
+</p>
           </div>
         </section>
 
         <section className="work-listing">
           <div className="work-container">
             <div className="work-grid">
-              {works.map((work) => (
+              {workData[language].map((work) => (
                 <article className="work-card" key={work.project}>
                   <div className="work-card-glow"></div>
 
@@ -82,7 +143,11 @@ const WorkPage = () => {
                   <p>{work.description}</p>
 
                   <div className="work-card-footer">
-                    <span>Experience Preview</span>
+                  <span>
+  {language === 'id'
+    ? 'Ringkasan Pengalaman'
+    : 'Experience Preview'}
+</span>
                     <ArrowUpRight size={18} />
                   </div>
                 </article>
@@ -251,24 +316,26 @@ const WorkPage = () => {
           gap: 24px;
         }
 
-        .work-card {
-          position: relative;
-          min-height: 560px;
-          padding: 28px;
-          border-radius: 28px;
-          overflow: hidden;
-          background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
-          border: 1px solid rgba(167, 178, 255, 0.16);
-          box-shadow:
-            inset 0 1px 0 rgba(255, 255, 255, 0.07),
-            0 24px 60px rgba(0, 0, 0, 0.24);
-          backdrop-filter: blur(18px);
-          -webkit-backdrop-filter: blur(18px);
-          transition:
-            transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-            border-color 0.45s ease,
-            background 0.45s ease;
-        }
+       .work-card {
+  position: relative;
+  min-height: 560px;
+  padding: 28px;
+  border-radius: 28px;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(167, 178, 255, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 24px 60px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.45s ease,
+    background 0.45s ease;
+}
 
         .work-card::before {
           content: '';
@@ -367,30 +434,39 @@ const WorkPage = () => {
           font-weight: 400;
         }
 
-        .work-card p {
-          position: relative;
-          z-index: 2;
-          margin: 0;
-          font-size: 15px;
-          line-height: 1.78;
-          color: rgba(255, 255, 255, 0.64);
-        }
+       .work-card p {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.68;
+  color: rgba(255, 255, 255, 0.64);
+}
 
-        .work-card-footer {
-          position: absolute;
-          left: 28px;
-          right: 28px;
-          bottom: 28px;
-          z-index: 2;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding-top: 20px;
-          border-top: 1px solid rgba(255,255,255,0.08);
-          color: #ffffff;
-          font-size: 14px;
-          font-weight: 700;
-        }
+       .work-card-footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.work-card h2 {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 18px;
+  font-size: 30px;
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+  color: #ffffff;
+  font-weight: 400;
+}
 
         @media (max-width: 980px) {
           .work-grid {
@@ -462,11 +538,7 @@ const WorkPage = () => {
             padding: 24px;
           }
 
-          .work-card-footer {
-            left: 24px;
-            right: 24px;
-            bottom: 24px;
-          }
+         
         }
 
         @media (max-width: 480px) {

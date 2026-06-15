@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/sections/Footer';
 import {
@@ -10,40 +10,158 @@ import {
   ArrowRight,
 } from 'lucide-react';
 
-const differences = [
-  {
-    title: 'Strategy Before Assets',
-    description:
-      'We begin with business direction, brand objective, audience movement, and growth logic before producing any asset.',
-    icon: Target,
-  },
-  {
-    title: 'Creative with Commercial Logic',
-    description:
-      'Ideas are designed not only to look good, but to move audiences toward action, conversion, and measurable outcomes.',
-    icon: Lightbulb,
-  },
-  {
-    title: 'Commerce-Aware Activation',
-    description:
-      'Campaigns, content, channels, and digital experiences are connected to conversion, sales movement, and business impact.',
-    icon: ShoppingBag,
-  },
-  {
-    title: 'Tech-Enabled Operation',
-    description:
-      'Web, CRM, automation, AI workflows, reporting, and dashboards become part of a scalable growth infrastructure.',
-    icon: Workflow,
-  },
-  {
-    title: 'Learning-Driven Execution',
-    description:
-      'Performance is treated as intelligence, not just reporting — helping every next move become sharper.',
-    icon: BarChart3,
-  },
-];
+const icons = {
+  Target,
+  Lightbulb,
+  ShoppingBag,
+  Workflow,
+  BarChart3,
+};
 
 const AboutPage = () => {
+  const [language, setLanguage] = useState('en');
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('hypernusa_language') || 'en';
+    setLanguage(savedLanguage);
+
+    const handleLanguageChange = (event) => {
+      setLanguage(event.detail);
+    };
+
+    window.addEventListener('hypernusa-language-change', handleLanguageChange);
+
+    return () => {
+      window.removeEventListener('hypernusa-language-change', handleLanguageChange);
+    };
+  }, []);
+
+  const copy = {
+    en: {
+      heroLabel: 'About Hypernusa',
+      heroTitle1: 'Built as a Growth Partner,',
+      heroTitle2: 'Not a Conventional Vendor',
+      heroDesc:
+        'Hypernusa is a Growth Activation Agency by PT Anak Muda Nusantara, built to connect strategy, creative, commerce, technology, automation, and reporting into one integrated growth ecosystem.',
+
+      whoLabel: 'Who We Are',
+      whoTitle1: 'Growth Partner',
+      whoTitle2: 'for Connected Brand Movement',
+      whoDesc:
+        'We help brands move beyond scattered marketing activity by building connected systems for strategy, campaign, content, commerce, digital experience, automation, and performance learning.',
+
+      differentLabel: 'What Makes Hypernusa Different',
+      differentTitle1: 'Clearer Direction.',
+      differentTitle2: 'Sharper Execution. Smarter Systems.',
+
+      operatingLabel: 'Operating Model',
+      operatingTitle1: 'Strategy, Creative,',
+      operatingTitle2: 'Commerce, Tech & Learning',
+      operatingDesc:
+        'Hypernusa connects strategy, creative direction, campaign activation, commerce, technology, automation, AI, and performance learning into one growth ecosystem — so every campaign, content, channel, website, and workflow has a clear role in moving the brand forward.',
+
+      ctaTitle1: "Let's Build the Next",
+      ctaTitle2: 'Growth Move Together',
+      cta: "Let's Talk",
+
+      differences: [
+        {
+          title: 'Strategy Before Assets',
+          description:
+            'We begin with business direction, brand objective, audience movement, and growth logic before producing any asset.',
+          icon: 'Target',
+        },
+        {
+          title: 'Creative with Commercial Logic',
+          description:
+            'Ideas are designed not only to look good, but to move audiences toward action, conversion, and measurable outcomes.',
+          icon: 'Lightbulb',
+        },
+        {
+          title: 'Commerce-Aware Activation',
+          description:
+            'Campaigns, content, channels, and digital experiences are connected to conversion, sales movement, and business impact.',
+          icon: 'ShoppingBag',
+        },
+        {
+          title: 'Tech-Enabled Operation',
+          description:
+            'Web, CRM, automation, AI workflows, reporting, and dashboards become part of a scalable growth infrastructure.',
+          icon: 'Workflow',
+        },
+        {
+          title: 'Learning-Driven Execution',
+          description:
+            'Performance is treated as intelligence, not just reporting — helping every next move become sharper.',
+          icon: 'BarChart3',
+        },
+      ],
+    },
+
+    id: {
+      heroLabel: 'Tentang Hypernusa',
+      heroTitle1: 'Dibangun sebagai Mitra Pertumbuhan,',
+      heroTitle2: 'Bukan Vendor Konvensional',
+      heroDesc:
+        'Hypernusa adalah Growth Activation Agency dari PT Anak Muda Nusantara, dibangun untuk menghubungkan strategi, kreatif, commerce, teknologi, otomasi, dan pelaporan ke dalam satu ekosistem pertumbuhan yang terintegrasi.',
+
+      whoLabel: 'Siapa Kami',
+      whoTitle1: 'Mitra Pertumbuhan',
+      whoTitle2: 'untuk Pergerakan Brand yang Terhubung',
+      whoDesc:
+        'Kami membantu brand bergerak melampaui aktivitas pemasaran yang tersebar dengan membangun sistem terhubung untuk strategi, kampanye, konten, commerce, pengalaman digital, otomasi, dan pembelajaran performa.',
+
+      differentLabel: 'Yang Membuat Hypernusa Berbeda',
+      differentTitle1: 'Arah Lebih Jelas.',
+      differentTitle2: 'Eksekusi Lebih Tajam. Sistem Lebih Cerdas.',
+
+      operatingLabel: 'Model Operasional',
+      operatingTitle1: 'Strategi, Kreatif,',
+      operatingTitle2: 'Commerce, Teknologi & Pembelajaran',
+      operatingDesc:
+        'Hypernusa menghubungkan strategi, arahan kreatif, aktivasi kampanye, commerce, teknologi, otomasi, AI, dan pembelajaran performa ke dalam satu ekosistem pertumbuhan — agar setiap kampanye, konten, kanal, website, dan workflow memiliki peran yang jelas dalam mendorong brand bergerak maju.',
+
+      ctaTitle1: 'Mari Bangun Langkah',
+      ctaTitle2: 'Pertumbuhan Berikutnya',
+      cta: 'Diskusi',
+
+      differences: [
+        {
+          title: 'Strategi Sebelum Aset',
+          description:
+            'Kami memulai dari arah bisnis, tujuan brand, pergerakan audiens, dan logika pertumbuhan sebelum memproduksi aset apa pun.',
+          icon: 'Target',
+        },
+        {
+          title: 'Kreatif dengan Logika Komersial',
+          description:
+            'Ide dirancang bukan hanya agar terlihat menarik, tetapi untuk menggerakkan audiens menuju aksi, konversi, dan hasil yang terukur.',
+          icon: 'Lightbulb',
+        },
+        {
+          title: 'Aktivasi yang Sadar Commerce',
+          description:
+            'Kampanye, konten, kanal, dan pengalaman digital dihubungkan dengan konversi, pergerakan penjualan, dan dampak bisnis.',
+          icon: 'ShoppingBag',
+        },
+        {
+          title: 'Operasional Berbasis Teknologi',
+          description:
+            'Web, CRM, otomasi, workflow AI, pelaporan, dan dashboard menjadi bagian dari infrastruktur pertumbuhan yang scalable.',
+          icon: 'Workflow',
+        },
+        {
+          title: 'Eksekusi Berbasis Pembelajaran',
+          description:
+            'Performa diperlakukan sebagai intelligence, bukan sekadar laporan — agar setiap langkah berikutnya menjadi lebih tajam.',
+          icon: 'BarChart3',
+        },
+      ],
+    },
+  };
+
+  const currentCopy = copy[language];
+
   return (
     <>
       <Navbar />
@@ -57,20 +175,16 @@ const AboutPage = () => {
           <div className="about-container">
             <div className="about-label">
               <span className="about-line"></span>
-              <span>About Hypernusa</span>
+              <span>{currentCopy.heroLabel}</span>
             </div>
 
             <h1>
-              Built as a Growth Partner,
+              {currentCopy.heroTitle1}
               <br />
-              <span>Not a Conventional Vendor</span>
+              <span>{currentCopy.heroTitle2}</span>
             </h1>
 
-            <p>
-              Hypernusa is a Growth Activation Agency by PT Anak Muda Nusantara,
-              built to connect strategy, creative, commerce, technology,
-              automation, and reporting into one integrated growth ecosystem.
-            </p>
+            <p>{currentCopy.heroDesc}</p>
           </div>
         </section>
 
@@ -79,21 +193,17 @@ const AboutPage = () => {
             <div>
               <div className="about-label">
                 <span className="about-line"></span>
-                <span>Who We Are</span>
+                <span>{currentCopy.whoLabel}</span>
               </div>
 
               <h2>
-                Growth Partner
+                {currentCopy.whoTitle1}
                 <br />
-                <span>for Connected Brand Movement</span>
+                <span>{currentCopy.whoTitle2}</span>
               </h2>
             </div>
 
-            <p>
-              We help brands move beyond scattered marketing activity by building
-              connected systems for strategy, campaign, content, commerce,
-              digital experience, automation, and performance learning.
-            </p>
+            <p>{currentCopy.whoDesc}</p>
           </div>
         </section>
 
@@ -102,19 +212,19 @@ const AboutPage = () => {
             <div className="section-header">
               <div className="about-label">
                 <span className="about-line"></span>
-                <span>What Makes Hypernusa Different</span>
+                <span>{currentCopy.differentLabel}</span>
               </div>
 
               <h2>
-                Clearer Direction.
+                {currentCopy.differentTitle1}
                 <br />
-                <span>Sharper Execution. Smarter Systems.</span>
+                <span>{currentCopy.differentTitle2}</span>
               </h2>
             </div>
 
             <div className="difference-grid">
-              {differences.map((item) => {
-                const Icon = item.icon;
+              {currentCopy.differences.map((item) => {
+                const Icon = icons[item.icon];
 
                 return (
                   <article className="difference-card" key={item.title}>
@@ -137,34 +247,29 @@ const AboutPage = () => {
           <div className="about-container operating-box">
             <div className="about-label">
               <span className="about-line"></span>
-              <span>Operating Model</span>
+              <span>{currentCopy.operatingLabel}</span>
             </div>
 
             <h2>
-              Strategy, Creative,
+              {currentCopy.operatingTitle1}
               <br />
-              <span>Commerce, Tech & Learning</span>
+              <span>{currentCopy.operatingTitle2}</span>
             </h2>
 
-            <p>
-              Hypernusa connects strategy, creative direction, campaign activation,
-              commerce, technology, automation, AI, and performance learning into
-              one growth ecosystem — so every campaign, content, channel, website,
-              and workflow has a clear role in moving the brand forward.
-            </p>
+            <p>{currentCopy.operatingDesc}</p>
           </div>
         </section>
 
         <section className="about-cta">
           <div className="about-container cta-box">
             <h2>
-              Let&apos;s Build the Next
+              {currentCopy.ctaTitle1}
               <br />
-              <span>Growth Move Together</span>
+              <span>{currentCopy.ctaTitle2}</span>
             </h2>
 
             <a href="/lets-talk" className="cta-button">
-              Let&apos;s Talk
+              {currentCopy.cta}
               <ArrowRight size={20} />
             </a>
           </div>

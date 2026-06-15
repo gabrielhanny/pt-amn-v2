@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/sections/Footer';
 import {
@@ -8,84 +8,238 @@ import {
   ShoppingBag,
   Bot,
   Target,
-  Network,
-  BarChart3,
   Users,
   ArrowRight,
 } from 'lucide-react';
 
-const solutionCategories = [
-  {
-    number: '01',
-    title: 'Growth Activation Loop',
-    icon: RefreshCcw,
-    services:
-      'An integrated monthly growth system for brands that need continuous movement, not random content. Includes growth strategy, communication direction, content system, campaign planning, media support, reporting, and optimization.',
-  },
-  {
-    number: '02',
-    title: 'Campaign / Launch Kit',
-    icon: Rocket,
-    services:
-      'A focused sprint for product launches, brand campaigns, seasonal campaigns, and public campaigns — covering campaign role, message, big idea, key visuals, content bursts, amplification, and measurable outcomes.',
-  },
-  {
-    number: '03',
-    title: 'Web & Automation Sprint',
-    icon: Workflow,
-    services:
-      'Digital infrastructure build for websites, landing pages, microsites, CRM, WhatsApp flows, dashboards, reporting automation, and AI workflows.',
-  },
-  {
-    number: '04',
-    title: 'Commerce & Affiliate Growth',
-    icon: ShoppingBag,
-    services:
-      'Marketplace campaigns, live commerce, affiliate management, creator activation, commerce tracking, and sales-oriented content for consumer, retail, beauty, lifestyle, and FMCG brands.',
-  },
-  {
-    number: '05',
-    title: 'AI-Powered Growth Ops',
-    icon: Bot,
-    services:
-      'AI assistants, customer and sales support, lead qualification, automated reporting, CRM structuring, workflow automation, and knowledge base systems.',
-  },
-];
-
-const engagementModels = [
-  {
-    title: 'Strategic Retainer',
-    icon: Target,
-    description:
-      'Continuous growth activation, content system, campaign planning, reporting, and optimization.',
-  },
-  {
-    title: 'Campaign Sprint',
-    icon: Rocket,
-    description:
-      'Product launches, brand campaigns, seasonal campaigns, and public-facing activations.',
-  },
-  {
-    title: 'Digital Infrastructure Sprint',
-    icon: Workflow,
-    description:
-      'Websites, CRM, dashboards, automation setup, and digital operation systems.',
-  },
-  {
-    title: 'Commerce Activation',
-    icon: Users,
-    description:
-      'Marketplace, live commerce, affiliate, creator-led conversion, and sales campaigns.',
-  },
-  {
-    title: 'AI & Automation Sprint',
-    icon: Bot,
-    description:
-      'AI assistants, lead qualification, workflow systems, and reporting automation.',
-  },
-];
+const icons = {
+  RefreshCcw,
+  Rocket,
+  Workflow,
+  ShoppingBag,
+  Bot,
+  Target,
+  Users,
+};
 
 const SolutionsPage = () => {
+  const [language, setLanguage] = useState('en');
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('hypernusa_language') || 'en';
+    setLanguage(savedLanguage);
+
+    const handleLanguageChange = (event) => {
+      setLanguage(event.detail);
+    };
+
+    window.addEventListener('hypernusa-language-change', handleLanguageChange);
+
+    return () => {
+      window.removeEventListener('hypernusa-language-change', handleLanguageChange);
+    };
+  }, []);
+
+  const copy = {
+    en: {
+      heroLabel: 'Solutions',
+      heroTitle1: 'Five Ways We Help',
+      heroTitle2: 'Brands Grow',
+      heroDesc:
+        'From strategy and campaign activation to technology, commerce, automation, and AI-powered operations — Hypernusa connects every move into one measurable growth ecosystem.',
+
+      philosophyTitle1: 'Not Just Services.',
+      philosophyTitle2: 'A Connected Growth System.',
+      philosophyDesc:
+        'Growth does not happen from one channel alone. It needs strategy, creative execution, media, commerce, technology, data, and operations working in the same direction — so every campaign, content, channel, website, and workflow has a clear role in moving the brand forward.',
+
+      serviceLabel: 'Service Universe',
+      serviceTitle1: 'Capabilities Built',
+      serviceTitle2: 'to Activate Growth',
+
+      engagementLabel: 'Engagement Models',
+      engagementTitle1: 'Flexible Ways',
+      engagementTitle2: 'to Build Growth Together',
+
+      ctaTitle1: 'Ready to move from',
+      ctaTitle2: 'fragmented activity?',
+      ctaDesc:
+        'Let’s connect your strategy, campaign, commerce, technology, automation, and reporting into one growth system.',
+      cta: "Let's Talk",
+
+      solutionCategories: [
+        {
+          number: '01',
+          title: 'Growth Activation Loop',
+          icon: 'RefreshCcw',
+          services:
+            'An integrated monthly growth system for brands that need continuous movement, not random content. Includes growth strategy, communication direction, content system, campaign planning, media support, reporting, and optimization.',
+        },
+        {
+          number: '02',
+          title: 'Campaign / Launch Kit',
+          icon: 'Rocket',
+          services:
+            'A focused sprint for product launches, brand campaigns, seasonal campaigns, and public campaigns — covering campaign role, message, big idea, key visuals, content bursts, amplification, and measurable outcomes.',
+        },
+        {
+          number: '03',
+          title: 'Web & Automation Sprint',
+          icon: 'Workflow',
+          services:
+            'Digital infrastructure build for websites, landing pages, microsites, CRM, WhatsApp flows, dashboards, reporting automation, and AI workflows.',
+        },
+        {
+          number: '04',
+          title: 'Commerce & Affiliate Growth',
+          icon: 'ShoppingBag',
+          services:
+            'Marketplace campaigns, live commerce, affiliate management, creator activation, commerce tracking, and sales-oriented content for consumer, retail, beauty, lifestyle, and FMCG brands.',
+        },
+        {
+          number: '05',
+          title: 'AI-Powered Growth Ops',
+          icon: 'Bot',
+          services:
+            'AI assistants, customer and sales support, lead qualification, automated reporting, CRM structuring, workflow automation, and knowledge base systems.',
+        },
+      ],
+
+      engagementModels: [
+        {
+          title: 'Strategic Retainer',
+          icon: 'Target',
+          description:
+            'Continuous growth activation, content system, campaign planning, reporting, and optimization.',
+        },
+        {
+          title: 'Campaign Sprint',
+          icon: 'Rocket',
+          description:
+            'Product launches, brand campaigns, seasonal campaigns, and public-facing activations.',
+        },
+        {
+          title: 'Digital Infrastructure Sprint',
+          icon: 'Workflow',
+          description:
+            'Websites, CRM, dashboards, automation setup, and digital operation systems.',
+        },
+        {
+          title: 'Commerce Activation',
+          icon: 'Users',
+          description:
+            'Marketplace, live commerce, affiliate, creator-led conversion, and sales campaigns.',
+        },
+        {
+          title: 'AI & Automation Sprint',
+          icon: 'Bot',
+          description:
+            'AI assistants, lead qualification, workflow systems, and reporting automation.',
+        },
+      ],
+    },
+
+    id: {
+      heroLabel: 'Solusi',
+      heroTitle1: 'Lima Cara Kami Membantu',
+      heroTitle2: 'Brand Bertumbuh',
+      heroDesc:
+        'Dari strategi dan aktivasi kampanye hingga teknologi, commerce, otomasi, dan operasional berbasis AI — Hypernusa menghubungkan setiap langkah ke dalam satu ekosistem pertumbuhan yang terukur.',
+
+      philosophyTitle1: 'Bukan Sekadar Layanan.',
+      philosophyTitle2: 'Sistem Pertumbuhan yang Terhubung.',
+      philosophyDesc:
+        'Pertumbuhan tidak terjadi dari satu kanal saja. Dibutuhkan strategi, eksekusi kreatif, media, commerce, teknologi, data, dan operasional yang bergerak ke arah yang sama — agar setiap kampanye, konten, kanal, website, dan workflow memiliki peran yang jelas dalam mendorong brand maju.',
+
+      serviceLabel: 'Ruang Layanan',
+      serviceTitle1: 'Kapabilitas yang Dibangun',
+      serviceTitle2: 'untuk Mengaktifkan Pertumbuhan',
+
+      engagementLabel: 'Model Kerja',
+      engagementTitle1: 'Cara Fleksibel',
+      engagementTitle2: 'Membangun Pertumbuhan Bersama',
+
+      ctaTitle1: 'Siap bergerak dari',
+      ctaTitle2: 'aktivitas yang terpisah?',
+      ctaDesc:
+        'Mari hubungkan strategi, kampanye, commerce, teknologi, otomasi, dan pelaporan Anda ke dalam satu sistem pertumbuhan.',
+      cta: 'Diskusi',
+
+      solutionCategories: [
+        {
+          number: '01',
+          title: 'Growth Activation Loop',
+          icon: 'RefreshCcw',
+          services:
+            'Sistem pertumbuhan bulanan terintegrasi untuk brand yang membutuhkan pergerakan berkelanjutan, bukan konten yang berjalan acak. Mencakup strategi pertumbuhan, arah komunikasi, sistem konten, perencanaan kampanye, dukungan media, pelaporan, dan optimasi.',
+        },
+        {
+          number: '02',
+          title: 'Campaign / Launch Kit',
+          icon: 'Rocket',
+          services:
+            'Sprint terarah untuk peluncuran produk, kampanye brand, kampanye musiman, dan kampanye publik — mencakup peran kampanye, pesan utama, big idea, key visual, content burst, amplifikasi, dan hasil yang terukur.',
+        },
+        {
+          number: '03',
+          title: 'Web & Automation Sprint',
+          icon: 'Workflow',
+          services:
+            'Pembangunan infrastruktur digital untuk website, landing page, microsite, CRM, alur WhatsApp, dashboard, otomatisasi pelaporan, dan workflow berbasis AI.',
+        },
+        {
+          number: '04',
+          title: 'Commerce & Affiliate Growth',
+          icon: 'ShoppingBag',
+          services:
+            'Kampanye marketplace, live commerce, manajemen afiliasi, aktivasi creator, tracking commerce, dan konten berorientasi penjualan untuk brand consumer, retail, beauty, lifestyle, dan FMCG.',
+        },
+        {
+          number: '05',
+          title: 'AI-Powered Growth Ops',
+          icon: 'Bot',
+          services:
+            'AI assistant, dukungan pelanggan dan sales, kualifikasi lead, pelaporan otomatis, struktur CRM, workflow automation, dan sistem knowledge base.',
+        },
+      ],
+
+      engagementModels: [
+        {
+          title: 'Strategic Retainer',
+          icon: 'Target',
+          description:
+            'Aktivasi pertumbuhan berkelanjutan, sistem konten, perencanaan kampanye, pelaporan, dan optimasi.',
+        },
+        {
+          title: 'Campaign Sprint',
+          icon: 'Rocket',
+          description:
+            'Peluncuran produk, kampanye brand, kampanye musiman, dan aktivasi yang menyasar publik.',
+        },
+        {
+          title: 'Digital Infrastructure Sprint',
+          icon: 'Workflow',
+          description:
+            'Website, CRM, dashboard, setup otomasi, dan sistem operasional digital.',
+        },
+        {
+          title: 'Commerce Activation',
+          icon: 'Users',
+          description:
+            'Marketplace, live commerce, afiliasi, creator-led conversion, dan kampanye penjualan.',
+        },
+        {
+          title: 'AI & Automation Sprint',
+          icon: 'Bot',
+          description:
+            'AI assistant, kualifikasi lead, sistem workflow, dan otomatisasi pelaporan.',
+        },
+      ],
+    },
+  };
+
+  const currentCopy = copy[language];
+
   return (
     <>
       <Navbar />
@@ -99,38 +253,28 @@ const SolutionsPage = () => {
           <div className="page-container">
             <div className="page-label">
               <span className="page-line"></span>
-              <span>Solutions</span>
+              <span>{currentCopy.heroLabel}</span>
             </div>
 
             <h1>
-              Five Ways We Help
+              {currentCopy.heroTitle1}
               <br />
-              <span>Brands Grow</span>
+              <span>{currentCopy.heroTitle2}</span>
             </h1>
 
-            <p>
-              From strategy and campaign activation to technology, commerce,
-              automation, and AI-powered operations — Hypernusa connects every
-              move into one measurable growth ecosystem.
-            </p>
+            <p>{currentCopy.heroDesc}</p>
           </div>
         </section>
 
         <section className="solution-philosophy">
           <div className="page-container philosophy-grid">
             <h2>
-              Not Just Services.
+              {currentCopy.philosophyTitle1}
               <br />
-              <span>A Connected Growth System.</span>
+              <span>{currentCopy.philosophyTitle2}</span>
             </h2>
 
-            <p>
-              Growth does not happen from one channel alone. It needs strategy,
-              creative execution, media, commerce, technology, data, and
-              operations working in the same direction — so every campaign,
-              content, channel, website, and workflow has a clear role in moving
-              the brand forward.
-            </p>
+            <p>{currentCopy.philosophyDesc}</p>
           </div>
         </section>
 
@@ -139,22 +283,22 @@ const SolutionsPage = () => {
             <div className="section-header">
               <div className="page-label">
                 <span className="page-line"></span>
-                <span>Service Universe</span>
+                <span>{currentCopy.serviceLabel}</span>
               </div>
 
               <h2>
-                Capabilities Built
+                {currentCopy.serviceTitle1}
                 <br />
-                <span>to Activate Growth</span>
+                <span>{currentCopy.serviceTitle2}</span>
               </h2>
             </div>
 
             <div className="categories-grid">
-              {solutionCategories.map((item) => {
-                const Icon = item.icon;
+              {currentCopy.solutionCategories.map((item) => {
+                const Icon = icons[item.icon];
 
                 return (
-                  <article className="solution-card" key={item.title}>
+                  <article className="solution-card" key={item.number}>
                     <div className="card-glow"></div>
 
                     <div className="card-top">
@@ -178,19 +322,19 @@ const SolutionsPage = () => {
             <div className="section-header">
               <div className="page-label">
                 <span className="page-line"></span>
-                <span>Engagement Models</span>
+                <span>{currentCopy.engagementLabel}</span>
               </div>
 
               <h2>
-                Flexible Ways
+                {currentCopy.engagementTitle1}
                 <br />
-                <span>to Build Growth Together</span>
+                <span>{currentCopy.engagementTitle2}</span>
               </h2>
             </div>
 
             <div className="models-grid">
-              {engagementModels.map((item) => {
-                const Icon = item.icon;
+              {currentCopy.engagementModels.map((item) => {
+                const Icon = icons[item.icon];
 
                 return (
                   <article className="model-card" key={item.title}>
@@ -210,18 +354,15 @@ const SolutionsPage = () => {
         <section className="solutions-cta-section">
           <div className="page-container cta-box">
             <h2>
-              Ready to move from
+              {currentCopy.ctaTitle1}
               <br />
-              <span>fragmented activity?</span>
+              <span>{currentCopy.ctaTitle2}</span>
             </h2>
 
-            <p>
-              Let’s connect your strategy, campaign, commerce, technology,
-              automation, and reporting into one growth system.
-            </p>
+            <p>{currentCopy.ctaDesc}</p>
 
             <a href="/lets-talk" className="cta-button">
-              Let&apos;s Talk
+              {currentCopy.cta}
               <ArrowRight size={20} />
             </a>
           </div>
