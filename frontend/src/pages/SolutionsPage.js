@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import SEO from '../components/SEO';
 import Navbar from '../components/Navbar';
 import Footer from '../components/sections/Footer';
 import {
@@ -242,6 +243,11 @@ const SolutionsPage = () => {
 
   return (
     <>
+     <SEO
+      title="Solutions | Hypernusa Growth Activation Agency"
+      description="Explore Hypernusa solutions including growth activation, campaign launches, web development, automation, commerce activation, CRM systems, and AI-powered operations."
+      url="https://www.hypernusa.com/solutions"
+    />
       <Navbar />
 
       <main className="solutions-page">

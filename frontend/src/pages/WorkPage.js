@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import SEO from '../components/SEO';
 import Navbar from '../components/Navbar';
 import Footer from '../components/sections/Footer';
 import { ArrowUpRight } from 'lucide-react';
@@ -86,6 +87,11 @@ useEffect(() => {
 }, []);
   return (
     <>
+     <SEO
+      title="Work | Hypernusa Growth Activation Experience"
+      description="Explore Hypernusa selected experience across brand campaigns, digital activation, commerce growth, CRM, automation, and scalable growth operations."
+      url="https://www.hypernusa.com/work"
+    />
       <Navbar />
 
       <main className="work-page">

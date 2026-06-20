@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import SEO from '../components/SEO';
+
 import Loader from '../components/Loader';
 import Navbar from '../components/Navbar';
 
@@ -34,6 +36,11 @@ const Home = () => {
 
   return (
     <>
+    <SEO
+      title="Hypernusa | Growth Activation Agency Indonesia"
+      description="Hypernusa by PT Anak Muda Nusantara helps brands grow through strategy, creative execution, commerce, technology, automation, and AI-powered operations."
+      url="https://www.hypernusa.com"
+    />
       {showLoader && <Loader fadeOut={fadeOutLoader} />}
 
       <Navbar />

@@ -88,7 +88,7 @@ const copy = {
           <div className="footer-brand">
             <img
               src="/images/footer-logo.svg"
-              alt="Hypernusa"
+              alt="Hypernusa Growth Activation Agency Indonesia"
               className="footer-logo-image"
             />
 

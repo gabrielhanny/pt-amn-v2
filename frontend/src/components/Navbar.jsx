@@ -67,7 +67,7 @@ const Navbar = () => {
           <a href="/" className="navbar-logo" data-testid="navbar-logo">
             <img
               src="/images/hypernusa-logo-color.svg"
-              alt="Hypernusa"
+              alt="Hypernusa Growth Activation Agency Indonesia"
               className="navbar-logo-image"
             />
           </a>
