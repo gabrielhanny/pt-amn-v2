@@ -228,12 +228,20 @@ const copy = {
                     Instagram
                   </a>
                 </li>
-                <li className="footer-location">
-                  <MapPin size={14} />
-                  <span>
-                    Gedung BEI Tower 1 Level 3, Unit 304, Senayan, Jakarta Selatan
-                  </span>
-                </li>
+                <li>
+  <a
+    href="https://www.google.com/maps/search/?api=1&query=Gedung+BEI+Tower+1+Level+3+Unit+304+Senayan+Jakarta+Selatan"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Buka lokasi Hypernusa di Google Maps"
+    className="footer-location"
+  >
+    <MapPin size={14} />
+    <span>
+      Gedung BEI Tower 1 Level 3, Unit 304, Senayan, Jakarta Selatan
+    </span>
+  </a>
+</li>
               </ul>
             </div>
           </div>
